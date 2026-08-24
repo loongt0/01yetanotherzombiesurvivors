@@ -1,5 +1,10 @@
 {
-  "Home": {"title": "Farever Wiki"},
+  "Home": {
+    "title": "Farever Wiki — Co-op Action RPG Guide, Classes & Roadmap",
+    "description": "Farever is a co-op action RPG by Shiro Games, now in Steam Early Access. Get the latest release info, classes, jobs, weapons, dungeons, beginner guide and 2026 roadmap.",
+    "openGraphTitle": "Farever Wiki — Guide, Classes, Weapons & Roadmap",
+    "openGraphDescription": "Everything you need to forge your legend in Farever — the co-op action RPG by Shiro Games."
+  },
   "Header": {
     "subtitle": "The Forgotten Realm · Wiki", "steam": "Play on Steam", "primaryLabel": "Main navigation", "utilityLabel": "Resources navigation",
     "navigation": {"classes": "Classes", "weapons": "Weapons", "bosses": "Bosses", "multiplayer": "Multiplayer", "walkthroughs": "Walkthroughs", "guides": "Guides", "serverStatus": "Server Status", "steamCharts": "Steam Charts", "tierList": "Tier List", "bestWeapons": "Best Weapons", "codes": "Codes", "steamDeck": "Steam Deck", "charts": "Charts", "release": "Release", "faq": "FAQ"}

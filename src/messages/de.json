@@ -1,5 +1,10 @@
 {
-  "Home": {"title": "Farever Wiki"},
+  "Home": {
+    "title": "Farever Wiki Deutsch — Klassen, Waffen & Koop-Guide",
+    "description": "Das deutsche Farever-Wiki für Shiro Games’ Koop-Action-RPG: Klassen, Waffen, Dungeons, Einsteiger-Guide, Roadmap und aktuelle Spieldaten.",
+    "openGraphTitle": "Farever Wiki Deutsch — Guides, Klassen & Waffen",
+    "openGraphDescription": "Alles, was du brauchst, um deine Legende in Farever zu schmieden — auf Deutsch."
+  },
   "Header": {
     "subtitle": "Das vergessene Reich · Wiki", "steam": "Auf Steam spielen", "primaryLabel": "Hauptnavigation", "utilityLabel": "Ressourcennavigation",
     "navigation": {"classes": "Klassen", "weapons": "Waffen", "bosses": "Bosse", "multiplayer": "Mehrspieler", "walkthroughs": "Komplettlösungen", "guides": "Guides", "serverStatus": "Serverstatus", "steamCharts": "Steam-Charts", "tierList": "Tier-Liste", "bestWeapons": "Beste Waffen", "codes": "Codes", "steamDeck": "Steam Deck", "charts": "Charts", "release": "Veröffentlichung", "faq": "FAQ"}

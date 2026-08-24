@@ -1,5 +1,10 @@
 {
-  "Home": {"title": "Farever Wiki"},
+  "Home": {
+    "title": "Wiki Farever Français — Guides, Classes, Armes et Feuille de Route",
+    "description": "Le wiki français de Farever pour l’action-RPG coopératif de Shiro Games : classes, armes, donjons, guide du débutant et feuille de route 2026.",
+    "openGraphTitle": "Wiki Farever Français — Guides, Classes et Armes",
+    "openGraphDescription": "Tout ce qu’il faut pour forger votre légende dans Farever, l’action-RPG coopératif de Shiro Games."
+  },
   "Header": {
     "subtitle": "Le royaume oublié · Wiki", "steam": "Jouer sur Steam", "primaryLabel": "Navigation principale", "utilityLabel": "Navigation des ressources",
     "navigation": {"classes": "Classes", "weapons": "Armes", "bosses": "Boss", "multiplayer": "Multijoueur", "walkthroughs": "Solutions", "guides": "Guides", "serverStatus": "État des serveurs", "steamCharts": "Graphiques Steam", "tierList": "Tier list", "bestWeapons": "Meilleures armes", "codes": "Codes", "steamDeck": "Steam Deck", "charts": "Graphiques", "release": "Sortie", "faq": "FAQ"}

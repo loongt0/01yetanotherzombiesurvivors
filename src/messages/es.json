@@ -1,5 +1,10 @@
 {
-  "Home": {"title": "Farever Wiki"},
+  "Home": {
+    "title": "Farever Wiki Español — Guías, Clases, Armas y Hoja de Ruta",
+    "description": "El wiki español de Farever para el RPG de acción cooperativo de Shiro Games: clases, armas, mazmorras, guía para principiantes y hoja de ruta de 2026.",
+    "openGraphTitle": "Farever Wiki Español — Guías, Clases y Armas",
+    "openGraphDescription": "Todo lo que necesitas para forjar tu leyenda en Farever, el RPG cooperativo de Shiro Games."
+  },
   "Header": {
     "subtitle": "El reino olvidado · Wiki", "steam": "Jugar en Steam", "primaryLabel": "Navegación principal", "utilityLabel": "Navegación de recursos",
     "navigation": {"classes": "Clases", "weapons": "Armas", "bosses": "Jefes", "multiplayer": "Multijugador", "walkthroughs": "Recorridos", "guides": "Guías", "serverStatus": "Estado del servidor", "steamCharts": "Gráficos de Steam", "tierList": "Lista de niveles", "bestWeapons": "Mejores armas", "codes": "Códigos", "steamDeck": "Steam Deck", "charts": "Gráficos", "release": "Lanzamiento", "faq": "Preguntas frecuentes"}
