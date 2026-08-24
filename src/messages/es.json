@@ -1,5 +1,14 @@
 {
-  "Home": {
-    "title": "Farever Wiki"
-  }
+  "Home": {"title": "Farever Wiki"},
+  "Header": {
+    "subtitle": "El reino olvidado · Wiki", "steam": "Jugar en Steam", "primaryLabel": "Navegación principal", "utilityLabel": "Navegación de recursos",
+    "navigation": {"classes": "Clases", "weapons": "Armas", "bosses": "Jefes", "multiplayer": "Multijugador", "walkthroughs": "Recorridos", "guides": "Guías", "serverStatus": "Estado del servidor", "steamCharts": "Gráficos de Steam", "tierList": "Lista de niveles", "bestWeapons": "Mejores armas", "codes": "Códigos", "steamDeck": "Steam Deck", "charts": "Gráficos", "release": "Lanzamiento", "faq": "Preguntas frecuentes"}
+  },
+  "Footer": {
+    "about": "Guía no oficial creada por fans para Farever, el RPG de acción cooperativo de Shiro Games. Todas las marcas pertenecen a sus respectivos propietarios.",
+    "groups": {"guides": "Guías", "resources": "Recursos", "liveTools": "Herramientas en vivo", "longTailGuides": "Más guías"},
+    "links": {"beginnerGuide": "Guía para principiantes", "classesJobs": "Clases y oficios", "weapons": "Armas", "dungeonsBosses": "Mazmorras y jefes", "tipsTricks": "Consejos y trucos", "releaseDate": "Fecha de lanzamiento", "roadmap": "Hoja de ruta de EA", "systemRequirements": "Requisitos del sistema", "howToPlay": "Cómo jugar (cooperativo)", "faq": "Preguntas frecuentes", "serverStatus": "Estado del servidor", "steamCharts": "Gráficos de Steam", "tierList": "Lista de niveles", "bestWeapons": "Mejores armas", "bossesGuide": "Guía de jefes", "codes": "Códigos", "steamDeck": "Steam Deck", "bestClassTierList": "Mejores clases", "levelingGuide": "Guía de nivelación", "isItWorthIt": "¿Vale la pena?", "skyoverIsland": "Skyover Island", "loreStory": "Historia y lore", "fareverReview": "Análisis de Farever", "bestBuilds": "Mejores configuraciones", "pvpStatus": "Estado del JcJ", "consoleRelease": "Lanzamiento en consola", "weaponTierList": "Lista de niveles de armas", "companionTierList": "Lista de niveles de compañeros", "companions": "Compañeros", "hiddenCritter": "Criatura oculta", "quests": "Misiones", "coopGuide": "Guía cooperativa", "secretOcean": "Secreto del océano", "allWeapons": "Todas las armas", "playerCount": "Número de jugadores", "maxLevel": "Nivel máximo", "allGuides": "Todas las guías →"},
+    "languagesLabel": "Languages · Sprachen · Idiomas · Langues", "copyright": "© 2026 farevergame.wiki · Sitio de fans, no afiliado con Shiro Games.", "steam": "Comprar en Steam →"
+  },
+  "NotFound": {"eyebrow": "404", "title": "Perdido en Siagarta", "description": "Esa página aún no existe. Prueba la página de inicio o ve directamente a una guía.", "home": "Volver al inicio", "beginnerGuide": "Guía para principiantes"}
 }

@@ -7,3 +7,9 @@ export const routing = defineRouting({
 });
 
 export type Locale = (typeof routing.locales)[number];
+
+export function localizeHref(locale: Locale, href: string): string {
+  const path = href === '/' ? '/' : `/${href.replace(/^\/+|\/+$/g, '')}/`;
+
+  return locale === routing.defaultLocale ? path : `/${locale}${path}`;
+}

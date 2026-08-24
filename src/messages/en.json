@@ -1,5 +1,14 @@
 {
-  "Home": {
-    "title": "Farever Wiki"
-  }
+  "Home": {"title": "Farever Wiki"},
+  "Header": {
+    "subtitle": "The Forgotten Realm · Wiki", "steam": "Play on Steam", "primaryLabel": "Main navigation", "utilityLabel": "Resources navigation",
+    "navigation": {"classes": "Classes", "weapons": "Weapons", "bosses": "Bosses", "multiplayer": "Multiplayer", "walkthroughs": "Walkthroughs", "guides": "Guides", "serverStatus": "Server Status", "steamCharts": "Steam Charts", "tierList": "Tier List", "bestWeapons": "Best Weapons", "codes": "Codes", "steamDeck": "Steam Deck", "charts": "Charts", "release": "Release", "faq": "FAQ"}
+  },
+  "Footer": {
+    "about": "Unofficial fan-made guide for the Shiro Games co-op action RPG Farever. All trademarks belong to their respective owners.",
+    "groups": {"guides": "Guides", "resources": "Resources", "liveTools": "Live Tools", "longTailGuides": "Long-tail Guides"},
+    "links": {"beginnerGuide": "Beginner Guide", "classesJobs": "Classes & Jobs", "weapons": "Weapons", "dungeonsBosses": "Dungeons & Bosses", "tipsTricks": "Tips & Tricks", "releaseDate": "Release Date", "roadmap": "EA Roadmap", "systemRequirements": "System Requirements", "howToPlay": "How to Play (Co-op)", "faq": "FAQ", "serverStatus": "Server Status", "steamCharts": "Steam Charts", "tierList": "Tier List", "bestWeapons": "Best Weapons", "bossesGuide": "Bosses Guide", "codes": "Codes", "steamDeck": "Steam Deck", "bestClassTierList": "Best Class Tier List", "levelingGuide": "Leveling Guide", "isItWorthIt": "Is It Worth It?", "skyoverIsland": "Skyover Island", "loreStory": "Lore & Story", "fareverReview": "Farever Review", "bestBuilds": "Best Builds", "pvpStatus": "PvP Status", "consoleRelease": "Console Release", "weaponTierList": "Weapon Tier List", "companionTierList": "Companion Tier List", "companions": "Companions", "hiddenCritter": "Hidden Critter", "quests": "Quests", "coopGuide": "Co-op Guide", "secretOcean": "Secret of the Ocean", "allWeapons": "All Weapons", "playerCount": "Player Count", "maxLevel": "Max Level", "allGuides": "All Guides →"},
+    "languagesLabel": "Languages · Sprachen · Idiomas · Langues", "copyright": "© 2026 farevergame.wiki · Fan site, not affiliated with Shiro Games.", "steam": "Buy on Steam →"
+  },
+  "NotFound": {"eyebrow": "404", "title": "Lost in Siagarta", "description": "That page doesn't exist — yet. Try the homepage or jump straight to a guide.", "home": "Return Home", "beginnerGuide": "Beginner Guide"}
 }

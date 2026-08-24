@@ -2,6 +2,9 @@ import {hasLocale, NextIntlClientProvider} from 'next-intl';
 import {notFound} from 'next/navigation';
 import type {ReactNode} from 'react';
 
+import '@/app/globals.css';
+import {SiteFooter} from '@/components/site-footer';
+import {SiteHeader} from '@/components/site-header';
 import {routing} from '@/i18n/routing';
 
 type LocaleLayoutProps = Readonly<{
@@ -29,7 +32,9 @@ export default async function LocaleLayout({
     <html lang={locale}>
       <body>
         <NextIntlClientProvider locale={locale} messages={messages}>
+          <SiteHeader locale={locale} />
           {children}
+          <SiteFooter locale={locale} />
         </NextIntlClientProvider>
       </body>
     </html>

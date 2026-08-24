@@ -1,5 +1,14 @@
 {
-  "Home": {
-    "title": "Farever Wiki"
-  }
+  "Home": {"title": "Farever Wiki"},
+  "Header": {
+    "subtitle": "Das vergessene Reich · Wiki", "steam": "Auf Steam spielen", "primaryLabel": "Hauptnavigation", "utilityLabel": "Ressourcennavigation",
+    "navigation": {"classes": "Klassen", "weapons": "Waffen", "bosses": "Bosse", "multiplayer": "Mehrspieler", "walkthroughs": "Komplettlösungen", "guides": "Guides", "serverStatus": "Serverstatus", "steamCharts": "Steam-Charts", "tierList": "Tier-Liste", "bestWeapons": "Beste Waffen", "codes": "Codes", "steamDeck": "Steam Deck", "charts": "Charts", "release": "Veröffentlichung", "faq": "FAQ"}
+  },
+  "Footer": {
+    "about": "Inoffizieller, von Fans erstellter Guide zum Koop-Action-RPG Farever von Shiro Games. Alle Marken gehören ihren jeweiligen Eigentümern.",
+    "groups": {"guides": "Guides", "resources": "Ressourcen", "liveTools": "Live-Tools", "longTailGuides": "Weitere Guides"},
+    "links": {"beginnerGuide": "Anfänger-Guide", "classesJobs": "Klassen & Berufe", "weapons": "Waffen", "dungeonsBosses": "Dungeons & Bosse", "tipsTricks": "Tipps & Tricks", "releaseDate": "Veröffentlichungsdatum", "roadmap": "EA-Roadmap", "systemRequirements": "Systemanforderungen", "howToPlay": "So spielt man (Koop)", "faq": "FAQ", "serverStatus": "Serverstatus", "steamCharts": "Steam-Charts", "tierList": "Tier-Liste", "bestWeapons": "Beste Waffen", "bossesGuide": "Boss-Guide", "codes": "Codes", "steamDeck": "Steam Deck", "bestClassTierList": "Beste Klassen-Tier-Liste", "levelingGuide": "Level-Guide", "isItWorthIt": "Lohnt es sich?", "skyoverIsland": "Skyover Island", "loreStory": "Lore & Geschichte", "fareverReview": "Farever-Test", "bestBuilds": "Beste Builds", "pvpStatus": "PvP-Status", "consoleRelease": "Konsolen-Release", "weaponTierList": "Waffen-Tier-Liste", "companionTierList": "Begleiter-Tier-Liste", "companions": "Begleiter", "hiddenCritter": "Verstecktes Wesen", "quests": "Quests", "coopGuide": "Koop-Guide", "secretOcean": "Geheimnis des Ozeans", "allWeapons": "Alle Waffen", "playerCount": "Spielerzahl", "maxLevel": "Maximallevel", "allGuides": "Alle Guides →"},
+    "languagesLabel": "Languages · Sprachen · Idiomas · Langues", "copyright": "© 2026 farevergame.wiki · Fanseite, nicht mit Shiro Games verbunden.", "steam": "Auf Steam kaufen →"
+  },
+  "NotFound": {"eyebrow": "404", "title": "Verloren in Siagarta", "description": "Diese Seite existiert noch nicht. Kehre zur Startseite zurück oder springe direkt zu einem Guide.", "home": "Zur Startseite", "beginnerGuide": "Anfänger-Guide"}
 }
