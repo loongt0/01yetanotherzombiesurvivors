@@ -10,13 +10,13 @@ The required pages are:
 
 1. `/` — the full landing page.
 2. `/guides/` — the guide directory/list page.
-3. `/guides/farever-best-class/` — an article detail page.
+3. `/classes/` — the Classes & Jobs article detail page.
 
 The same pages are available under `/de/`, `/es/`, and `/fr/`. English is the default locale and keeps the target site's unprefixed URLs. Other visible navigation links retain the target site's information architecture but resolve to the replica's localized 404 until their pages are implemented.
 
 ## Fidelity target
 
-The implementation reproduces the target site's layout rather than introducing a new design. The reference was inspected from the live homepage, guide directory, best-class article, rendered HTML, and public stylesheet.
+The implementation reproduces the target site's layout rather than introducing a new design. The reference was inspected from the live homepage, guide directory, Classes & Jobs article, rendered HTML, and public stylesheet.
 
 The shared visual system includes:
 
@@ -53,9 +53,9 @@ Motion matches the reference's fade-up, floating icon, slow rotation, and glow p
 
 The guide directory uses the target article-style page header: radial violet glow, gold diamond eyebrow, gradient H1, summary, and ornament. Below it is the same two-column desktop/one-column mobile grid of bordered guide cards. Cards show category, title, description, and a read affordance.
 
-### Article detail
+### Classes article detail
 
-The best-class article uses the target's narrow `prose-game` template. It contains the same centered header treatment followed by MDX-rendered paragraphs, tier sections, internal links, and comparison table. Headings, lists, links, emphasis, tables, and callouts are mapped to controlled MDX components so content authors cannot accidentally break the visual system.
+The Classes & Jobs article uses the target's narrow `prose-game` template. It contains the same centered header treatment followed by MDX-rendered class and job tables, co-op recommendations, respec guidance, class deep-dives, FAQ, and related links. Headings, lists, links, emphasis, and tables are mapped to controlled MDX components so content authors cannot accidentally break the visual system.
 
 ## Application architecture
 
@@ -70,7 +70,7 @@ The project uses:
 Key modules:
 
 - `app/[locale]/...` contains localized route entry points.
-- Middleware redirects or rewrites default English routes so `/`, `/guides/`, and `/guides/farever-best-class/` remain canonical without `/en`.
+- Middleware redirects or rewrites default English routes so `/`, `/guides/`, and `/classes/` remain canonical without `/en`.
 - `components/site-header.tsx` and `components/site-footer.tsx` own shared chrome.
 - `components/page-hero.tsx`, `components/section-title.tsx`, and card components reproduce shared presentation units.
 - `components/mdx-components.tsx` provides the controlled article component map.
