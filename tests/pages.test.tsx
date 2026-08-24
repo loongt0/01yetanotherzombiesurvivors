@@ -235,29 +235,38 @@ describe('guide directory', () => {
 });
 
 describe('classes article', () => {
-  it('renders Classes & Jobs as the required article detail page', async () => {
+  it('keeps the hero full-width while the article owns a prose-constrained body', async () => {
     const {container, unmount} = render(
       await ClassesPage({params: Promise.resolve({locale: 'en'})})
     );
     const view = within(container);
     const article = view.getByRole('article');
+    const hero = article.querySelector<HTMLElement>(':scope > .page-hero');
+    const proseBody = article.querySelector<HTMLElement>(':scope > .prose-game');
 
+    expect(article).toHaveClass('classes-article');
+    expect(article).not.toHaveClass('prose-game');
+    expect(hero).toBeInTheDocument();
+    expect(proseBody).toBeInTheDocument();
+    expect(proseBody).not.toContainElement(hero);
     expect(
-      within(article).getByRole('heading', {
+      within(hero as HTMLElement).getByRole('heading', {
         level: 1,
         name: 'Farever Classes & Jobs'
       })
     ).toBeInTheDocument();
     expect(
-      within(article).getByRole('heading', {level: 2, name: 'The 4 classes'})
+      within(proseBody as HTMLElement).getByRole('heading', {
+        level: 2,
+        name: 'The 4 classes'
+      })
     ).toBeInTheDocument();
     expect(
-      within(article).getByRole('columnheader', {name: 'Class'})
+      within(proseBody as HTMLElement).getByRole('columnheader', {name: 'Class'})
     ).toBeInTheDocument();
     expect(
-      within(article).getByRole('heading', {level: 2, name: /FAQ/})
+      within(proseBody as HTMLElement).getByRole('heading', {level: 2, name: /FAQ/})
     ).toBeInTheDocument();
-    expect(article).toHaveClass('prose-game');
 
     unmount();
   });
