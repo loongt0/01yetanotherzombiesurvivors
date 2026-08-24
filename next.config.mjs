@@ -10,6 +10,18 @@ const withMDX = createMDX({
 
 export default withNextIntl(
   withMDX({
-    pageExtensions: ['ts', 'tsx', 'md', 'mdx']
+    pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
+    async rewrites() {
+      return {
+        afterFiles: [
+          {source: '/', destination: '/en'},
+          {
+            source:
+              '/:path((?!en(?:/|$)|de(?:/|$)|es(?:/|$)|fr(?:/|$)).*)',
+            destination: '/en/:path'
+          }
+        ]
+      };
+    }
   })
 );
