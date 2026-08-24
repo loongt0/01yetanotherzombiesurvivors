@@ -22,30 +22,29 @@ Raw measurements: `test-results/visual-audit/measurements.json` (ignored output)
 
 ## Measured inspection points
 
-- [x] Header heights — desktop target and local both declare nominal 80px + 48px
-  tiers. The public page measures 85px primary + 51px utility inner (137px total,
-  including the tier border) because its 17px root size scales Tailwind `h-20` and
-  `h-12`. Local measures 80px + 48px (130px total, including borders).
+- [x] Header heights — Task 8 replaced the nominal 80px/48px local tiers with the
+  measured 85px primary and 51px utility tier. Desktop now matches the 137px
+  reference total exactly.
 - [x] Hero viewport depth — exact CSS-pixel measurements:
 
   | Route | Reference desktop | Local desktop | Reference mobile | Local mobile |
   | --- | ---: | ---: | ---: | ---: |
-  | `/` | 1189.64 | 1047.81 | 1285.69 | 1119.81 |
-  | `/guides/` | 447.75 | 383.00 | 475.38 | 425.44 |
-  | `/classes/` | 537.00 | 412.25 | 500.88 | 454.69 |
+  | `/` | 1189.64 | 1189.64 | 1285.69 | 1285.69 |
+  | `/guides/` | 447.75 | 447.75 | 475.38 | 475.38 |
+  | `/classes/` | 537.00 | 537.00 | 500.88 | 500.88 |
 
 - [x] 1240px outer width — the corresponding header/content shell measures
   1240px on both desktop pages. Both collapse to the full 390px mobile viewport.
-- [x] 780px prose width — the Classes article/prose container measures 780px on
-  both desktop pages and 390px on both mobile pages. Local table wrappers remain
-  inside that container; the 620px tables scroll within the wrappers instead of
-  widening the document.
+- [x] 780px prose width — Task 8 placed the Classes hero and MDX body inside the
+  same measured article: 780px desktop / 390px mobile, with 695px / 339px inner
+  content. The wrapper and 620px minimum were removed; both tables now wrap to
+  695px desktop and 339px mobile like the reference.
 - [x] Section order — homepage order matches exactly: hero, What is Farever?, The
   Four Classes, Explore Two Regions, Start Your Journey, Tools & Tier Lists,
   Featured Guides, Latest News, Farever FAQ, and the final CTA. Classes order also
   matches exactly: hero, The 4 classes, The 6 jobs, co-op combos, respec,
   deep-dives, FAQ, Related. Guides preserves the same 14-card content order;
-  reference card titles are not `h2` elements while local card titles are.
+  Task 8 changed guide-card titles from `h2` to the reference `h3` structure.
 - [x] Card columns — the main homepage grids match at desktop: stats 4, classes 4,
   regions 2, journey 3, tools 3, featured 3. Hero stats stay at 2 columns on
   mobile while content cards collapse to 1. Guides is 2 columns desktop and 1
@@ -58,31 +57,25 @@ Raw measurements: `test-results/visual-audit/measurements.json` (ignored output)
   `Cormorant Garamond` fallback for display text. Local additionally declares the
   platform/system and Georgia fallbacks.
 - [x] Footer columns — both use 5 columns / 5 groups on desktop and 1 column / 5
-  groups on mobile. Reference/local footer heights are 1044.75/1045.50px desktop
-  and 2021.88/2096.38px mobile.
-- [x] Mobile collapse — both hide the brand subtitle, but the Steam action is a
-  measured mismatch: the public reference keeps it visible (`display: flex`) while
-  local hides it (`display: none`). The public page also hides the desktop primary
-  and utility tiers and replaces them with one combined 15-link compact nav
-  (143.25px, 5 wrapped lines; 228.25px total header). Local keeps a wrapped primary
-  tier plus a separate wrapped utility tier (129.56px + 99px; utility links occupy
-  3 lines; 230.56px total header). Task 8 should show the mobile Steam action and
-  adopt the single combined compact navigation without regressing wrapping.
+  groups on mobile. Task 8 applied the measured 14.875px/21.25px type, 59.5px
+  padding, 42.5px grid gap, 8.5px link rhythm, responsive language-row height,
+  and the two reference links (`/leveling-guide/`, `/skover-island/`), bringing
+  the local footer to 1044.75px desktop and 2021.88px mobile.
+- [x] Mobile collapse — Task 8 keeps Steam visible, hides the two desktop nav tiers,
+  and renders one combined 15-link compact navigation. It measures 143.25px over
+  5 wrapped lines and produces the exact 228.25px total mobile header.
 
 ## Full-page visual findings for Task 8
 
-- [x] Homepage — the major section/card geometry and complete content order align.
-  Local is 10,156px versus the reference 10,701px on desktop; local has a brighter,
-  broader hero aurora and a 141.83px shallower desktop hero. Mobile total heights
-  are nearly identical (17,292px local versus 17,273px reference in CSS pixels).
-- [x] Guides — count and columns align. Local cards include a visible `READ →` row
-  and have greater vertical padding/density: the grid is 2183.11px local versus
-  1573px reference desktop, and 4630.63px versus 3754.81px mobile. Full desktop
-  pages are 3,870px local versus 3,415px reference.
-- [x] Classes — section/content order and 780px desktop measure align. Local is more
-  vertically compact (5,194px versus 5,883px desktop; 7,640px versus 9,838px
-  mobile), driven by heading/copy/table line-height and wrapping differences. The
-  local mobile table remains deliberately horizontally scroll-contained.
-
-No production visual changes were made from these findings; they are measurements
-for Task 8.
+- [x] Homepage — Task 8 matched the 17px-derived section title, button, hero stats,
+  About five-track layout, class/region/journey/tool/guide card typography, News
+  cards, FAQ cards, and final CTA. The hero is now exact at 1189.64px desktop and
+  1285.69px mobile; its `SCROLL` line and aurora stacking use the measured values.
+- [x] Guides — Task 8 removed `READ →`, set 25.5px card padding and measured type,
+  and retained the exact 14-card order. The grid is now 1573px desktop and
+  3754.81px mobile (from 2183.11px / 4630.63px before the pass).
+- [x] Classes — Task 8 matched the 17.85px/31.2375px prose, 31.45px section
+  headings, 22.1px subheads, table-cell padding/type, FAQ card density, and mobile
+  wrapping. The full article measures 4591.59px versus 4598.78px desktop and
+  7508.86px versus 7485.66px mobile; the remaining 7.19px / 23.20px is content
+  reflow rather than a width, overflow, or section-order mismatch.

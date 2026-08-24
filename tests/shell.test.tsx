@@ -11,19 +11,23 @@ vi.mock('@/i18n/navigation', () => ({
 
 describe('shared shell', () => {
   it('renders both navigation tiers and the Steam action', () => {
-    render(<SiteHeader locale="en" />);
+    const {container} = render(<SiteHeader locale="en" />);
 
-    expect(screen.getByRole('link', {name: 'Classes'})).toHaveAttribute(
-      'href',
-      '/classes/'
-    );
     expect(
-      screen.getByRole('link', {name: 'Server Status'})
-    ).toBeInTheDocument();
+      screen.getAllByRole('link', {name: 'Classes'}).every((link) =>
+        link.getAttribute('href') === '/classes/'
+      )
+    ).toBe(true);
+    expect(
+      screen.getAllByRole('link', {name: 'Server Status'})
+    ).toHaveLength(2);
     expect(screen.getByRole('link', {name: /Play on Steam/i})).toHaveAttribute(
       'target',
       '_blank'
     );
+    expect(
+      container.querySelectorAll('.mobile-navigation a')
+    ).toHaveLength(15);
   });
 
   it('labels the footer and all four locales', () => {

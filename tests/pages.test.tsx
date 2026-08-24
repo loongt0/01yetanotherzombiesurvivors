@@ -194,6 +194,11 @@ describe('guide directory', () => {
       screen.getByRole('link', {name: /Farever Best Class/i})
     ).toHaveAttribute('href', '/guides/farever-best-class/');
     expect(container.querySelector('[data-guide-grid]')).toHaveClass('guide-grid');
+    expect(container.querySelector('.guide-directory-card h3')).toHaveTextContent(
+      /Farever Best Class/i
+    );
+    expect(container.querySelector('.guide-directory-card h2')).toBeNull();
+    expect(container.querySelector('.guide-directory-card__action')).toBeNull();
   });
 
   it.each([
@@ -235,20 +240,22 @@ describe('guide directory', () => {
 });
 
 describe('classes article', () => {
-  it('keeps the hero full-width while the article owns a prose-constrained body', async () => {
+  it('keeps the hero and MDX body inside one prose-constrained article', async () => {
     const {container, unmount} = render(
       await ClassesPage({params: Promise.resolve({locale: 'en'})})
     );
     const view = within(container);
     const article = view.getByRole('article');
     const hero = article.querySelector<HTMLElement>(':scope > .page-hero');
-    const proseBody = article.querySelector<HTMLElement>(':scope > .prose-game');
+    const proseBody = article.querySelector<HTMLElement>(
+      ':scope > .classes-article__body'
+    );
 
     expect(article).toHaveClass('classes-article');
-    expect(article).not.toHaveClass('prose-game');
+    expect(article).toHaveClass('prose-game');
     expect(hero).toBeInTheDocument();
     expect(proseBody).toBeInTheDocument();
-    expect(proseBody).not.toContainElement(hero);
+    expect(proseBody).not.toHaveClass('prose-game');
     expect(
       within(hero as HTMLElement).getByRole('heading', {
         level: 1,
@@ -267,6 +274,7 @@ describe('classes article', () => {
     expect(
       within(proseBody as HTMLElement).getByRole('heading', {level: 2, name: /FAQ/})
     ).toBeInTheDocument();
+    expect(article.querySelector('.article-table-wrap')).toBeNull();
 
     unmount();
   });

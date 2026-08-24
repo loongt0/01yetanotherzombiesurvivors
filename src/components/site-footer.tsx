@@ -40,7 +40,9 @@ export function SiteFooter({locale}: {locale: Locale}) {
                 {group.links.map((item) => (
                   <li key={`${group.key}-${item.href}`}>
                     <a href={localizeHref(locale, item.href)}>
-                      {messages.links[item.key]}
+                      {locale === 'en' && item.href === '/skover-island/'
+                        ? 'Skover Island'
+                        : messages.links[item.key]}
                     </a>
                   </li>
                 ))}

@@ -9,6 +9,7 @@ import {
 
 export function SiteHeader({locale}: {locale: Locale}) {
   const messages = getSiteMessages(locale).Header;
+  const compactNavigation = [...primaryNavigation, ...utilityNavigation];
 
   return (
     <header className="site-header">
@@ -60,6 +61,17 @@ export function SiteHeader({locale}: {locale: Locale}) {
             </a>
           ))}
         </div>
+      </nav>
+
+      <nav
+        className="mobile-navigation"
+        aria-label={`${messages.primaryLabel} / ${messages.utilityLabel}`}
+      >
+        {compactNavigation.map((item) => (
+          <a key={item.key} href={localizeHref(locale, item.href)}>
+            {messages.navigation[item.key]}
+          </a>
+        ))}
       </nav>
     </header>
   );

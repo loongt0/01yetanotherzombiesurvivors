@@ -15,7 +15,6 @@ type DirectoryCopy = {
   eyebrow: string;
   title: string;
   description: string;
-  readLabel: string;
   metadataTitle: string;
 };
 
@@ -26,28 +25,24 @@ const copyByLocale: Record<Locale, DirectoryCopy> = {
     eyebrow: 'Guides',
     title: 'All Farever Guides',
     description: 'Deep-dive long-form guides on every aspect of Farever.',
-    readLabel: 'Read',
     metadataTitle: 'Farever Guides Hub — All Long-Form Guides'
   },
   de: {
     eyebrow: 'Guides',
     title: 'Alle Farever-Guides',
     description: 'Ausführliche Guides zu allen Bereichen von Farever.',
-    readLabel: 'Lesen',
     metadataTitle: 'Farever-Guides — Alle ausführlichen Guides'
   },
   es: {
     eyebrow: 'Guías',
     title: 'Todas las guías de Farever',
     description: 'Guías detalladas sobre todos los aspectos de Farever.',
-    readLabel: 'Leer',
     metadataTitle: 'Guías de Farever — Todas las guías detalladas'
   },
   fr: {
     eyebrow: 'Guides',
     title: 'Tous les guides Farever',
     description: 'Des guides détaillés sur tous les aspects de Farever.',
-    readLabel: 'Lire',
     metadataTitle: 'Guides Farever — Tous les guides détaillés'
   }
 };
@@ -107,20 +102,15 @@ export default async function GuidesPage({params}: GuidesPageProps) {
 
   return (
     <main className="guides-page">
-      <PageHero
-        eyebrow={copy.eyebrow}
-        title={copy.title}
-        description={copy.description}
-      />
       <section className="guide-directory shell-container" aria-label={copy.title}>
+        <PageHero
+          eyebrow={copy.eyebrow}
+          title={copy.title}
+          description={copy.description}
+        />
         <div className="guide-grid" data-guide-grid>
           {cards.map((card) => (
-            <GuideCard
-              key={card.slug}
-              card={card}
-              locale={locale}
-              readLabel={copy.readLabel}
-            />
+            <GuideCard key={card.slug} card={card} locale={locale} />
           ))}
         </div>
       </section>

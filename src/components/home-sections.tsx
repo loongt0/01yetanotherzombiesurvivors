@@ -104,25 +104,86 @@ function FeatureCardLink({
   variant?: 'class' | 'default' | 'region' | 'tool';
 }) {
   const Icon = iconByName[card.icon];
+  const action = (
+    <span className="home-card__action">
+      {card.action}
+      <ArrowRight size={14} aria-hidden="true" />
+    </span>
+  );
+
+  let content;
+
+  if (variant === 'class') {
+    content = (
+      <>
+        <div className="home-card__glow home-card__glow--class" aria-hidden="true" />
+        <div className="home-card__content">
+          <span className="home-card__icon home-card__icon--class" aria-hidden="true">
+            <Icon size={26} />
+          </span>
+          <span className="home-card__badge">{card.badge}</span>
+          <h3>{card.title}</h3>
+          <p>{card.description}</p>
+          {action}
+        </div>
+      </>
+    );
+  } else if (variant === 'region') {
+    content = (
+      <>
+        <div className="home-card__glow home-card__glow--region" aria-hidden="true" />
+        <div className="home-card__content">
+          <div className="home-card__topline">
+            <span className="home-card__badge">{card.badge}</span>
+            <span className="home-card__meta">{card.meta}</span>
+          </div>
+          <h3>{card.title}</h3>
+          <div className="ornament home-card__ornament" aria-hidden="true">
+            <span className="diamond" />
+          </div>
+          <p>{card.description}</p>
+          {action}
+        </div>
+      </>
+    );
+  } else if (variant === 'tool') {
+    content = (
+      <>
+        <div className="home-card__glow home-card__glow--tool" aria-hidden="true" />
+        <div className="home-card__content">
+          <div className="home-card__topline home-card__topline--tool">
+            <span className="home-card__icon home-card__icon--compact" aria-hidden="true">
+              <Icon size={20} />
+            </span>
+            <span className="home-card__badge home-card__badge--cyan">{card.badge}</span>
+          </div>
+          <h3>{card.title}</h3>
+          <p>{card.description}</p>
+          {action}
+        </div>
+      </>
+    );
+  } else {
+    content = (
+      <>
+        <div className="home-card__heading-row">
+          <span className="home-card__icon home-card__icon--compact" aria-hidden="true">
+            <Icon size={22} />
+          </span>
+          <h3>{card.title}</h3>
+        </div>
+        <p>{card.description}</p>
+        {action}
+      </>
+    );
+  }
 
   return (
     <a
       className={`${variant === 'region' ? 'card-grad' : 'card'} home-card home-card--${variant}`}
       href={hrefFor(locale, card.href)}
     >
-      <div className="home-card__topline">
-        {card.badge ? <span className="home-card__badge">{card.badge}</span> : null}
-        {card.meta ? <span className="home-card__meta">{card.meta}</span> : null}
-      </div>
-      <span className="home-card__icon" aria-hidden="true">
-        <Icon size={variant === 'region' ? 30 : 24} strokeWidth={1.5} />
-      </span>
-      <h3>{card.title}</h3>
-      <p>{card.description}</p>
-      <span className="home-card__action">
-        {card.action}
-        <ArrowRight size={15} aria-hidden="true" />
-      </span>
+      {content}
     </a>
   );
 }
@@ -196,7 +257,7 @@ export function HomeSections({locale}: {locale: Locale}) {
           </dl>
           <a className="home-hero__scroll" href="#about-farever">
             {data.hero.scrollLabel}
-            <ArrowDown size={16} aria-hidden="true" />
+            <ArrowDown size={18} aria-hidden="true" />
           </a>
         </div>
       </section>
@@ -206,9 +267,26 @@ export function HomeSections({locale}: {locale: Locale}) {
           <SectionTitle eyebrow={copy.about.eyebrow} title={copy.about.title} />
           <div className="about-grid">
             <div className="about-copy">
-              {copy.about.paragraphs.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
+              {locale === 'en' ? (
+                <>
+                  <p>
+                    <strong>Farever</strong> is an online co-op action RPG by{' '}
+                    <strong>Shiro Games</strong> — the studio behind <em>Northgard</em>,{' '}
+                    <em>Wartales</em> and <em>Dune: Spice Wars</em>. Set in the forgotten
+                    realm of <strong>Siagarta</strong>, it fuses Zelda-style exploration and
+                    platforming with MMO-flavoured combat, crafting and party progression.
+                  </p>
+                  <p>
+                    The Early Access build (launched <strong>May 7, 2026</strong>) ships with
+                    two regions, multiple dungeons, four classes, six jobs and over a hundred
+                    weapons. Roughly twelve months of additional content — new biomes, raised
+                    level cap, more classes, seasonal events and guilds — are planned for EA.
+                    Play solo or with friends online.
+                  </p>
+                </>
+              ) : (
+                copy.about.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)
+              )}
             </div>
             <aside className="card facts-card" aria-label={copy.about.factsLabel}>
               <h3>{copy.about.factsLabel}</h3>
@@ -294,9 +372,8 @@ export function HomeSections({locale}: {locale: Locale}) {
           <SectionTitle eyebrow={copy.news.eyebrow} title={copy.news.title} />
           <div className="news-list">
             {data.news.map((item) => (
-              <article className="news-item" key={`${item.date}-${item.text}`}>
+              <article className="card news-item" key={`${item.date}-${item.text}`}>
                 <time>{item.date}</time>
-                <span className="diamond-bullet" aria-hidden="true" />
                 <p>{item.text}</p>
               </article>
             ))}
@@ -306,13 +383,10 @@ export function HomeSections({locale}: {locale: Locale}) {
         <section className="home-section">
           <SectionTitle eyebrow={copy.faq.eyebrow} title={copy.faq.title} />
           <div className="faq-list">
-            {data.faq.map((item, index) => (
-              <article className="faq-item" key={item.question}>
-                <span>{String(index + 1).padStart(2, '0')}</span>
-                <div>
-                  <h3>{item.question}</h3>
-                  <p>{item.answer}</p>
-                </div>
+            {data.faq.map((item) => (
+              <article className="card faq-item" key={item.question}>
+                <h3>{item.question}</h3>
+                <p>{item.answer}</p>
               </article>
             ))}
           </div>
@@ -327,7 +401,11 @@ export function HomeSections({locale}: {locale: Locale}) {
         <section className="final-cta">
           <div className="final-cta__glow" aria-hidden="true" />
           <div className="final-cta__content">
-            <span>{data.finalCta.eyebrow}</span>
+            <div className="final-cta__eyebrow">
+              <span className="diamond-bullet" aria-hidden="true" />
+              {data.finalCta.eyebrow}
+              <span className="diamond-bullet" aria-hidden="true" />
+            </div>
             <h2>{data.finalCta.title}</h2>
             <div className="home-hero__actions">
               <ActionLink

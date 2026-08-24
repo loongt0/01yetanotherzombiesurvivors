@@ -18,11 +18,7 @@ function MinorHeading({className, ...props}: ComponentPropsWithoutRef<'h3'>) {
 }
 
 function Table({className, ...props}: ComponentPropsWithoutRef<'table'>) {
-  return (
-    <div className="article-table-wrap">
-      <table className={classNames('article-table', className)} {...props} />
-    </div>
-  );
+  return <table className={classNames('article-table', className)} {...props} />;
 }
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {

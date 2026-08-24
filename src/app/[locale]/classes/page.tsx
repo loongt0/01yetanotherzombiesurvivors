@@ -102,13 +102,13 @@ export default async function ClassesPage({params}: ClassesPageProps) {
         }}
       />
       <main className="classes-page">
-        <article className="classes-article">
+        <article className="classes-article prose-game">
           <PageHero
             eyebrow={frontmatter.eyebrow}
             title={frontmatter.title}
             description={frontmatter.description}
           />
-          <div className="classes-article__body prose-game">
+          <div className="classes-article__body">
             <Content />
           </div>
         </article>
