@@ -60,12 +60,14 @@ Raw measurements: `test-results/visual-audit/measurements.json` (ignored output)
 - [x] Footer columns — both use 5 columns / 5 groups on desktop and 1 column / 5
   groups on mobile. Reference/local footer heights are 1044.75/1045.50px desktop
   and 2021.88/2096.38px mobile.
-- [x] Mobile collapse — both hide the Steam action and brand subtitle. The public
-  page hides the desktop primary and utility tiers and replaces them with one
-  combined 15-link compact nav (143.25px, 5 wrapped lines; 228.25px total header).
-  Local keeps a wrapped primary tier plus a separate wrapped utility tier
-  (129.56px + 99px; utility links occupy 3 lines; 230.56px total header). This is
-  visually close in total height but structurally different.
+- [x] Mobile collapse — both hide the brand subtitle, but the Steam action is a
+  measured mismatch: the public reference keeps it visible (`display: flex`) while
+  local hides it (`display: none`). The public page also hides the desktop primary
+  and utility tiers and replaces them with one combined 15-link compact nav
+  (143.25px, 5 wrapped lines; 228.25px total header). Local keeps a wrapped primary
+  tier plus a separate wrapped utility tier (129.56px + 99px; utility links occupy
+  3 lines; 230.56px total header). Task 8 should show the mobile Steam action and
+  adopt the single combined compact navigation without regressing wrapping.
 
 ## Full-page visual findings for Task 8
 

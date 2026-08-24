@@ -109,23 +109,33 @@ test('keeps two measured navigation tiers on desktop and compact wrapped navigat
   const steamAction = page.locator('.site-header__steam');
   const brandSubtitle = page.locator('.site-brand__subtitle');
 
-  await expect(primaryNavigation).toBeVisible();
-  await expect(utilityRow).toBeVisible();
-
   if (isMobile) {
-    await expect(steamAction).toBeHidden();
     await expect(brandSubtitle).toBeHidden();
 
-    expect(await primaryNavigation.evaluate((node) => getComputedStyle(node).flexWrap)).toBe(
-      'wrap'
+    const compactNavigations = await page.locator('header nav').evaluateAll((navigations) =>
+      navigations
+        .filter((navigation) => getComputedStyle(navigation).display !== 'none')
+        .map((navigation) => {
+          const links = Array.from(navigation.querySelectorAll('a'));
+          return {
+            lineCount: new Set(
+              links.map((link) => Math.round(link.getBoundingClientRect().top))
+            ).size,
+            maximumFontSize: Math.max(
+              ...links.map((link) => Number.parseFloat(getComputedStyle(link).fontSize))
+            )
+          };
+        })
     );
-    expect(await utilityRow.evaluate((node) => getComputedStyle(node).flexWrap)).toBe('wrap');
+
     expect(
-      await utilityRow.locator('a').evaluateAll((links) =>
-        new Set(links.map((link) => Math.round(link.getBoundingClientRect().top))).size
+      compactNavigations.some(
+        ({lineCount, maximumFontSize}) => lineCount > 1 && maximumFontSize <= 12
       )
-    ).toBeGreaterThan(1);
+    ).toBe(true);
   } else {
+    await expect(primaryNavigation).toBeVisible();
+    await expect(utilityRow).toBeVisible();
     await expect(steamAction).toBeVisible();
     await expect(brandSubtitle).toBeVisible();
     expect(await primaryRow.evaluate((node) => node.getBoundingClientRect().height)).toBe(80);
