@@ -148,19 +148,19 @@ export function HomeSections({locale}: {locale: Locale}) {
     <main className="home-page">
       <section className="home-hero">
         <div className="home-hero__aurora" aria-hidden="true" />
+        <div className="home-hero__emblem" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+        </div>
         <div className="noise" aria-hidden="true" />
         <div className="home-hero__content">
-          <div className="home-hero__emblem" aria-hidden="true">
-            <span />
-            <span />
-            <span />
-          </div>
           <div className="home-hero__image-wrap">
             <GameImage
               src="/icon.png"
               alt="Farever"
-              width={154}
-              height={152}
+              width={144}
+              height={144}
               className="home-hero__image"
             />
           </div>
@@ -189,8 +189,8 @@ export function HomeSections({locale}: {locale: Locale}) {
           <dl className="home-hero__stats">
             {data.hero.stats.map((stat) => (
               <div key={stat.label}>
-                <dd>{stat.value}</dd>
                 <dt>{stat.label}</dt>
+                <dd>{stat.value}</dd>
               </div>
             ))}
           </dl>

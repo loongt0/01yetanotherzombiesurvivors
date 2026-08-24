@@ -12,6 +12,10 @@ type HomePageProps = {
 };
 
 const SITE_URL = 'https://farevergame.wiki';
+const EN_WEBSITE_DESCRIPTION =
+  'Unofficial Farever wiki and guide hub — classes, weapons, dungeons, bosses, roadmap and live server status for the Shiro Games co-op action RPG.';
+const EN_GAME_DESCRIPTION =
+  'Online co-op action RPG by Shiro Games (Wartales, Northgard). Released into Steam Early Access on May 7, 2026.';
 
 const alternateUrls: Record<Locale, string> = {
   en: `${SITE_URL}/`,
@@ -88,7 +92,8 @@ function getHomeStructuredData(locale: Locale) {
           '@id': websiteId,
           url: canonical,
           name: 'Farever Wiki',
-          description: seo.description,
+          description:
+            locale === 'en' ? EN_WEBSITE_DESCRIPTION : seo.description,
           inLanguage: locale,
           publisher: {'@id': organizationId},
           about: {'@id': gameId},
@@ -118,7 +123,7 @@ function getHomeStructuredData(locale: Locale) {
           '@id': gameId,
           name: 'Farever',
           alternateName: ['FAREVER'],
-          description: data.hero.description,
+          description: locale === 'en' ? EN_GAME_DESCRIPTION : data.hero.description,
           url: STEAM_URL,
           gamePlatform: ['PC', 'Steam'],
           applicationCategory: 'Game',

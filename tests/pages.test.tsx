@@ -5,26 +5,38 @@ import HomePage from '@/app/[locale]/page';
 
 describe('homepage', () => {
   it('renders the reference homepage section order', async () => {
-    render(await HomePage({params: Promise.resolve({locale: 'en'})}));
-
-    const headings = screen
-      .getAllByRole('heading')
-      .map((node) => node.textContent);
-
-    expect(headings).toEqual(
-      expect.arrayContaining([
-        'Forge Your Legend in Farever',
-        'What is Farever?',
-        'The Four Classes',
-        'Explore Two Regions',
-        'Start Your Journey',
-        'Tools & Tier Lists',
-        'Featured Guides',
-        'Latest News',
-        'Farever FAQ',
-        'Forge your legend today.'
-      ])
+    const {container} = render(
+      await HomePage({params: Promise.resolve({locale: 'en'})})
     );
+
+    const headings = Array.from(container.querySelectorAll('main h1, main h2')).map(
+      (node) => node.textContent
+    );
+
+    expect(headings).toEqual([
+      'Forge Your Legend in Farever',
+      'What is Farever?',
+      'The Four Classes',
+      'Explore Two Regions',
+      'Start Your Journey',
+      'Tools & Tier Lists',
+      'Featured Guides',
+      'Latest News',
+      'Farever FAQ',
+      'Forge your legend today.'
+    ]);
+  });
+
+  it('uses semantic term-value ordering for hero stats', async () => {
+    const {container} = render(
+      await HomePage({params: Promise.resolve({locale: 'en'})})
+    );
+    const firstStat = container.querySelector('.home-hero__stats > div');
+
+    expect(Array.from(firstStat?.children ?? []).map((node) => node.tagName)).toEqual([
+      'DT',
+      'DD'
+    ]);
   });
 
   it.each([
@@ -123,6 +135,29 @@ describe('homepage', () => {
       inLanguage: 'fr',
       url: 'https://farevergame.wiki/fr/'
     });
+  });
+
+  it('uses the live English WebSite and VideoGame descriptions in JSON-LD', async () => {
+    const {container} = render(
+      await HomePage({params: Promise.resolve({locale: 'en'})})
+    );
+    const payloads = Array.from(
+      container.querySelectorAll('script[type="application/ld+json"]')
+    ).map((script) => JSON.parse(script.textContent ?? '{}'));
+    const entities = payloads.flatMap((payload) =>
+      payload['@graph'] ? payload['@graph'] : [payload]
+    );
+
+    expect(
+      entities.find((entity) => entity['@type'] === 'WebSite')?.description
+    ).toBe(
+      'Unofficial Farever wiki and guide hub — classes, weapons, dungeons, bosses, roadmap and live server status for the Shiro Games co-op action RPG.'
+    );
+    expect(
+      entities.find((entity) => entity['@type'] === 'VideoGame')?.description
+    ).toBe(
+      'Online co-op action RPG by Shiro Games (Wartales, Northgard). Released into Steam Early Access on May 7, 2026.'
+    );
   });
 
   it('rejects an invalid locale before reading homepage data', async () => {
