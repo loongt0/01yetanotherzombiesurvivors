@@ -160,6 +160,12 @@ describe('homepage', () => {
     ).toBe(
       'Online co-op action RPG by Shiro Games (Wartales, Northgard). Released into Steam Early Access on May 7, 2026.'
     );
+    expect(
+      entities.find((entity) => entity['@type'] === 'WebSite')
+    ).not.toHaveProperty('potentialAction');
+    expect(
+      entities.find((entity) => entity['@type'] === 'VideoGame')
+    ).not.toHaveProperty('offers');
   });
 
   it('rejects an invalid locale before reading homepage data', async () => {

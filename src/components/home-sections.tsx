@@ -222,6 +222,9 @@ export function HomeSections({locale}: {locale: Locale}) {
               alt="Farever"
               width={144}
               height={144}
+              intrinsicWidth={154}
+              intrinsicHeight={152}
+              loading="eager"
               className="home-hero__image"
             />
           </div>

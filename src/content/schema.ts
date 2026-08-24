@@ -14,3 +14,19 @@ export const frontmatterSchema = z
   .strict();
 
 export type ContentFrontmatter = z.infer<typeof frontmatterSchema>;
+
+export function parseContentFrontmatter(
+  frontmatter: unknown,
+  sourceFilename: string
+): ContentFrontmatter {
+  const parsed = frontmatterSchema.safeParse(frontmatter);
+
+  if (!parsed.success) {
+    throw new Error(
+      `Invalid frontmatter in ${sourceFilename}: ${parsed.error.message}`,
+      {cause: parsed.error}
+    );
+  }
+
+  return parsed.data;
+}

@@ -12,7 +12,7 @@ const localeRoutes = [
 ] as const;
 
 function absoluteRouteUrl(prefix: string, path: (typeof paths)[number]) {
-  return prefix === '' && path === '/' ? siteUrl : `${siteUrl}${prefix}${path}`;
+  return `${siteUrl}${prefix}${path}`;
 }
 
 async function waitForFonts(page: Page) {
@@ -28,10 +28,10 @@ for (const prefix of prefixes) {
     test(`${localeLabel}${path} renders the shared page shell without console errors`, async ({
       page
     }) => {
-      const errors: string[] = [];
+      const consoleIssues: string[] = [];
       page.on('console', (message) => {
-        if (message.type() === 'error') {
-          errors.push(message.text());
+        if (message.type() === 'error' || message.type() === 'warning') {
+          consoleIssues.push(`${message.type()}: ${message.text()}`);
         }
       });
 
@@ -40,10 +40,128 @@ for (const prefix of prefixes) {
       await expect(page.locator('header.site-header')).toBeVisible();
       await expect(page.locator('main')).toBeVisible();
       await expect(page.locator('footer')).toBeVisible();
-      expect(errors).toEqual([]);
+      expect(consoleIssues).toEqual([]);
     });
   }
 }
+
+test.describe('canonical route policy', () => {
+  for (const prefix of prefixes) {
+    for (const path of paths) {
+      test(`${prefix || '/en'}${path} resolves directly with its canonical trailing slash`, async ({
+        isMobile,
+        request
+      }) => {
+        test.skip(Boolean(isMobile), 'HTTP route policy is viewport-independent.');
+
+        const response = await request.get(`${prefix}${path}`, {maxRedirects: 0});
+
+        expect(response.status()).toBe(200);
+        expect(response.headers().location).toBeUndefined();
+      });
+    }
+  }
+
+  test('redirects slashless document routes to the public trailing-slash form', async ({
+    isMobile,
+    request
+  }) => {
+    test.skip(Boolean(isMobile), 'HTTP route policy is viewport-independent.');
+
+    for (const [source, destination] of [
+      ['/guides', '/guides/'],
+      ['/classes', '/classes/'],
+      ['/de/guides', '/de/guides/'],
+      ['/fr/classes', '/fr/classes/']
+    ] as const) {
+      const response = await request.get(source, {maxRedirects: 0});
+
+      expect(response.status(), source).toBe(308);
+      expect(response.headers().location, source).toBe(destination);
+    }
+  });
+
+  test('redirects English-prefixed URLs without an empty Location and preserves the final path', async ({
+    isMobile,
+    page,
+    request
+  }) => {
+    test.skip(Boolean(isMobile), 'HTTP route policy is viewport-independent.');
+    const consoleWarnings: string[] = [];
+    page.on('console', (message) => {
+      if (message.type() === 'warning') {
+        consoleWarnings.push(message.text());
+      }
+    });
+
+    const bareEnglish = await request.get('/en', {maxRedirects: 0});
+    expect(bareEnglish.status()).toBe(308);
+    expect(bareEnglish.headers().location).toBe('/en/');
+    await page.goto('/en');
+    expect(new URL(page.url()).pathname).toBe('/');
+
+    for (const [source, destination] of [
+      ['/en/', '/'],
+      ['/en/guides/', '/guides/'],
+      ['/en/classes/', '/classes/']
+    ] as const) {
+      const response = await request.get(source, {maxRedirects: 0});
+
+      expect(response.status(), source).toBe(307);
+      expect(response.headers().location, source).toBe(destination);
+
+      await page.goto(source);
+      expect(new URL(page.url()).pathname, source).toBe(destination);
+    }
+
+    const withQuery = await request.get('/en/classes/?from=legacy', {
+      maxRedirects: 0
+    });
+    expect(withQuery.status()).toBe(307);
+    expect(withQuery.headers().location).toBe('/classes/?from=legacy');
+
+    const slashlessNested = await request.get('/en/guides', {maxRedirects: 0});
+    expect(slashlessNested.status()).toBe(308);
+    expect(slashlessNested.headers().location).toBe('/en/guides/');
+
+    await page.goto('/en/guides');
+    expect(new URL(page.url()).pathname).toBe('/guides/');
+    expect(consoleWarnings).toEqual([]);
+  });
+});
+
+test('language links synchronize NEXT_LOCALE and can switch back to English', async ({
+  page
+}) => {
+  const consoleWarnings: string[] = [];
+  page.on('console', (message) => {
+    if (message.type() === 'warning') {
+      consoleWarnings.push(message.text());
+    }
+  });
+
+  await page.goto('/de/classes/');
+  await expect.poll(async () =>
+    (await page.context().cookies()).find((cookie) => cookie.name === 'NEXT_LOCALE')?.value
+  ).toBe('de');
+
+  const englishLink = page
+    .locator('.language-switcher')
+    .getByRole('link', {name: /English/});
+  await expect(englishLink).toHaveAttribute('href', '/en/classes/');
+  await englishLink.click();
+  await expect.poll(async () =>
+    (await page.context().cookies()).find((cookie) => cookie.name === 'NEXT_LOCALE')?.value
+  ).toBe('en');
+  await expect.poll(() => new URL(page.url()).pathname).toBe('/classes/');
+
+  await page.locator('.language-switcher').getByRole('link', {name: /Deutsch/}).click();
+  await expect.poll(() => new URL(page.url()).pathname).toBe('/de/classes/');
+  expect(
+    (await page.context().cookies()).find((cookie) => cookie.name === 'NEXT_LOCALE')?.value
+  ).toBe('de');
+  expect(consoleWarnings).toEqual([]);
+});
 
 test.describe('metadata', () => {
   for (const {locale, prefix} of localeRoutes) {

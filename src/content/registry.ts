@@ -1,6 +1,9 @@
 import type {ComponentType} from 'react';
 import type {Locale} from '@/i18n/routing';
-import {frontmatterSchema, type ContentFrontmatter} from './schema';
+import {
+  parseContentFrontmatter,
+  type ContentFrontmatter
+} from './schema';
 
 import enClasses, {frontmatter as enClassesFrontmatter} from './en/classes.mdx';
 import enBestClass, {frontmatter as enBestClassFrontmatter} from './en/guides/farever-best-class.mdx';
@@ -73,12 +76,50 @@ type ArticleRecord = {
   Content: ComponentType;
 };
 
-function createArticle(frontmatter: unknown, Content: ComponentType): ArticleRecord {
-  return {frontmatter: frontmatterSchema.parse(frontmatter), Content};
+export type GuideDocumentRegistry = Record<
+  'en',
+  Record<string, GuideCardRecord>
+> &
+  Partial<
+    Record<Exclude<Locale, 'en'>, Partial<Record<string, GuideCardRecord>>>
+  >;
+
+const guideSourceSlugs = [
+  'farever-best-class',
+  'farever-leveling-guide',
+  'farever-crafting-guide',
+  'farever-mount-guide',
+  'farever-vs-wartales',
+  'is-farever-worth-it',
+  'farever-solo-vs-coop',
+  'farever-skyover-island',
+  'farever-valley-of-the-eternal-autumn',
+  'farever-roadmap-2026',
+  'farever-lore',
+  'farever-best-mount',
+  'farever-vs-diablo-4',
+  'farever-vs-lost-ark'
+] as const;
+
+type RawGuideModule = readonly [unknown, ComponentType];
+
+function createArticle(
+  frontmatter: unknown,
+  Content: ComponentType,
+  sourceFilename: string
+): ArticleRecord {
+  return {
+    frontmatter: parseContentFrontmatter(frontmatter, sourceFilename),
+    Content
+  };
 }
 
-function createGuideCard(frontmatter: unknown, Content: ComponentType): GuideCardRecord {
-  const parsedFrontmatter = frontmatterSchema.parse(frontmatter);
+function createGuideCard(
+  frontmatter: unknown,
+  Content: ComponentType,
+  sourceFilename: string
+): GuideCardRecord {
+  const parsedFrontmatter = parseContentFrontmatter(frontmatter, sourceFilename);
 
   return {
     ...parsedFrontmatter,
@@ -87,84 +128,121 @@ function createGuideCard(frontmatter: unknown, Content: ComponentType): GuideCar
   };
 }
 
+function createGuideCards(
+  locale: Locale,
+  modules: readonly RawGuideModule[]
+): GuideCardRecord[] {
+  return modules.map(([frontmatter, Content], index) =>
+    createGuideCard(
+      frontmatter,
+      Content,
+      `src/content/${locale}/guides/${guideSourceSlugs[index]}.mdx`
+    )
+  );
+}
+
 const classesByLocale: Record<Locale, ArticleRecord> = {
-  en: createArticle(enClassesFrontmatter, enClasses),
-  de: createArticle(deClassesFrontmatter, deClasses),
-  es: createArticle(esClassesFrontmatter, esClasses),
-  fr: createArticle(frClassesFrontmatter, frClasses)
+  en: createArticle(enClassesFrontmatter, enClasses, 'src/content/en/classes.mdx'),
+  de: createArticle(deClassesFrontmatter, deClasses, 'src/content/de/classes.mdx'),
+  es: createArticle(esClassesFrontmatter, esClasses, 'src/content/es/classes.mdx'),
+  fr: createArticle(frClassesFrontmatter, frClasses, 'src/content/fr/classes.mdx')
 };
 
-const guideCardsByLocale: Record<Locale, GuideCardRecord[]> = {
-  en: [
-    createGuideCard(enBestClassFrontmatter, enBestClass),
-    createGuideCard(enLevelingGuideFrontmatter, enLevelingGuide),
-    createGuideCard(enCraftingGuideFrontmatter, enCraftingGuide),
-    createGuideCard(enMountGuideFrontmatter, enMountGuide),
-    createGuideCard(enVsWartalesFrontmatter, enVsWartales),
-    createGuideCard(enWorthItFrontmatter, enWorthIt),
-    createGuideCard(enSoloVsCoopFrontmatter, enSoloVsCoop),
-    createGuideCard(enSkyoverIslandFrontmatter, enSkyoverIsland),
-    createGuideCard(enEternalAutumnFrontmatter, enEternalAutumn),
-    createGuideCard(enRoadmap2026Frontmatter, enRoadmap2026),
-    createGuideCard(enLoreFrontmatter, enLore),
-    createGuideCard(enBestMountFrontmatter, enBestMount),
-    createGuideCard(enVsDiablo4Frontmatter, enVsDiablo4),
-    createGuideCard(enVsLostArkFrontmatter, enVsLostArk)
-  ],
-  de: [
-    createGuideCard(deBestClassFrontmatter, deBestClass),
-    createGuideCard(deLevelingGuideFrontmatter, deLevelingGuide),
-    createGuideCard(deCraftingGuideFrontmatter, deCraftingGuide),
-    createGuideCard(deMountGuideFrontmatter, deMountGuide),
-    createGuideCard(deVsWartalesFrontmatter, deVsWartales),
-    createGuideCard(deWorthItFrontmatter, deWorthIt),
-    createGuideCard(deSoloVsCoopFrontmatter, deSoloVsCoop),
-    createGuideCard(deSkyoverIslandFrontmatter, deSkyoverIsland),
-    createGuideCard(deEternalAutumnFrontmatter, deEternalAutumn),
-    createGuideCard(deRoadmap2026Frontmatter, deRoadmap2026),
-    createGuideCard(deLoreFrontmatter, deLore),
-    createGuideCard(deBestMountFrontmatter, deBestMount),
-    createGuideCard(deVsDiablo4Frontmatter, deVsDiablo4),
-    createGuideCard(deVsLostArkFrontmatter, deVsLostArk)
-  ],
-  es: [
-    createGuideCard(esBestClassFrontmatter, esBestClass),
-    createGuideCard(esLevelingGuideFrontmatter, esLevelingGuide),
-    createGuideCard(esCraftingGuideFrontmatter, esCraftingGuide),
-    createGuideCard(esMountGuideFrontmatter, esMountGuide),
-    createGuideCard(esVsWartalesFrontmatter, esVsWartales),
-    createGuideCard(esWorthItFrontmatter, esWorthIt),
-    createGuideCard(esSoloVsCoopFrontmatter, esSoloVsCoop),
-    createGuideCard(esSkyoverIslandFrontmatter, esSkyoverIsland),
-    createGuideCard(esEternalAutumnFrontmatter, esEternalAutumn),
-    createGuideCard(esRoadmap2026Frontmatter, esRoadmap2026),
-    createGuideCard(esLoreFrontmatter, esLore),
-    createGuideCard(esBestMountFrontmatter, esBestMount),
-    createGuideCard(esVsDiablo4Frontmatter, esVsDiablo4),
-    createGuideCard(esVsLostArkFrontmatter, esVsLostArk)
-  ],
-  fr: [
-    createGuideCard(frBestClassFrontmatter, frBestClass),
-    createGuideCard(frLevelingGuideFrontmatter, frLevelingGuide),
-    createGuideCard(frCraftingGuideFrontmatter, frCraftingGuide),
-    createGuideCard(frMountGuideFrontmatter, frMountGuide),
-    createGuideCard(frVsWartalesFrontmatter, frVsWartales),
-    createGuideCard(frWorthItFrontmatter, frWorthIt),
-    createGuideCard(frSoloVsCoopFrontmatter, frSoloVsCoop),
-    createGuideCard(frSkyoverIslandFrontmatter, frSkyoverIsland),
-    createGuideCard(frEternalAutumnFrontmatter, frEternalAutumn),
-    createGuideCard(frRoadmap2026Frontmatter, frRoadmap2026),
-    createGuideCard(frLoreFrontmatter, frLore),
-    createGuideCard(frBestMountFrontmatter, frBestMount),
-    createGuideCard(frVsDiablo4Frontmatter, frVsDiablo4),
-    createGuideCard(frVsLostArkFrontmatter, frVsLostArk)
-  ]
+const guideCardListsByLocale: Record<Locale, GuideCardRecord[]> = {
+  en: createGuideCards('en', [
+    [enBestClassFrontmatter, enBestClass],
+    [enLevelingGuideFrontmatter, enLevelingGuide],
+    [enCraftingGuideFrontmatter, enCraftingGuide],
+    [enMountGuideFrontmatter, enMountGuide],
+    [enVsWartalesFrontmatter, enVsWartales],
+    [enWorthItFrontmatter, enWorthIt],
+    [enSoloVsCoopFrontmatter, enSoloVsCoop],
+    [enSkyoverIslandFrontmatter, enSkyoverIsland],
+    [enEternalAutumnFrontmatter, enEternalAutumn],
+    [enRoadmap2026Frontmatter, enRoadmap2026],
+    [enLoreFrontmatter, enLore],
+    [enBestMountFrontmatter, enBestMount],
+    [enVsDiablo4Frontmatter, enVsDiablo4],
+    [enVsLostArkFrontmatter, enVsLostArk]
+  ]),
+  de: createGuideCards('de', [
+    [deBestClassFrontmatter, deBestClass],
+    [deLevelingGuideFrontmatter, deLevelingGuide],
+    [deCraftingGuideFrontmatter, deCraftingGuide],
+    [deMountGuideFrontmatter, deMountGuide],
+    [deVsWartalesFrontmatter, deVsWartales],
+    [deWorthItFrontmatter, deWorthIt],
+    [deSoloVsCoopFrontmatter, deSoloVsCoop],
+    [deSkyoverIslandFrontmatter, deSkyoverIsland],
+    [deEternalAutumnFrontmatter, deEternalAutumn],
+    [deRoadmap2026Frontmatter, deRoadmap2026],
+    [deLoreFrontmatter, deLore],
+    [deBestMountFrontmatter, deBestMount],
+    [deVsDiablo4Frontmatter, deVsDiablo4],
+    [deVsLostArkFrontmatter, deVsLostArk]
+  ]),
+  es: createGuideCards('es', [
+    [esBestClassFrontmatter, esBestClass],
+    [esLevelingGuideFrontmatter, esLevelingGuide],
+    [esCraftingGuideFrontmatter, esCraftingGuide],
+    [esMountGuideFrontmatter, esMountGuide],
+    [esVsWartalesFrontmatter, esVsWartales],
+    [esWorthItFrontmatter, esWorthIt],
+    [esSoloVsCoopFrontmatter, esSoloVsCoop],
+    [esSkyoverIslandFrontmatter, esSkyoverIsland],
+    [esEternalAutumnFrontmatter, esEternalAutumn],
+    [esRoadmap2026Frontmatter, esRoadmap2026],
+    [esLoreFrontmatter, esLore],
+    [esBestMountFrontmatter, esBestMount],
+    [esVsDiablo4Frontmatter, esVsDiablo4],
+    [esVsLostArkFrontmatter, esVsLostArk]
+  ]),
+  fr: createGuideCards('fr', [
+    [frBestClassFrontmatter, frBestClass],
+    [frLevelingGuideFrontmatter, frLevelingGuide],
+    [frCraftingGuideFrontmatter, frCraftingGuide],
+    [frMountGuideFrontmatter, frMountGuide],
+    [frVsWartalesFrontmatter, frVsWartales],
+    [frWorthItFrontmatter, frWorthIt],
+    [frSoloVsCoopFrontmatter, frSoloVsCoop],
+    [frSkyoverIslandFrontmatter, frSkyoverIsland],
+    [frEternalAutumnFrontmatter, frEternalAutumn],
+    [frRoadmap2026Frontmatter, frRoadmap2026],
+    [frLoreFrontmatter, frLore],
+    [frBestMountFrontmatter, frBestMount],
+    [frVsDiablo4Frontmatter, frVsDiablo4],
+    [frVsLostArkFrontmatter, frVsLostArk]
+  ])
 };
+
+function indexGuideCards(
+  cards: GuideCardRecord[]
+): Record<string, GuideCardRecord> {
+  return Object.fromEntries(cards.map((card) => [card.slug, card]));
+}
+
+const guideDocumentsByLocale: GuideDocumentRegistry = {
+  en: indexGuideCards(guideCardListsByLocale.en),
+  de: indexGuideCards(guideCardListsByLocale.de),
+  es: indexGuideCards(guideCardListsByLocale.es),
+  fr: indexGuideCards(guideCardListsByLocale.fr)
+};
+
+export function resolveGuideCards(
+  locale: Locale,
+  registry: GuideDocumentRegistry
+): GuideCardRecord[] {
+  const localizedDocuments: Partial<Record<string, GuideCardRecord>> =
+    locale === 'en' ? registry.en : (registry[locale] ?? {});
+
+  return Object.keys(registry.en)
+    .map((slug) => localizedDocuments[slug] ?? registry.en[slug])
+    .filter((card): card is GuideCardRecord => card !== undefined)
+    .sort((a, b) => b.updated.localeCompare(a.updated));
+}
 
 export function getGuideCards(locale: Locale): GuideCardRecord[] {
-  return [...(guideCardsByLocale[locale] ?? guideCardsByLocale.en ?? [])].sort((a, b) =>
-    b.updated.localeCompare(a.updated)
-  );
+  return resolveGuideCards(locale, guideDocumentsByLocale);
 }
 
 export function getClassesArticle(locale: Locale): {

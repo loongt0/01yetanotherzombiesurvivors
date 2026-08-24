@@ -39,6 +39,13 @@ MDX source content lives under `src/content/<locale>/`:
 
 English MDX in `src/content/en/` is the canonical source. The matching `de`, `es`, and `fr` trees contain translated content.
 
+## Repository guidance
+
+`AGENTS.md` is intentionally committed because Next.js 16 generates and
+re-adds its version-specific agent rules during development. `CLAUDE.md`
+includes those same rules. They are repository guidance rather than runtime
+application files, and keeping both avoids a dirty tree after `next dev`.
+
 ## Visual verification
 
 `npm run test:e2e` exercises the desktop and mobile route matrix. For a measured

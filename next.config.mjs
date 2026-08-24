@@ -13,14 +13,6 @@ export default withNextIntl(
     allowedDevOrigins: ['127.0.0.1'],
     pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
     skipProxyUrlNormalize: true,
-    async redirects() {
-      return [
-        {
-          source: '/en/:path*',
-          destination: '/:path*',
-          permanent: false
-        }
-      ];
-    }
+    trailingSlash: true
   })
 );

@@ -96,15 +96,7 @@ function getHomeStructuredData(locale: Locale) {
             locale === 'en' ? EN_WEBSITE_DESCRIPTION : seo.description,
           inLanguage: locale,
           publisher: {'@id': organizationId},
-          about: {'@id': gameId},
-          potentialAction: {
-            '@type': 'SearchAction',
-            target: {
-              '@type': 'EntryPoint',
-              urlTemplate: `${canonical}?q={search_term_string}`
-            },
-            'query-input': 'required name=search_term_string'
-          }
+          about: {'@id': gameId}
         },
         {
           '@type': 'Organization',
@@ -135,14 +127,7 @@ function getHomeStructuredData(locale: Locale) {
           },
           author: {'@type': 'Organization', name: 'Shiro Games'},
           genre: ['Action RPG', 'Co-op', 'MMO-lite', 'Open World'],
-          datePublished: '2026-05-07',
-          offers: {
-            '@type': 'Offer',
-            price: '29.49',
-            priceCurrency: 'USD',
-            availability: 'https://schema.org/InStock',
-            url: STEAM_URL
-          }
+          datePublished: '2026-05-07'
         }
       ]
     },

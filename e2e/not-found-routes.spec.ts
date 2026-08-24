@@ -25,25 +25,25 @@ test('renders the localized Farever 404 for an unmatched German route', async ({
 test('does not let a spoofed rewrite marker bypass locale canonicalization', async ({
   request
 }) => {
-  const response = await request.get('/en/missing-route', {
+  const response = await request.get('/en/missing-route/', {
     headers: {'x-farever-i18n-rewrite': '1'},
     maxRedirects: 0
   });
 
   expect(response.status()).toBe(307);
-  expect(response.headers().location).toBe('/missing-route');
+  expect(response.headers().location).toBe('/missing-route/');
 });
 
 test('negotiates German for an unprefixed route from Accept-Language', async ({
   request
 }) => {
-  const response = await request.get('/missing-route', {
+  const response = await request.get('/missing-route/', {
     headers: {'accept-language': 'de'},
     maxRedirects: 0
   });
 
   expect(response.status()).toBe(307);
-  expect(response.headers().location).toBe('/de/missing-route');
+  expect(response.headers().location).toBe('/de/missing-route/');
 });
 
 test('does not route special or dotted paths through the English catch-all', async ({

@@ -24,6 +24,9 @@ export function SiteHeader({locale}: {locale: Locale}) {
               alt="Farever"
               width={42}
               height={42}
+              intrinsicWidth={154}
+              intrinsicHeight={152}
+              loading="eager"
               className="site-brand__icon"
             />
           </span>

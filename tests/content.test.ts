@@ -1,6 +1,16 @@
 import {describe, expect, it} from 'vitest';
-import {frontmatterSchema} from '@/content/schema';
-import {getClassesArticle, getGuideCards} from '@/content/registry';
+import type {ComponentType} from 'react';
+import {
+  getClassesArticle,
+  getGuideCards,
+  resolveGuideCards,
+  type GuideCardRecord,
+  type GuideDocumentRegistry
+} from '@/content/registry';
+import {
+  frontmatterSchema,
+  parseContentFrontmatter
+} from '@/content/schema';
 
 const canonicalGuideSlugs = [
   'farever-best-class',
@@ -22,6 +32,15 @@ const canonicalGuideSlugs = [
 describe('content registry', () => {
   it('rejects incomplete frontmatter with the missing field name', () => {
     expect(() => frontmatterSchema.parse({title: 'Only a title'})).toThrow(/description/);
+  });
+
+  it('wraps invalid frontmatter with the source filename', () => {
+    expect(() =>
+      parseContentFrontmatter(
+        {title: 'Only a title'},
+        'src/content/en/guides/broken-guide.mdx'
+      )
+    ).toThrow(/broken-guide\.mdx[\s\S]*description/);
   });
 
   it('returns localized classes content and guide cards', () => {
@@ -47,10 +66,35 @@ describe('content registry', () => {
     }
   );
 
-  it('falls back to English guide cards when a locale has no guide entry', () => {
-    const fallbackCards = getGuideCards('it' as never);
+  it('falls back per slug and sorts localized and fallback documents by varied dates', () => {
+    const Content: ComponentType = () => null;
+    const card = (
+      slug: string,
+      title: string,
+      updated: string
+    ): GuideCardRecord => ({
+      title,
+      description: `${title} description`,
+      eyebrow: 'Guide',
+      published: '2026-01-01',
+      updated,
+      slug,
+      href: `/guides/${slug}/`,
+      Content
+    });
+    const registry: GuideDocumentRegistry = {
+      en: {
+        fallback: card('fallback', 'English fallback', '2026-03-01'),
+        localized: card('localized', 'English original', '2026-01-01')
+      },
+      de: {
+        localized: card('localized', 'Deutsche Übersetzung', '2026-04-01')
+      }
+    };
 
-    expect(fallbackCards).toHaveLength(14);
-    expect(fallbackCards[0]?.href).toBe('/guides/farever-best-class/');
+    expect(resolveGuideCards('de', registry).map(({title}) => title)).toEqual([
+      'Deutsche Übersetzung',
+      'English fallback'
+    ]);
   });
 });

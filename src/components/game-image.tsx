@@ -8,6 +8,9 @@ type GameImageProps = {
   alt: string;
   width: number;
   height: number;
+  intrinsicWidth?: number;
+  intrinsicHeight?: number;
+  loading?: 'eager' | 'lazy';
   className?: string;
 };
 
@@ -16,6 +19,9 @@ export function GameImage({
   alt,
   width,
   height,
+  intrinsicWidth = width,
+  intrinsicHeight = height,
+  loading,
   className
 }: GameImageProps) {
   const [failed, setFailed] = useState(false);
@@ -38,9 +44,11 @@ export function GameImage({
     <Image
       src={src}
       alt={alt}
-      width={width}
-      height={height}
+      width={intrinsicWidth}
+      height={intrinsicHeight}
       className={className}
+      loading={loading}
+      style={{width, height}}
       onError={() => setFailed(true)}
     />
   );

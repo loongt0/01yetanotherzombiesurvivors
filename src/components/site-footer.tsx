@@ -23,6 +23,9 @@ export function SiteFooter({locale}: {locale: Locale}) {
                 alt="Farever"
                 width={36}
                 height={36}
+                intrinsicWidth={154}
+                intrinsicHeight={152}
+                loading="eager"
                 className="site-footer__icon"
               />
               <div>

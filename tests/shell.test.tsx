@@ -6,6 +6,19 @@ import {SiteFooter} from '@/components/site-footer';
 import {SiteHeader} from '@/components/site-header';
 
 vi.mock('@/i18n/navigation', () => ({
+  Link: ({
+    href,
+    locale,
+    ...props
+  }: React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+    href: string;
+    locale?: string;
+  }) => (
+    <a
+      href={locale ? `/${locale}${href === '/' ? '' : href}` : href}
+      {...props}
+    />
+  ),
   usePathname: () => '/classes/'
 }));
 
@@ -73,5 +86,24 @@ describe('shared shell', () => {
       name: /Skyover Island.*image unavailable/i
     });
     expect(fallback).toHaveStyle({width: '320px', height: '180px'});
+  });
+
+  it('separates an image intrinsic ratio from its measured rendered box', () => {
+    const view = render(
+      <GameImage
+        src="/icon.png"
+        alt="Farever"
+        width={42}
+        height={42}
+        intrinsicWidth={154}
+        intrinsicHeight={152}
+      />
+    );
+
+    const image = view.container.querySelector('img');
+    expect(image).not.toBeNull();
+    expect(image).toHaveAttribute('width', '154');
+    expect(image).toHaveAttribute('height', '152');
+    expect(image).toHaveStyle({width: '42px', height: '42px'});
   });
 });
