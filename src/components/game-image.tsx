@@ -10,6 +10,7 @@ type GameImageProps = {
   height: number;
   intrinsicWidth?: number;
   intrinsicHeight?: number;
+  fillContainer?: boolean;
   loading?: 'eager' | 'lazy';
   className?: string;
 };
@@ -21,6 +22,7 @@ export function GameImage({
   height,
   intrinsicWidth = width,
   intrinsicHeight = height,
+  fillContainer = false,
   loading,
   className
 }: GameImageProps) {
@@ -32,7 +34,10 @@ export function GameImage({
         role="img"
         aria-label={`${alt} — image unavailable`}
         className={['game-image-fallback', className].filter(Boolean).join(' ')}
-        style={{width, height}}
+        style={{
+          width: fillContainer ? '100%' : width,
+          height: fillContainer ? '100%' : height
+        }}
       >
         <span aria-hidden="true" className="game-image-fallback__diamond" />
         <span>{alt}</span>
@@ -48,7 +53,10 @@ export function GameImage({
       height={intrinsicHeight}
       className={className}
       loading={loading}
-      style={{width, height}}
+      style={{
+        width: fillContainer ? '100%' : width,
+        height: fillContainer ? '100%' : height
+      }}
       onError={() => setFailed(true)}
     />
   );

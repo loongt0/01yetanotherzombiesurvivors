@@ -289,6 +289,21 @@ test('matches the measured Guides hero and card density', async ({isMobile, page
   await expect(page.locator('.guide-directory-card__action')).toHaveCount(0);
 });
 
+test('keeps the homepage hero image inside its responsive wrapper', async ({page}) => {
+  await page.goto('/');
+  await waitForFonts(page);
+
+  const wrapper = page.locator('.home-hero__image-wrap');
+  const image = wrapper.locator('.home-hero__image');
+  const [wrapperBox, imageBox] = await Promise.all([
+    wrapper.boundingBox(),
+    image.boundingBox()
+  ]);
+
+  expect(imageBox?.width).toBe(wrapperBox?.width);
+  expect(imageBox?.height).toBe(wrapperBox?.height);
+});
+
 test('contains the Classes article and tables at the measured target width', async ({
   isMobile,
   page

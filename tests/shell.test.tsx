@@ -106,4 +106,23 @@ describe('shared shell', () => {
     expect(image).toHaveAttribute('height', '152');
     expect(image).toHaveStyle({width: '42px', height: '42px'});
   });
+
+  it('can fill a responsive wrapper without overriding its measured box', () => {
+    const view = render(
+      <GameImage
+        src="/icon.png"
+        alt="Farever"
+        width={144}
+        height={144}
+        intrinsicWidth={154}
+        intrinsicHeight={152}
+        fillContainer
+      />
+    );
+
+    expect(view.container.querySelector('img')).toHaveStyle({
+      width: '100%',
+      height: '100%'
+    });
+  });
 });

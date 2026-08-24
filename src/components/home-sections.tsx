@@ -224,6 +224,7 @@ export function HomeSections({locale}: {locale: Locale}) {
               height={144}
               intrinsicWidth={154}
               intrinsicHeight={152}
+              fillContainer
               loading="eager"
               className="home-hero__image"
             />
