@@ -525,6 +525,69 @@ img {
   margin: 2.5rem auto 0;
 }
 
+.guides-page {
+  padding-bottom: 2rem;
+}
+
+.guide-directory {
+  max-width: 72rem;
+}
+
+.guide-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.guide-directory-card {
+  display: flex;
+  min-height: 18rem;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 2rem;
+  color: inherit;
+}
+
+.guide-directory-card:hover {
+  color: inherit;
+}
+
+.guide-directory-card__eyebrow {
+  color: var(--gold);
+  font-size: 0.7rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.guide-directory-card h2 {
+  margin-top: 1rem;
+  font-size: clamp(1.25rem, 2.4vw, 1.55rem);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.guide-directory-card p {
+  display: -webkit-box;
+  overflow: hidden;
+  margin-top: 1rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.guide-directory-card__action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: auto;
+  padding-top: 1.5rem;
+  color: var(--gold);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
 .section-title {
   display: flex;
   align-items: center;
@@ -1345,6 +1408,12 @@ img {
 
   .news-item p {
     grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 768px) {
+  .guide-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 

@@ -2,6 +2,7 @@ import {render, screen} from '@testing-library/react';
 import {describe, expect, it} from 'vitest';
 
 import HomePage from '@/app/[locale]/page';
+import GuidesPage from '@/app/[locale]/guides/page';
 
 describe('homepage', () => {
   it('renders the reference homepage section order', async () => {
@@ -176,5 +177,50 @@ describe('homepage', () => {
         params: Promise.resolve({locale: 'favicon.ico' as never})
       })
     ).rejects.toThrow('NEXT_HTTP_ERROR_FALLBACK;404');
+  });
+});
+
+describe('guide directory', () => {
+  it('renders a two-column guide directory sourced from MDX', async () => {
+    const {container} = render(
+      await GuidesPage({params: Promise.resolve({locale: 'en'})})
+    );
+
+    expect(
+      screen.getByRole('heading', {level: 1, name: 'Farever Guides'})
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('link', {name: /Farever Best Class/i})
+    ).toHaveAttribute('href', '/guides/farever-best-class/');
+    expect(container.querySelector('[data-guide-grid]')).toHaveClass('guide-grid');
+  });
+
+  it('localizes directory copy and guide links', async () => {
+    render(await GuidesPage({params: Promise.resolve({locale: 'de'})}));
+
+    expect(
+      screen.getByRole('heading', {level: 1, name: 'Farever-Guides'})
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('link', {name: /Beste Farever-Klasse/i})
+    ).toHaveAttribute('href', '/de/guides/farever-best-class/');
+  });
+
+  it('publishes localized metadata and language alternates', async () => {
+    const pageModule = await import('@/app/[locale]/guides/page');
+    const metadata = await pageModule.generateMetadata({
+      params: Promise.resolve({locale: 'fr'})
+    });
+
+    expect(metadata.title).toBe('Guides Farever — Tous les guides détaillés');
+    expect(metadata.alternates).toEqual({
+      canonical: 'https://farevergame.wiki/fr/guides/',
+      languages: {
+        en: 'https://farevergame.wiki/guides/',
+        de: 'https://farevergame.wiki/de/guides/',
+        es: 'https://farevergame.wiki/es/guides/',
+        fr: 'https://farevergame.wiki/fr/guides/'
+      }
+    });
   });
 });

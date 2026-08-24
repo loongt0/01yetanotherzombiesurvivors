@@ -9,12 +9,16 @@ describe('content registry', () => {
 
   it('returns localized classes content and guide cards', () => {
     expect(getClassesArticle('de').frontmatter.title).toMatch(/Klassen/);
-    expect(getGuideCards('en').some((card) => card.slug === 'farever-best-class')).toBe(true);
+    expect(getGuideCards('en')).toHaveLength(14);
+    expect(getGuideCards('de').find((card) => card.slug === 'farever-best-class')?.title).toMatch(
+      /Klasse/
+    );
   });
 
   it('falls back to English guide cards when a locale has no guide entry', () => {
-    expect(getGuideCards('it' as never).map((card) => card.href)).toEqual([
-      '/guides/farever-best-class'
-    ]);
+    const fallbackCards = getGuideCards('it' as never);
+
+    expect(fallbackCards).toHaveLength(14);
+    expect(fallbackCards[0]?.href).toBe('/guides/farever-best-class/');
   });
 });
