@@ -8,6 +8,7 @@ Use Node.js 20.9 or newer.
 
 ```bash
 npm install
+npx playwright install chromium
 npm run dev
 npm test
 npm run lint
@@ -40,4 +41,31 @@ English MDX in `src/content/en/` is the canonical source. The matching `de`, `es
 
 ## Visual verification
 
-`npm run test:e2e` exercises the desktop and mobile route matrix. The measured reference notes and screenshot matrix are recorded in `e2e/reference-checklist.md`; the audit writes ignored screenshots and raw measurements to `test-results/visual-audit/`.
+`npm run test:e2e` exercises the desktop and mobile route matrix. For a measured
+side-by-side audit, leave the local development server running in one terminal:
+
+```bash
+npm run dev
+```
+
+Then run this in a second terminal:
+
+```bash
+npm run audit:visual
+```
+
+The audit requires Chromium (installed by the Playwright command above), the
+local app at `http://127.0.0.1:3000`, and network access to the public reference
+at `https://farevergame.wiki`. It captures `/`, `/guides/`, and `/classes/` at
+1440×1000 and at the Playwright iPhone 13 390×844 profile. It waits for fonts and
+images, scrolls through lazy content, and writes the 12 ignored screenshots plus
+raw measurements to `test-results/visual-audit/`.
+
+The audit method, screenshot matrix, and findings are documented in
+`e2e/reference-checklist.md`. The reviewed raw measurement baseline is committed
+at `e2e/reference-baseline/measurements.json`. Maintainers can deliberately
+replace that baseline after reviewing a new capture with:
+
+```bash
+npm run audit:visual -- --write-baseline
+```

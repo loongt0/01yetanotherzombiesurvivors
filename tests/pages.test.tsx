@@ -201,6 +201,34 @@ describe('guide directory', () => {
     expect(container.querySelector('.guide-directory-card__action')).toBeNull();
   });
 
+  it('renders apostrophes from guide frontmatter as characters, not entity text', async () => {
+    const {container} = render(
+      await GuidesPage({params: Promise.resolve({locale: 'en'})})
+    );
+    const view = within(container);
+    const roadmapCard = view
+      .getByRole('heading', {
+        level: 3,
+        name: "Farever 2026 Roadmap — What's Coming This Year"
+      })
+      .closest('.guide-directory-card');
+    const valleyCard = view
+      .getByRole('heading', {
+        level: 3,
+        name: 'Valley of the Eternal Autumn — Complete Region Guide'
+      })
+      .closest('.guide-directory-card');
+
+    expect(roadmapCard).toHaveTextContent(
+      "Farever 2026 Roadmap — What's Coming This Year"
+    );
+    expect(valleyCard).toHaveTextContent("Farever's second EA region");
+    for (const card of [roadmapCard, valleyCard]) {
+      expect(card).not.toHaveTextContent('&apos;');
+      expect(card).not.toHaveTextContent('&amp;apos;');
+    }
+  });
+
   it.each([
     ['de', 'Alle Farever-Guides', /Beste Farever-Klasse/i, '/de/guides/farever-best-class/'],
     ['es', 'Todas las guías de Farever', /Mejor clase de Farever/i, '/es/guides/farever-best-class/'],

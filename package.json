@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "audit:visual": "node scripts/visual-audit.mjs"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",

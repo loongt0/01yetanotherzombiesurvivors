@@ -1,4 +1,4 @@
-import {expect, test} from '@playwright/test';
+import {expect, test, type Page} from '@playwright/test';
 
 const paths = ['/', '/guides/', '/classes/'] as const;
 const prefixes = ['', '/de', '/es', '/fr'] as const;
@@ -13,6 +13,12 @@ const localeRoutes = [
 
 function absoluteRouteUrl(prefix: string, path: (typeof paths)[number]) {
   return prefix === '' && path === '/' ? siteUrl : `${siteUrl}${prefix}${path}`;
+}
+
+async function waitForFonts(page: Page) {
+  await page.evaluate(async () => {
+    await document.fonts.ready;
+  });
 }
 
 for (const prefix of prefixes) {
@@ -102,6 +108,7 @@ test('keeps two measured navigation tiers on desktop and compact wrapped navigat
   page
 }) => {
   await page.goto('/');
+  await waitForFonts(page);
 
   const primaryRow = page.locator('.site-header__primary');
   const primaryNavigation = page.locator('.primary-navigation');
@@ -144,6 +151,7 @@ test('keeps two measured navigation tiers on desktop and compact wrapped navigat
 
 test('matches the measured Guides hero and card density', async ({isMobile, page}) => {
   await page.goto('/guides/');
+  await waitForFonts(page);
 
   const hero = page.locator('.page-hero');
   const grid = page.locator('.guide-grid');
@@ -168,6 +176,7 @@ test('contains the Classes article and tables at the measured target width', asy
   page
 }) => {
   await page.goto('/classes/');
+  await waitForFonts(page);
 
   const viewportWidth = page.viewportSize()?.width;
   expect(viewportWidth).toBeDefined();
@@ -220,8 +229,8 @@ for (const path of paths) {
   test(`captures a full-page local ${screenshotName} screenshot`, async ({page}, testInfo) => {
     await page.emulateMedia({reducedMotion: 'reduce'});
     await page.goto(path);
+    await waitForFonts(page);
     await page.evaluate(async () => {
-      await document.fonts.ready;
       await Promise.all(
         Array.from(document.images, (image) =>
           image.complete

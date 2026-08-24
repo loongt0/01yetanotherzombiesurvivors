@@ -7,7 +7,12 @@ profile with a 390×844 CSS-pixel viewport (DPR 3, so PNGs are 1170 pixels wide)
 Reduced motion was enabled, the document was scrolled to trigger lazy images,
 fonts/images were allowed to settle, and every capture is a full-page screenshot.
 
-Raw measurements: `test-results/visual-audit/measurements.json` (ignored output).
+The reviewed raw measurements are committed at
+`e2e/reference-baseline/measurements.json`. Running `npm run audit:visual` while
+the local server is available regenerates the ignored working artifacts at
+`test-results/visual-audit/measurements.json` and the screenshot paths below.
+The command requires network access to the public reference; pass
+`-- --write-baseline` only when intentionally replacing the committed baseline.
 
 ## Side-by-side capture matrix
 
@@ -72,8 +77,13 @@ Raw measurements: `test-results/visual-audit/measurements.json` (ignored output)
   cards, FAQ cards, and final CTA. The hero is now exact at 1189.64px desktop and
   1285.69px mobile; its `SCROLL` line and aurora stacking use the measured values.
 - [x] Guides — Task 8 removed `READ →`, set 25.5px card padding and measured type,
-  and retained the exact 14-card order. The grid is now 1573px desktop and
-  3754.81px mobile (from 2183.11px / 4630.63px before the pass).
+  and retained the exact 14-card order. Both grids are 1573px desktop. The
+  reference mobile grid is 3754.81px; local is 3700.89px after replacing two
+  incorrectly rendered literal `&apos;` strings with real apostrophes. The exact
+  53.92px reduction is reference/local card 9 at 277.69px/253.52px and card 10
+  at 253.52px/223.77px: each corrected card wraps one line less. All other 12
+  card heights match, so this is not a spacing or column mismatch (the pre-pass
+  grids were 2183.11px / 4630.63px).
 - [x] Classes — Task 8 matched the 17.85px/31.2375px prose, 31.45px section
   headings, 22.1px subheads, table-cell padding/type, FAQ card density, and mobile
   wrapping. The full article measures 4591.59px versus 4598.78px desktop and
