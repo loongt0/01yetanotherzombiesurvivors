@@ -10,6 +10,7 @@ const withMDX = createMDX({
 
 export default withNextIntl(
   withMDX({
+    allowedDevOrigins: ['127.0.0.1'],
     pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
     skipProxyUrlNormalize: true,
     async redirects() {
