@@ -94,7 +94,7 @@ const classesByLocale: Record<Locale, ArticleRecord> = {
   fr: createArticle(frClassesFrontmatter, frClasses)
 };
 
-const guideCardsByLocale: Partial<Record<Locale, GuideCardRecord[]>> = {
+const guideCardsByLocale: Record<Locale, GuideCardRecord[]> = {
   en: [
     createGuideCard(enBestClassFrontmatter, enBestClass),
     createGuideCard(enLevelingGuideFrontmatter, enLevelingGuide),

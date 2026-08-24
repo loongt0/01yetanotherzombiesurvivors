@@ -24,28 +24,28 @@ const SITE_URL = 'https://farevergame.wiki';
 const copyByLocale: Record<Locale, DirectoryCopy> = {
   en: {
     eyebrow: 'Guides',
-    title: 'Farever Guides',
+    title: 'All Farever Guides',
     description: 'Deep-dive long-form guides on every aspect of Farever.',
     readLabel: 'Read',
     metadataTitle: 'Farever Guides Hub — All Long-Form Guides'
   },
   de: {
     eyebrow: 'Guides',
-    title: 'Farever-Guides',
+    title: 'Alle Farever-Guides',
     description: 'Ausführliche Guides zu allen Bereichen von Farever.',
     readLabel: 'Lesen',
     metadataTitle: 'Farever-Guides — Alle ausführlichen Guides'
   },
   es: {
     eyebrow: 'Guías',
-    title: 'Guías de Farever',
+    title: 'Todas las guías de Farever',
     description: 'Guías detalladas sobre todos los aspectos de Farever.',
     readLabel: 'Leer',
     metadataTitle: 'Guías de Farever — Todas las guías detalladas'
   },
   fr: {
     eyebrow: 'Guides',
-    title: 'Guides Farever',
+    title: 'Tous les guides Farever',
     description: 'Des guides détaillés sur tous les aspects de Farever.',
     readLabel: 'Lire',
     metadataTitle: 'Guides Farever — Tous les guides détaillés'

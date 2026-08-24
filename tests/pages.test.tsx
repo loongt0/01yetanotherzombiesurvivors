@@ -187,7 +187,7 @@ describe('guide directory', () => {
     );
 
     expect(
-      screen.getByRole('heading', {level: 1, name: 'Farever Guides'})
+      screen.getByRole('heading', {level: 1, name: 'All Farever Guides'})
     ).toBeInTheDocument();
     expect(
       screen.getByRole('link', {name: /Farever Best Class/i})
@@ -195,16 +195,24 @@ describe('guide directory', () => {
     expect(container.querySelector('[data-guide-grid]')).toHaveClass('guide-grid');
   });
 
-  it('localizes directory copy and guide links', async () => {
-    render(await GuidesPage({params: Promise.resolve({locale: 'de'})}));
+  it.each([
+    ['de', 'Alle Farever-Guides', /Beste Farever-Klasse/i, '/de/guides/farever-best-class/'],
+    ['es', 'Todas las guías de Farever', /Mejor clase de Farever/i, '/es/guides/farever-best-class/'],
+    ['fr', 'Tous les guides Farever', /Meilleure classe de Farever/i, '/fr/guides/farever-best-class/']
+  ] as const)(
+    'localizes the %s directory copy and guide links',
+    async (locale, title, guideName, guideHref) => {
+      render(await GuidesPage({params: Promise.resolve({locale})}));
 
-    expect(
-      screen.getByRole('heading', {level: 1, name: 'Farever-Guides'})
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole('link', {name: /Beste Farever-Klasse/i})
-    ).toHaveAttribute('href', '/de/guides/farever-best-class/');
-  });
+      expect(
+        screen.getByRole('heading', {level: 1, name: title})
+      ).toBeInTheDocument();
+      expect(screen.getByRole('link', {name: guideName})).toHaveAttribute(
+        'href',
+        guideHref
+      );
+    }
+  );
 
   it('publishes localized metadata and language alternates', async () => {
     const pageModule = await import('@/app/[locale]/guides/page');
