@@ -42,6 +42,9 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     li: ({className, ...props}: ComponentPropsWithoutRef<'li'>) => (
       <li className={classNames('article-list-item', className)} {...props} />
     ),
+    strong: ({className, ...props}: ComponentPropsWithoutRef<'strong'>) => (
+      <strong className={classNames('article-strong', className)} {...props} />
+    ),
     a: ({className, ...props}: ComponentPropsWithoutRef<'a'>) => (
       <a className={classNames('article-link', className)} {...props} />
     ),
@@ -55,6 +58,12 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       <code className={classNames('article-code', className)} {...props} />
     ),
     table: Table,
+    thead: ({className, ...props}: ComponentPropsWithoutRef<'thead'>) => (
+      <thead className={classNames('article-table-head', className)} {...props} />
+    ),
+    tr: ({className, ...props}: ComponentPropsWithoutRef<'tr'>) => (
+      <tr className={classNames('article-table-row', className)} {...props} />
+    ),
     th: ({className, ...props}: ComponentPropsWithoutRef<'th'>) => (
       <th className={classNames('article-table-heading', className)} {...props} />
     ),

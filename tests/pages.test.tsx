@@ -1,7 +1,8 @@
-import {render, screen} from '@testing-library/react';
+import {render, screen, within} from '@testing-library/react';
 import {describe, expect, it} from 'vitest';
 
 import HomePage from '@/app/[locale]/page';
+import ClassesPage from '@/app/[locale]/classes/page';
 import GuidesPage from '@/app/[locale]/guides/page';
 
 describe('homepage', () => {
@@ -230,5 +231,113 @@ describe('guide directory', () => {
         fr: 'https://farevergame.wiki/fr/guides/'
       }
     });
+  });
+});
+
+describe('classes article', () => {
+  it('renders Classes & Jobs as the required article detail page', async () => {
+    const {container, unmount} = render(
+      await ClassesPage({params: Promise.resolve({locale: 'en'})})
+    );
+    const view = within(container);
+    const article = view.getByRole('article');
+
+    expect(
+      view.getByRole('heading', {level: 1, name: 'Farever Classes & Jobs'})
+    ).toBeInTheDocument();
+    expect(
+      within(article).getByRole('heading', {level: 2, name: 'The 4 classes'})
+    ).toBeInTheDocument();
+    expect(
+      within(article).getByRole('columnheader', {name: 'Class'})
+    ).toBeInTheDocument();
+    expect(
+      within(article).getByRole('heading', {level: 2, name: /FAQ/})
+    ).toBeInTheDocument();
+    expect(article).toHaveClass('prose-game');
+
+    unmount();
+  });
+
+  it.each([
+    ['de', 'Farever-Klassen & Berufe', 'Die 4 Klassen'],
+    ['es', 'Clases y profesiones de Farever', 'Las 4 clases'],
+    ['fr', 'Classes et métiers de Farever', 'Les 4 classes']
+  ] as const)(
+    'renders the complete localized %s article',
+    async (locale, title, firstSection) => {
+      const {container, unmount} = render(
+        await ClassesPage({params: Promise.resolve({locale})})
+      );
+      const view = within(container);
+      const article = view.getByRole('article');
+
+      expect(view.getByRole('heading', {level: 1, name: title})).toBeInTheDocument();
+      expect(
+        within(article).getByRole('heading', {level: 2, name: firstSection})
+      ).toBeInTheDocument();
+      expect(within(article).getAllByRole('row')).toHaveLength(12);
+
+      unmount();
+    }
+  );
+
+  it('publishes localized article metadata and language alternates', async () => {
+    const pageModule = await import('@/app/[locale]/classes/page');
+    const metadata = await pageModule.generateMetadata({
+      params: Promise.resolve({locale: 'fr'})
+    });
+
+    expect(metadata.title).toBe(
+      'Classes et métiers de Farever — Les 4 classes et 6 métiers expliqués'
+    );
+    expect(metadata.alternates).toEqual({
+      canonical: 'https://farevergame.wiki/fr/classes/',
+      languages: {
+        en: 'https://farevergame.wiki/classes/',
+        de: 'https://farevergame.wiki/de/classes/',
+        es: 'https://farevergame.wiki/es/classes/',
+        fr: 'https://farevergame.wiki/fr/classes/'
+      }
+    });
+    expect(metadata.openGraph).toMatchObject({
+      type: 'article',
+      url: 'https://farevergame.wiki/fr/classes/',
+      publishedTime: '2026-05-07',
+      modifiedTime: '2026-05-18'
+    });
+  });
+
+  it('embeds a localized Article JSON-LD payload from frontmatter', async () => {
+    const {container, unmount} = render(
+      await ClassesPage({params: Promise.resolve({locale: 'de'})})
+    );
+    const payload = JSON.parse(
+      container.querySelector('script[type="application/ld+json"]')?.textContent ?? '{}'
+    );
+
+    expect(payload).toMatchObject({
+      '@type': 'Article',
+      headline: 'Farever-Klassen & Berufe',
+      url: 'https://farevergame.wiki/de/classes/',
+      datePublished: '2026-05-07',
+      dateModified: '2026-05-18',
+      inLanguage: 'de'
+    });
+
+    unmount();
+  });
+
+  it('rejects invalid locales before reading article content or metadata', async () => {
+    const pageModule = await import('@/app/[locale]/classes/page');
+
+    await expect(
+      ClassesPage({params: Promise.resolve({locale: 'favicon.ico'})})
+    ).rejects.toThrow('NEXT_HTTP_ERROR_FALLBACK;404');
+    await expect(
+      pageModule.generateMetadata({
+        params: Promise.resolve({locale: 'favicon.ico'})
+      })
+    ).rejects.toThrow('NEXT_HTTP_ERROR_FALLBACK;404');
   });
 });
