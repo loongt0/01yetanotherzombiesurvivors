@@ -534,9 +534,20 @@ img {
 }
 
 .classes-page .prose-game {
+  --classes-prose-gutter: 1.5rem;
+
   color: rgb(245 241 255 / 82%);
   font-size: 17px;
   line-height: 1.75;
+}
+
+.classes-article > .page-hero {
+  margin-inline: calc(var(--classes-prose-gutter) * -1);
+  padding-inline: var(--classes-prose-gutter);
+}
+
+.classes-article > .page-hero + .article-heading-2 {
+  margin-top: 0;
 }
 
 .prose-game .article-heading-2 {
@@ -1454,6 +1465,10 @@ img {
 
   .prose-game {
     padding: 0 2.5rem 5rem;
+  }
+
+  .classes-page .prose-game {
+    --classes-prose-gutter: 2.5rem;
   }
 
   .site-footer__grid {

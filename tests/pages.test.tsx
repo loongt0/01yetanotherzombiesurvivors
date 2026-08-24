@@ -243,7 +243,10 @@ describe('classes article', () => {
     const article = view.getByRole('article');
 
     expect(
-      view.getByRole('heading', {level: 1, name: 'Farever Classes & Jobs'})
+      within(article).getByRole('heading', {
+        level: 1,
+        name: 'Farever Classes & Jobs'
+      })
     ).toBeInTheDocument();
     expect(
       within(article).getByRole('heading', {level: 2, name: 'The 4 classes'})
@@ -255,6 +258,87 @@ describe('classes article', () => {
       within(article).getByRole('heading', {level: 2, name: /FAQ/})
     ).toBeInTheDocument();
     expect(article).toHaveClass('prose-game');
+
+    unmount();
+  });
+
+  it('preserves the exact English section hierarchy and Related links', async () => {
+    const {container, unmount} = render(
+      await ClassesPage({params: Promise.resolve({locale: 'en'})})
+    );
+    const article = within(container).getByRole('article');
+    const articleView = within(article);
+
+    expect(
+      articleView
+        .getAllByRole('heading', {level: 2})
+        .map((heading) => heading.textContent)
+    ).toEqual([
+      'The 4 classes',
+      'The 6 jobs',
+      'Best class combos for co-op',
+      'Should you respec?',
+      'Class deep-dives',
+      'FAQ — Farever classes',
+      'Related'
+    ]);
+    expect(
+      articleView
+        .getAllByRole('heading', {level: 3})
+        .map((heading) => heading.textContent)
+    ).toEqual([
+      'Warrior — best for new players',
+      'Ranger — best for solo players',
+      'Mage — highest damage ceiling',
+      'Mystic — flex support',
+      'How many classes are in Farever?',
+      'Best Farever class for beginners?',
+      'Best Farever class for solo play?',
+      'Best Farever class for co-op / groups?',
+      'Can I switch classes in Farever?',
+      'How does the talent tree work?'
+    ]);
+
+    for (const [name, href] of [
+      ['Farever class tier list', '/tier-list/'],
+      ['Meta builds for every class', '/builds/'],
+      ['Jobs & crafting professions', '/jobs/'],
+      ['All weapons', '/weapons/'],
+      ['Leveling guide', '/leveling-guide/']
+    ] as const) {
+      expect(articleView.getByRole('link', {name})).toHaveAttribute('href', href);
+    }
+
+    unmount();
+  });
+
+  it('matches the target emphasis in English introductions and tables', async () => {
+    const {container, unmount} = render(
+      await ClassesPage({params: Promise.resolve({locale: 'en'})})
+    );
+    const articleView = within(within(container).getByRole('article'));
+
+    expect(
+      articleView.getByText('baseline stats, armour type and identity').tagName
+    ).toBe('STRONG');
+    expect(
+      articleView.getByText('crafting and gathering professions').tagName
+    ).toBe('STRONG');
+    expect(articleView.getAllByRole('strong')).toHaveLength(15);
+
+    const tables = articleView.getAllByRole('table');
+    for (const [table, labels] of [
+      [tables[0], ['Warrior', 'Ranger', 'Mage', 'Mystic']],
+      [
+        tables[1],
+        ['Blacksmith', 'Alchemist', 'Hunter', 'Miner', 'Scholar', 'Cook']
+      ]
+    ] as const) {
+      for (const label of labels) {
+        const cell = within(table).getByRole('cell', {name: label});
+        expect(within(cell).getByText(label).tagName).toBe('STRONG');
+      }
+    }
 
     unmount();
   });
@@ -271,12 +355,59 @@ describe('classes article', () => {
       );
       const view = within(container);
       const article = view.getByRole('article');
+      const articleView = within(article);
 
       expect(view.getByRole('heading', {level: 1, name: title})).toBeInTheDocument();
       expect(
-        within(article).getByRole('heading', {level: 2, name: firstSection})
+        articleView.getByRole('heading', {level: 2, name: firstSection})
       ).toBeInTheDocument();
-      expect(within(article).getAllByRole('row')).toHaveLength(12);
+      expect(articleView.getAllByRole('row')).toHaveLength(12);
+
+      unmount();
+    }
+  );
+
+  it.each([
+    [
+      'de',
+      'Grundwerte, deinen Rüstungstyp und deine Identität',
+      'Berufe zum Herstellen und Sammeln'
+    ],
+    [
+      'es',
+      'tus atributos básicos, el tipo de armadura y tu identidad',
+      'Las profesiones de fabricación y recolección'
+    ],
+    [
+      'fr',
+      "vos caractéristiques de base, votre type d'armure et votre identité",
+      "Les métiers d'artisanat et de récolte"
+    ]
+  ] as const)(
+    'matches the target emphasis in the localized %s article',
+    async (locale, classesEmphasis, jobsEmphasis) => {
+      const {container, unmount} = render(
+        await ClassesPage({params: Promise.resolve({locale})})
+      );
+      const articleView = within(within(container).getByRole('article'));
+
+      expect(articleView.getByText(classesEmphasis).tagName).toBe('STRONG');
+      expect(articleView.getByText(jobsEmphasis).tagName).toBe('STRONG');
+      expect(articleView.getAllByRole('strong')).toHaveLength(15);
+
+      const tables = articleView.getAllByRole('table');
+      for (const [table, labels] of [
+        [tables[0], ['Warrior', 'Ranger', 'Mage', 'Mystic']],
+        [
+          tables[1],
+          ['Blacksmith', 'Alchemist', 'Hunter', 'Miner', 'Scholar', 'Cook']
+        ]
+      ] as const) {
+        for (const label of labels) {
+          const cell = within(table).getByRole('cell', {name: label});
+          expect(within(cell).getByText(label).tagName).toBe('STRONG');
+        }
+      }
 
       unmount();
     }

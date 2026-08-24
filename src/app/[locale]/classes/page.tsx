@@ -102,12 +102,12 @@ export default async function ClassesPage({params}: ClassesPageProps) {
         }}
       />
       <main className="classes-page">
-        <PageHero
-          eyebrow={frontmatter.eyebrow}
-          title={frontmatter.title}
-          description={frontmatter.description}
-        />
-        <article className="prose-game">
+        <article className="classes-article prose-game">
+          <PageHero
+            eyebrow={frontmatter.eyebrow}
+            title={frontmatter.title}
+            description={frontmatter.description}
+          />
           <Content />
         </article>
       </main>
