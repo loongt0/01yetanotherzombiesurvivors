@@ -1,6 +1,8 @@
-# Farever Wiki replica
+# Yet Another Zombie Survivors Wiki
 
-A local Next.js replica of the Farever Wiki reference, with canonical English pages and translated German, Spanish, and French routes.
+A research-backed Next.js wiki for **Yet Another Zombie Survivors**, with MDX
+articles, localized routes, verified official links, and a desktop/mobile visual
+audit.
 
 ## Requirements and commands
 
@@ -17,62 +19,56 @@ npm run build
 npm run test:e2e
 ```
 
-The development server defaults to `http://localhost:3000`.
+The development server runs at `http://localhost:3000`. The production website,
+canonical URLs, localized alternates, and structured data use
+`https://yetanotherzombiesurvivors.world` by default. Override
+`NEXT_PUBLIC_SITE_URL` only when deploying to another explicitly configured origin.
 
 ## Routes and locales
 
-The three canonical English URLs are:
+The primary English URLs are:
 
-- `http://localhost:3000/`
-- `http://localhost:3000/guides/`
-- `http://localhost:3000/classes/`
+- `https://yetanotherzombiesurvivors.world/`
+- `https://yetanotherzombiesurvivors.world/guides/`
+- `https://yetanotherzombiesurvivors.world/guides/best-team/`
+- `https://yetanotherzombiesurvivors.world/characters/`
+- `https://yetanotherzombiesurvivors.world/privacy/`
+- `https://yetanotherzombiesurvivors.world/terms/`
 
-English is canonical and therefore has no locale prefix. Translations use the `/de`, `/es`, and `/fr` prefixes; for example, `/de/guides/`, `/es/guides/`, and `/fr/guides/`.
+English is the canonical unprefixed locale. Russian, Spanish, and German use the
+`/ru`, `/es`, and `/de` prefixes. The legacy `/classes/` path permanently redirects
+to `/characters/`.
 
-## Content
+## Content and fact checking
 
-MDX source content lives under `src/content/<locale>/`:
+English guide articles live in `src/content/en/guides/*.mdx`. Localized survivor
+articles live in `src/content/<locale>/characters.mdx`, while
+`src/content/registry.ts` owns article registration and English fallback.
 
-- Class articles: `src/content/<locale>/classes.mdx`
-- Guide articles: `src/content/<locale>/guides/*.mdx`
-- Content registration and guide ordering: `src/content/registry.ts`
-
-English MDX in `src/content/en/` is the canonical source. The matching `de`, `es`, and `fr` trees contain translated content.
-
-## Repository guidance
-
-`AGENTS.md` is intentionally committed because Next.js 16 generates and
-re-adds its version-specific agent rules during development. `CLAUDE.md`
-includes those same rules. They are repository guidance rather than runtime
-application files, and keeping both avoids a dirty tree after `next dev`.
+Homepage copy, navigation, SEO keywords, and verified official URLs are defined
+in `src/lib/home-data.ts` and `src/lib/site-data.ts`. Only researched facts belong
+in published content: version-specific uncertainties must be labeled
+`unconfirmed`, and features without researched sources must not be published.
 
 ## Visual verification
 
-`npm run test:e2e` exercises the desktop and mobile route matrix. For a measured
-side-by-side audit, leave the local development server running in one terminal:
+Start the local development server in one terminal and run the audit in another:
 
 ```bash
 npm run dev
-```
-
-Then run this in a second terminal:
-
-```bash
 npm run audit:visual
 ```
 
-The audit requires Chromium (installed by the Playwright command above), the
-local app at `http://127.0.0.1:3000`, and network access to the public reference
-at `https://farevergame.wiki`. It captures `/`, `/guides/`, and `/classes/` at
-1440×1000 and at the Playwright iPhone 13 390×844 profile. It waits for fonts and
-images, scrolls through lazy content, and writes the 12 ignored screenshots plus
-raw measurements to `test-results/visual-audit/`.
+The audit measures `/`, `/guides/`, and `/characters/` at desktop 1440×1000 and
+mobile 390×844 viewports. It writes six screenshots and measurements to the
+ignored `test-results/visual-audit/` directory. An optional
+`VISUAL_REFERENCE_URL` enables a separately configured comparison source.
 
-The audit method, screenshot matrix, and findings are documented in
-`e2e/reference-checklist.md`. The reviewed raw measurement baseline is committed
-at `e2e/reference-baseline/measurements.json`. Maintainers can deliberately
-replace that baseline after reviewing a new capture with:
+Refresh the reviewed baseline only after checking the new captures:
 
 ```bash
 npm run audit:visual -- --write-baseline
 ```
+
+The audit checklist is `e2e/reference-checklist.md`, and its portable measurement
+baseline is `e2e/reference-baseline/measurements.json`.

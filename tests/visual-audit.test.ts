@@ -16,14 +16,14 @@ describe('visual audit handoff', () => {
     expect(packageJson.scripts['audit:visual']).toBe(
       'node scripts/visual-audit.mjs'
     );
-    expect(auditSource).toContain('https://farevergame.wiki');
+    expect(auditSource).toContain('VISUAL_REFERENCE_URL');
     expect(auditSource).toContain('http://127.0.0.1:3000');
     expect(auditSource).toContain("{width: 1440, height: 1000}");
     expect(auditSource).toContain("viewport: {width: 390, height: 844}");
     expect(auditSource).toContain('await document.fonts.ready');
   });
 
-  it('commits a portable 12-case measurement baseline', () => {
+  it('commits a portable six-case researched-game measurement baseline', () => {
     const baseline = JSON.parse(
       readProjectFile('e2e/reference-baseline/measurements.json')
     ) as Array<{
@@ -38,27 +38,21 @@ describe('visual audit handoff', () => {
       footer: unknown;
     }>;
 
-    expect(baseline).toHaveLength(12);
+    expect(baseline).toHaveLength(6);
     expect(
       baseline.map(({source, viewport, route}) => `${source}:${viewport}:${route}`)
     ).toEqual([
-      'reference:desktop:/',
-      'reference:desktop:/guides/',
-      'reference:desktop:/classes/',
       'local:desktop:/',
       'local:desktop:/guides/',
-      'local:desktop:/classes/',
-      'reference:mobile:/',
-      'reference:mobile:/guides/',
-      'reference:mobile:/classes/',
+      'local:desktop:/characters/',
       'local:mobile:/',
       'local:mobile:/guides/',
-      'local:mobile:/classes/'
+      'local:mobile:/characters/'
     ]);
 
     for (const measurement of baseline) {
       expect(measurement.screenshotPath).toMatch(
-        /^test-results\/visual-audit\/(reference|local)\/(desktop|mobile)\/(home|guides|classes)\.png$/
+        /^test-results\/visual-audit\/local\/(desktop|mobile)\/(home|guides|characters)\.png$/
       );
       expect(measurement.screenshotPath.startsWith('/')).toBe(false);
       expect(measurement.documentHeight).toBeGreaterThan(0);

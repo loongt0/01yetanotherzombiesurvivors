@@ -2,6 +2,7 @@ import {GameImage} from '@/components/game-image';
 import {localizeHref, type Locale} from '@/i18n/routing';
 import {
   getSiteMessages,
+  GAME_NAME,
   primaryNavigation,
   STEAM_URL,
   utilityNavigation
@@ -21,7 +22,7 @@ export function SiteHeader({locale}: {locale: Locale}) {
           <span className="site-brand__image">
             <GameImage
               src="/icon.png"
-              alt="Farever"
+              alt={GAME_NAME}
               width={42}
               height={42}
               intrinsicWidth={154}
@@ -31,7 +32,7 @@ export function SiteHeader({locale}: {locale: Locale}) {
             />
           </span>
           <span className="site-brand__copy">
-            <span className="site-brand__name">Farever</span>
+            <span className="site-brand__name">{GAME_NAME}</span>
             <span className="site-brand__subtitle">{messages.subtitle}</span>
           </span>
         </a>

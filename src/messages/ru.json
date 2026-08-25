@@ -1,0 +1,76 @@
+{
+  "Home": {
+    "title": "Yet Another Zombie Survivors Wiki — Гайды и сборки",
+    "description": "Гайды по Yet Another Zombie Survivors: персонажи, лучшие команды, синергии, предметы, оружие, достижения и разблокировки.",
+    "openGraphTitle": "Yet Another Zombie Survivors Wiki — Гайды и сборки",
+    "openGraphDescription": "Изучайте персонажей, лучшие команды, синергии, оружие и предметы версии 1.0."
+  },
+  "Header": {
+    "subtitle": "Фанатская база знаний выживших",
+    "steam": "Играть в Steam",
+    "primaryLabel": "Основная навигация",
+    "utilityLabel": "Навигация по гайдам",
+    "navigation": {
+      "characters": "Персонажи",
+      "items": "Предметы",
+      "weapons": "Оружие",
+      "builds": "Сборки",
+      "tools": "Инструменты",
+      "guides": "Гайды",
+      "tierList": "Тир-лист",
+      "bestTeam": "Лучшая команда",
+      "synergies": "Синергии",
+      "achievements": "Достижения",
+      "ghost": "Гост",
+      "huntress": "Охотница",
+      "saveProblem": "Проблемы сохранений",
+      "mods": "Моды"
+    }
+  },
+  "Footer": {
+    "about": "Yet Another Zombie Survivors Wiki — независимая фанатская база знаний о выживших, навыках, оружии, предметах, синергиях и сборках. Сайт не связан с Awesome Games Studio.",
+    "groups": {
+      "guides": "Гайды",
+      "survivors": "Выжившие",
+      "buildsTools": "Сборки и инструменты",
+      "moreGuides": "Другие гайды"
+    },
+    "links": {
+      "beginnerGuide": "Гайд для новичков",
+      "tierList": "Тир-лист",
+      "bestTeam": "Лучшая команда",
+      "synergies": "Синергии",
+      "achievements": "Достижения",
+      "characters": "Все выжившие",
+      "ghost": "Гост",
+      "huntress": "Охотница",
+      "items": "Предметы",
+      "weapons": "Улучшения оружия",
+      "generalBuild": "Общие очки 1.0",
+      "weaponStats": "Скорость атаки и перезарядка",
+      "saveProblem": "Проблемы сохранений",
+      "trainer": "Трейнер",
+      "cheatEngine": "Cheat Engine",
+      "mods": "Моды",
+      "sanji": "Кролик Санджи",
+      "weaponUpgrades": "Улучшения оружия",
+      "rocketMinigun": "Ракетница и миниган",
+      "allGuides": "Все гайды →",
+      "privacy": "Конфиденциальность",
+      "terms": "Условия использования"
+    },
+    "languagesLabel": "English · Русский · Español · Deutsch",
+    "copyright": "© 2026 Yet Another Zombie Survivors Wiki · Независимый фан-сайт, не связанный с Awesome Games Studio.",
+    "steam": "Играть в Steam →",
+    "officialWebsite": "Официальный сайт",
+    "officialDiscord": "Официальный Discord",
+    "officialYoutube": "Официальный YouTube"
+  },
+  "NotFound": {
+    "eyebrow": "404",
+    "title": "Затерялись среди орды",
+    "description": "Эта страница пока недоступна. Вернитесь на главную или откройте гайд для новичков.",
+    "home": "На главную",
+    "beginnerGuide": "Гайд для новичков"
+  }
+}

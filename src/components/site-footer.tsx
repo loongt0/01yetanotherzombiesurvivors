@@ -2,9 +2,13 @@ import {GameImage} from '@/components/game-image';
 import {LanguageSwitcher} from '@/components/language-switcher';
 import {localizeHref, type Locale} from '@/i18n/routing';
 import {
+  DISCORD_URL,
   footerGroups,
+  GAME_NAME,
   getSiteMessages,
-  STEAM_URL
+  OFFICIAL_WEBSITE_URL,
+  STEAM_URL,
+  YOUTUBE_URL
 } from '@/lib/site-data';
 
 export function SiteFooter({locale}: {locale: Locale}) {
@@ -20,7 +24,7 @@ export function SiteFooter({locale}: {locale: Locale}) {
             <div className="site-footer__brand">
               <GameImage
                 src="/icon.png"
-                alt="Farever"
+                alt={GAME_NAME}
                 width={36}
                 height={36}
                 intrinsicWidth={154}
@@ -29,7 +33,7 @@ export function SiteFooter({locale}: {locale: Locale}) {
                 className="site-footer__icon"
               />
               <div>
-                <div className="site-footer__name">Farever</div>
+                <div className="site-footer__name">{GAME_NAME}</div>
                 <div className="site-footer__tagline">Wiki · 2026</div>
               </div>
             </div>
@@ -43,9 +47,7 @@ export function SiteFooter({locale}: {locale: Locale}) {
                 {group.links.map((item) => (
                   <li key={`${group.key}-${item.href}`}>
                     <a href={localizeHref(locale, item.href)}>
-                      {locale === 'en' && item.href === '/skover-island/'
-                        ? 'Skover Island'
-                        : messages.links[item.key]}
+                      {messages.links[item.key]}
                     </a>
                   </li>
                 ))}
@@ -65,6 +67,15 @@ export function SiteFooter({locale}: {locale: Locale}) {
 
         <div className="site-footer__legal">
           <span>{messages.copyright}</span>
+          <a href={OFFICIAL_WEBSITE_URL} target="_blank" rel="noopener noreferrer">
+            {messages.officialWebsite}
+          </a>
+          <a href={DISCORD_URL} target="_blank" rel="noopener noreferrer">
+            {messages.officialDiscord}
+          </a>
+          <a href={YOUTUBE_URL} target="_blank" rel="noopener noreferrer">
+            {messages.officialYoutube}
+          </a>
           <a href={STEAM_URL} target="_blank" rel="noopener noreferrer">
             {messages.steam}
           </a>

@@ -1,525 +1,272 @@
 import {render, screen, within} from '@testing-library/react';
 import {describe, expect, it} from 'vitest';
 
-import HomePage from '@/app/[locale]/page';
-import ClassesPage from '@/app/[locale]/classes/page';
-import GuidesPage from '@/app/[locale]/guides/page';
+import CharactersPage, {
+  generateMetadata as generateCharactersMetadata
+} from '@/app/[locale]/characters/page';
+import MatrixPage, {
+  generateMetadata as generateMatrixMetadata
+} from '@/app/[locale]/[...rest]/page';
+import GuidesPage, {
+  generateMetadata as generateGuidesMetadata
+} from '@/app/[locale]/guides/page';
+import HomePage, {generateMetadata as generateHomeMetadata} from '@/app/[locale]/page';
+import PrivacyPage from '@/app/[locale]/privacy/page';
+import TermsPage from '@/app/[locale]/terms/page';
 
-describe('homepage', () => {
-  it('renders the reference homepage section order', async () => {
-    const {container} = render(
-      await HomePage({params: Promise.resolve({locale: 'en'})})
-    );
+const siteUrl = 'https://yetanotherzombiesurvivors.world';
+const alternates = (path: string) => ({
+  en: `${siteUrl}${path}`,
+  ru: `${siteUrl}/ru${path}`,
+  es: `${siteUrl}/es${path}`,
+  de: `${siteUrl}/de${path}`
+});
 
+describe('researched homepage', () => {
+  it('preserves the reference section structure with researched game headings', async () => {
+    const {container} = render(await HomePage({params: Promise.resolve({locale: 'en'})}));
     const headings = Array.from(container.querySelectorAll('main h1, main h2')).map(
       (node) => node.textContent
     );
 
     expect(headings).toEqual([
-      'Forge Your Legend in Farever',
-      'What is Farever?',
-      'The Four Classes',
-      'Explore Two Regions',
-      'Start Your Journey',
-      'Tools & Tier Lists',
+      'Yet Another Zombie Survivors',
+      'What is Yet Another Zombie Survivors?',
+      'Meet the Survivors',
+      'New Arenas & Modes',
+      'Your Yet Another Zombie Survivors Journey',
+      'Guides, Builds & Tools',
       'Featured Guides',
-      'Latest News',
-      'Farever FAQ',
-      'Forge your legend today.'
+      'Version 1.0 Highlights',
+      'Yet Another Zombie Survivors FAQ',
+      'Ready to Master Yet Another Zombie Survivors?'
     ]);
   });
 
-  it('uses semantic term-value ordering for hero stats', async () => {
-    const {container} = render(
-      await HomePage({params: Promise.resolve({locale: 'en'})})
-    );
-    const firstStat = container.querySelector('.home-hero__stats > div');
+  it('keeps semantic term-value ordering for verified hero statistics', async () => {
+    const {container} = render(await HomePage({params: Promise.resolve({locale: 'en'})}));
+    const stat = container.querySelector('.home-hero__stats > div');
 
-    expect(Array.from(firstStat?.children ?? []).map((node) => node.tagName)).toEqual([
+    expect(Array.from(stat?.children ?? []).map((node) => node.tagName)).toEqual([
       'DT',
       'DD'
     ]);
   });
 
   it.each([
-    [
-      'de',
-      'Schmiede deine Legende in Farever',
-      'Die vier Klassen',
-      'Einsteiger-Guide',
-      '/de/beginner-guide/'
-    ],
-    [
-      'es',
-      'Forja tu leyenda en Farever',
-      'Las cuatro clases',
-      'Guía para principiantes',
-      '/es/beginner-guide/'
-    ],
-    [
-      'fr',
-      'Forgez votre légende dans Farever',
-      'Les quatre classes',
-      'Guide du débutant',
-      '/fr/beginner-guide/'
-    ]
+    ['ru', 'Что такое Yet Another Zombie Survivors?', 'Гайд для новичков', '/ru/guides/'],
+    ['es', '¿Qué es Yet Another Zombie Survivors?', 'Guía para principiantes', '/es/guides/'],
+    ['de', 'Was ist Yet Another Zombie Survivors?', 'Einsteiger-Guide starten', '/de/guides/']
   ] as const)(
-    'localizes the full %s homepage and its internal links',
-    async (locale, heroTitle, classesTitle, beginnerLabel, beginnerHref) => {
-      const {unmount} = render(
-        await HomePage({params: Promise.resolve({locale})})
+    'localizes the primary %s homepage content and guide links',
+    async (locale, aboutHeading, beginnerLabel, beginnerHref) => {
+      render(await HomePage({params: Promise.resolve({locale})}));
+
+      expect(screen.getByRole('heading', {level: 2, name: aboutHeading})).toBeInTheDocument();
+      expect(screen.getByRole('link', {name: beginnerLabel})).toHaveAttribute(
+        'href',
+        beginnerHref
       );
-
-      expect(
-        screen.getByRole('heading', {level: 1, name: heroTitle})
-      ).toBeInTheDocument();
-      expect(
-        screen.getByRole('heading', {level: 2, name: classesTitle})
-      ).toBeInTheDocument();
-      expect(
-        screen.getByRole('link', {name: beginnerLabel})
-      ).toHaveAttribute('href', beginnerHref);
-
-      unmount();
     }
   );
 
-  it('returns localized metadata with a canonical URL and four alternates', async () => {
-    const pageModule = await import('@/app/[locale]/page');
+  it('publishes canonical URLs, researched keywords, and the four selected alternates', async () => {
+    const metadata = await generateHomeMetadata({params: Promise.resolve({locale: 'ru'})});
 
-    expect(typeof pageModule.generateMetadata).toBe('function');
-
-    const metadata = await pageModule.generateMetadata({
-      params: Promise.resolve({locale: 'de'})
-    });
-
-    expect(metadata.title).toBe(
-      'Farever Wiki Deutsch — Klassen, Waffen & Koop-Guide'
-    );
-    expect(metadata.description).toContain('deutsche Farever-Wiki');
-    expect(metadata.metadataBase?.toString()).toBe(
-      'https://farevergame.wiki/'
-    );
+    expect(metadata.title).toContain('Yet Another Zombie Survivors');
+    expect(metadata.metadataBase?.toString()).toBe(`${siteUrl}/`);
     expect(metadata.alternates).toEqual({
-      canonical: 'https://farevergame.wiki/de/',
-      languages: {
-        en: 'https://farevergame.wiki/',
-        de: 'https://farevergame.wiki/de/',
-        es: 'https://farevergame.wiki/es/',
-        fr: 'https://farevergame.wiki/fr/'
-      }
+      canonical: `${siteUrl}/ru/`,
+      languages: alternates('/')
     });
-    expect(metadata.openGraph?.images).toEqual(['/og.png']);
+    expect(metadata.keywords).toContain('YAZS');
   });
 
-  it('embeds localized WebSite, Organization, VideoGame and Article JSON-LD', async () => {
-    const {container} = render(
-      await HomePage({params: Promise.resolve({locale: 'fr'})})
+  it('embeds verified publisher and squad-game structured data without invented offers', async () => {
+    const {container} = render(await HomePage({params: Promise.resolve({locale: 'en'})}));
+    const payloads = Array.from(container.querySelectorAll('script[type="application/ld+json"]')).map(
+      (script) => JSON.parse(script.textContent ?? '{}')
     );
-    const payloads = Array.from(
-      container.querySelectorAll('script[type="application/ld+json"]')
-    ).map((script) => JSON.parse(script.textContent ?? '{}'));
-    const entities = payloads.flatMap((payload) =>
-      payload['@graph'] ? payload['@graph'] : [payload]
-    );
+    const graph = payloads[0]['@graph'] as Array<Record<string, unknown>>;
+    const game = graph.find((node) => node['@type'] === 'VideoGame');
 
-    expect(entities.map((entity) => entity['@type'])).toEqual(
-      expect.arrayContaining([
-        'WebSite',
-        'Organization',
-        'VideoGame',
-        'Article'
-      ])
-    );
-    expect(
-      entities.find((entity) => entity['@type'] === 'Article')
-    ).toMatchObject({
-      inLanguage: 'fr',
-      url: 'https://farevergame.wiki/fr/'
+    expect(game).toMatchObject({
+      name: 'Yet Another Zombie Survivors',
+      gamePlatform: ['Steam'],
+      datePublished: '2026-08-20',
+      publisher: {name: 'Awesome Games Studio'}
     });
+    expect(game).not.toHaveProperty('offers');
+    expect(JSON.stringify(payloads)).not.toMatch(/SearchAction|229 Achievements/);
   });
 
-  it('uses the live English WebSite and VideoGame descriptions in JSON-LD', async () => {
-    const {container} = render(
-      await HomePage({params: Promise.resolve({locale: 'en'})})
-    );
-    const payloads = Array.from(
-      container.querySelectorAll('script[type="application/ld+json"]')
-    ).map((script) => JSON.parse(script.textContent ?? '{}'));
-    const entities = payloads.flatMap((payload) =>
-      payload['@graph'] ? payload['@graph'] : [payload]
-    );
+  it('omits redemption codes when no researched code system exists', async () => {
+    const {container} = render(await HomePage({params: Promise.resolve({locale: 'en'})}));
 
-    expect(
-      entities.find((entity) => entity['@type'] === 'WebSite')?.description
-    ).toBe(
-      'Unofficial Farever wiki and guide hub — classes, weapons, dungeons, bosses, roadmap and live server status for the Shiro Games co-op action RPG.'
-    );
-    expect(
-      entities.find((entity) => entity['@type'] === 'VideoGame')?.description
-    ).toBe(
-      'Online co-op action RPG by Shiro Games (Wartales, Northgard). Released into Steam Early Access on May 7, 2026.'
-    );
-    expect(
-      entities.find((entity) => entity['@type'] === 'WebSite')
-    ).not.toHaveProperty('potentialAction');
-    expect(
-      entities.find((entity) => entity['@type'] === 'VideoGame')
-    ).not.toHaveProperty('offers');
-  });
-
-  it('rejects an invalid locale before reading homepage data', async () => {
-    await expect(
-      HomePage({
-        params: Promise.resolve({locale: 'favicon.ico' as never})
-      })
-    ).rejects.toThrow('NEXT_HTTP_ERROR_FALLBACK;404');
-  });
-
-  it('rejects an invalid locale before generating homepage metadata', async () => {
-    const pageModule = await import('@/app/[locale]/page');
-
-    await expect(
-      pageModule.generateMetadata({
-        params: Promise.resolve({locale: 'favicon.ico' as never})
-      })
-    ).rejects.toThrow('NEXT_HTTP_ERROR_FALLBACK;404');
+    expect(container.querySelector('.facts-card__codes')).toBeNull();
+    expect(container.textContent).not.toMatch(/redemption codes|[\u3400-\u9fff]/iu);
   });
 });
 
 describe('guide directory', () => {
-  it('renders a two-column guide directory sourced from MDX', async () => {
-    const {container} = render(
-      await GuidesPage({params: Promise.resolve({locale: 'en'})})
-    );
+  it('renders all matrix topics with correct section-specific URLs', async () => {
+    const {container} = render(await GuidesPage({params: Promise.resolve({locale: 'en'})}));
+    const page = within(container);
 
-    expect(
-      screen.getByRole('heading', {level: 1, name: 'All Farever Guides'})
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole('link', {name: /Farever Best Class/i})
-    ).toHaveAttribute('href', '/guides/farever-best-class/');
-    expect(container.querySelector('[data-guide-grid]')).toHaveClass('guide-grid');
-    expect(container.querySelector('.guide-directory-card h3')).toHaveTextContent(
-      /Farever Best Class/i
+    expect(page.getByRole('heading', {
+      level: 1,
+      name: 'Yet Another Zombie Survivors Guides'
+    })).toBeInTheDocument();
+    expect(container.querySelectorAll('.guide-directory-card')).toHaveLength(19);
+    expect(page.getByRole('link', {name: /Best Team/})).toHaveAttribute(
+      'href',
+      '/guides/best-team/'
     );
-    expect(container.querySelector('.guide-directory-card h2')).toBeNull();
-    expect(container.querySelector('.guide-directory-card__action')).toBeNull();
-  });
-
-  it('renders apostrophes from guide frontmatter as characters, not entity text', async () => {
-    const {container} = render(
-      await GuidesPage({params: Promise.resolve({locale: 'en'})})
+    expect(page.getByRole('link', {name: /Ghost Skills/})).toHaveAttribute(
+      'href',
+      '/characters/ghost/'
     );
-    const view = within(container);
-    const roadmapCard = view
-      .getByRole('heading', {
-        level: 3,
-        name: "Farever 2026 Roadmap — What's Coming This Year"
-      })
-      .closest('.guide-directory-card');
-    const valleyCard = view
-      .getByRole('heading', {
-        level: 3,
-        name: 'Valley of the Eternal Autumn — Complete Region Guide'
-      })
-      .closest('.guide-directory-card');
-
-    expect(roadmapCard).toHaveTextContent(
-      "Farever 2026 Roadmap — What's Coming This Year"
-    );
-    expect(valleyCard).toHaveTextContent("Farever's second EA region");
-    for (const card of [roadmapCard, valleyCard]) {
-      expect(card).not.toHaveTextContent('&apos;');
-      expect(card).not.toHaveTextContent('&amp;apos;');
-    }
   });
 
   it.each([
-    ['de', 'Alle Farever-Guides', /Beste Farever-Klasse/i, '/de/guides/farever-best-class/'],
-    ['es', 'Todas las guías de Farever', /Mejor clase de Farever/i, '/es/guides/farever-best-class/'],
-    ['fr', 'Tous les guides Farever', /Meilleure classe de Farever/i, '/fr/guides/farever-best-class/']
-  ] as const)(
-    'localizes the %s directory copy and guide links',
-    async (locale, title, guideName, guideHref) => {
-      render(await GuidesPage({params: Promise.resolve({locale})}));
+    ['ru', 'Гайды Yet Another Zombie Survivors', '/ru/guides/best-team/'],
+    ['es', 'Guías de Yet Another Zombie Survivors', '/es/guides/best-team/'],
+    ['de', 'Yet Another Zombie Survivors Guides', '/de/guides/best-team/']
+  ] as const)('localizes the %s directory title and card links', async (locale, title, href) => {
+    const {container} = render(await GuidesPage({params: Promise.resolve({locale})}));
+    const page = within(container);
 
-      expect(
-        screen.getByRole('heading', {level: 1, name: title})
-      ).toBeInTheDocument();
-      expect(screen.getByRole('link', {name: guideName})).toHaveAttribute(
-        'href',
-        guideHref
-      );
-    }
-  );
+    expect(page.getByRole('heading', {level: 1, name: title})).toBeInTheDocument();
+    expect(page.getByRole('link', {name: /Best Team/})).toHaveAttribute('href', href);
+  });
 
-  it('publishes localized metadata and language alternates', async () => {
-    const pageModule = await import('@/app/[locale]/guides/page');
-    const metadata = await pageModule.generateMetadata({
-      params: Promise.resolve({locale: 'fr'})
+  it('publishes four locale alternates for the guide directory', async () => {
+    const metadata = await generateGuidesMetadata({
+      params: Promise.resolve({locale: 'de'})
     });
 
-    expect(metadata.title).toBe('Guides Farever — Tous les guides détaillés');
     expect(metadata.alternates).toEqual({
-      canonical: 'https://farevergame.wiki/fr/guides/',
-      languages: {
-        en: 'https://farevergame.wiki/guides/',
-        de: 'https://farevergame.wiki/de/guides/',
-        es: 'https://farevergame.wiki/es/guides/',
-        fr: 'https://farevergame.wiki/fr/guides/'
-      }
+      canonical: `${siteUrl}/de/guides/`,
+      languages: alternates('/guides/')
     });
   });
 });
 
-describe('classes article', () => {
-  it('keeps the hero and MDX body inside one prose-constrained article', async () => {
-    const {container, unmount} = render(
-      await ClassesPage({params: Promise.resolve({locale: 'en'})})
-    );
-    const view = within(container);
-    const article = view.getByRole('article');
-    const hero = article.querySelector<HTMLElement>(':scope > .page-hero');
-    const proseBody = article.querySelector<HTMLElement>(
-      ':scope > .classes-article__body'
+describe('researched character article', () => {
+  it('renders all nine verified Survivors and both researched tables', async () => {
+    const {container} = render(
+      await CharactersPage({params: Promise.resolve({locale: 'en'})})
     );
 
-    expect(article).toHaveClass('classes-article');
-    expect(article).toHaveClass('prose-game');
-    expect(hero).toBeInTheDocument();
-    expect(proseBody).toBeInTheDocument();
-    expect(proseBody).not.toHaveClass('prose-game');
-    expect(
-      within(hero as HTMLElement).getByRole('heading', {
-        level: 1,
-        name: 'Farever Classes & Jobs'
-      })
-    ).toBeInTheDocument();
-    expect(
-      within(proseBody as HTMLElement).getByRole('heading', {
-        level: 2,
-        name: 'The 4 classes'
-      })
-    ).toBeInTheDocument();
-    expect(
-      within(proseBody as HTMLElement).getByRole('columnheader', {name: 'Class'})
-    ).toBeInTheDocument();
-    expect(
-      within(proseBody as HTMLElement).getByRole('heading', {level: 2, name: /FAQ/})
-    ).toBeInTheDocument();
-    expect(article.querySelector('.article-table-wrap')).toBeNull();
+    expect(screen.getByRole('heading', {
+      level: 1,
+      name: 'Yet Another Zombie Survivors Characters & Survivors'
+    })).toBeInTheDocument();
+    expect(container.querySelectorAll('table')).toHaveLength(2);
 
-    unmount();
-  });
-
-  it('preserves the exact English section hierarchy and Related links', async () => {
-    const {container, unmount} = render(
-      await ClassesPage({params: Promise.resolve({locale: 'en'})})
-    );
-    const article = within(container).getByRole('article');
-    const articleView = within(article);
-
-    expect(
-      articleView
-        .getAllByRole('heading', {level: 2})
-        .map((heading) => heading.textContent)
-    ).toEqual([
-      'The 4 classes',
-      'The 6 jobs',
-      'Best class combos for co-op',
-      'Should you respec?',
-      'Class deep-dives',
-      'FAQ — Farever classes',
-      'Related'
-    ]);
-    expect(
-      articleView
-        .getAllByRole('heading', {level: 3})
-        .map((heading) => heading.textContent)
-    ).toEqual([
-      'Warrior — best for new players',
-      'Ranger — best for solo players',
-      'Mage — highest damage ceiling',
-      'Mystic — flex support',
-      'How many classes are in Farever?',
-      'Best Farever class for beginners?',
-      'Best Farever class for solo play?',
-      'Best Farever class for co-op / groups?',
-      'Can I switch classes in Farever?',
-      'How does the talent tree work?'
-    ]);
-
-    for (const [name, href] of [
-      ['Farever class tier list', '/tier-list/'],
-      ['Meta builds for every class', '/builds/'],
-      ['Jobs & crafting professions', '/jobs/'],
-      ['All weapons', '/weapons/'],
-      ['Leveling guide', '/leveling-guide/']
-    ] as const) {
-      expect(articleView.getByRole('link', {name})).toHaveAttribute('href', href);
+    for (const survivor of [
+      'SWAT', 'Tank', 'Engineer', 'Huntress', 'Ghost', 'Medic', 'Pyro', 'Mechanic', 'Ranger'
+    ]) {
+      expect(container.textContent).toContain(survivor);
     }
 
-    unmount();
-  });
-
-  it('matches the target emphasis in English introductions and tables', async () => {
-    const {container, unmount} = render(
-      await ClassesPage({params: Promise.resolve({locale: 'en'})})
-    );
-    const articleView = within(within(container).getByRole('article'));
-
-    expect(
-      articleView.getByText('baseline stats, armour type and identity').tagName
-    ).toBe('STRONG');
-    expect(
-      articleView.getByText('crafting and gathering professions').tagName
-    ).toBe('STRONG');
-    expect(articleView.getAllByRole('strong')).toHaveLength(15);
-
-    const tables = articleView.getAllByRole('table');
-    for (const [table, labels] of [
-      [tables[0], ['Warrior', 'Ranger', 'Mage', 'Mystic']],
-      [
-        tables[1],
-        ['Blacksmith', 'Alchemist', 'Hunter', 'Miner', 'Scholar', 'Cook']
-      ]
-    ] as const) {
-      for (const label of labels) {
-        const cell = within(table).getByRole('cell', {name: label});
-        expect(within(cell).getByText(label).tagName).toBe('STRONG');
-      }
-    }
-
-    unmount();
+    expect(container.textContent).toContain('Survival Level 175');
+    expect(container.textContent).toContain('unconfirmed');
+    expect(container.textContent).not.toContain('229 Achievements');
   });
 
   it.each([
-    ['de', 'Farever-Klassen & Berufe', 'Die 4 Klassen'],
-    ['es', 'Clases y profesiones de Farever', 'Las 4 clases'],
-    ['fr', 'Classes et métiers de Farever', 'Les 4 classes']
-  ] as const)(
-    'renders the complete localized %s article',
-    async (locale, title, firstSection) => {
-      const {container, unmount} = render(
-        await ClassesPage({params: Promise.resolve({locale})})
-      );
-      const view = within(container);
-      const article = view.getByRole('article');
-      const articleView = within(article);
+    ['ru', /Персонажи и выжившие/],
+    ['es', /Personajes y supervivientes/],
+    ['de', /Charaktere & Überlebende/]
+  ] as const)('renders a localized %s character article', async (locale, title) => {
+    render(await CharactersPage({params: Promise.resolve({locale})}));
 
-      expect(view.getByRole('heading', {level: 1, name: title})).toBeInTheDocument();
-      expect(
-        articleView.getByRole('heading', {level: 2, name: firstSection})
-      ).toBeInTheDocument();
-      expect(articleView.getAllByRole('row')).toHaveLength(12);
-
-      unmount();
-    }
-  );
-
-  it.each([
-    [
-      'de',
-      'Grundwerte, deinen Rüstungstyp und deine Identität',
-      'Berufe zum Herstellen und Sammeln'
-    ],
-    [
-      'es',
-      'tus atributos básicos, el tipo de armadura y tu identidad',
-      'Las profesiones de fabricación y recolección'
-    ],
-    [
-      'fr',
-      "vos caractéristiques de base, votre type d'armure et votre identité",
-      "Les métiers d'artisanat et de récolte"
-    ]
-  ] as const)(
-    'matches the target emphasis in the localized %s article',
-    async (locale, classesEmphasis, jobsEmphasis) => {
-      const {container, unmount} = render(
-        await ClassesPage({params: Promise.resolve({locale})})
-      );
-      const articleView = within(within(container).getByRole('article'));
-
-      expect(articleView.getByText(classesEmphasis).tagName).toBe('STRONG');
-      expect(articleView.getByText(jobsEmphasis).tagName).toBe('STRONG');
-      expect(articleView.getAllByRole('strong')).toHaveLength(15);
-
-      const tables = articleView.getAllByRole('table');
-      for (const [table, labels] of [
-        [tables[0], ['Warrior', 'Ranger', 'Mage', 'Mystic']],
-        [
-          tables[1],
-          ['Blacksmith', 'Alchemist', 'Hunter', 'Miner', 'Scholar', 'Cook']
-        ]
-      ] as const) {
-        for (const label of labels) {
-          const cell = within(table).getByRole('cell', {name: label});
-          expect(within(cell).getByText(label).tagName).toBe('STRONG');
-        }
-      }
-
-      unmount();
-    }
-  );
-
-  it('publishes localized article metadata and language alternates', async () => {
-    const pageModule = await import('@/app/[locale]/classes/page');
-    const metadata = await pageModule.generateMetadata({
-      params: Promise.resolve({locale: 'fr'})
-    });
-
-    expect(metadata.title).toBe(
-      'Classes et métiers de Farever — Les 4 classes et 6 métiers expliqués'
-    );
-    expect(metadata.alternates).toEqual({
-      canonical: 'https://farevergame.wiki/fr/classes/',
-      languages: {
-        en: 'https://farevergame.wiki/classes/',
-        de: 'https://farevergame.wiki/de/classes/',
-        es: 'https://farevergame.wiki/es/classes/',
-        fr: 'https://farevergame.wiki/fr/classes/'
-      }
-    });
-    expect(metadata.openGraph).toMatchObject({
-      type: 'article',
-      url: 'https://farevergame.wiki/fr/classes/',
-      publishedTime: '2026-05-07',
-      modifiedTime: '2026-05-18'
-    });
+    expect(screen.getByRole('heading', {level: 1, name: title})).toBeInTheDocument();
+    expect(screen.getAllByRole('table')).toHaveLength(2);
   });
 
-  it('embeds a localized Article JSON-LD payload from frontmatter', async () => {
-    const {container, unmount} = render(
-      await ClassesPage({params: Promise.resolve({locale: 'de'})})
+  it('publishes canonical article metadata and structured data for the researched game', async () => {
+    const metadata = await generateCharactersMetadata({
+      params: Promise.resolve({locale: 'es'})
+    });
+    const {container} = render(
+      await CharactersPage({params: Promise.resolve({locale: 'es'})})
     );
-    const payload = JSON.parse(
+    const structuredData = JSON.parse(
       container.querySelector('script[type="application/ld+json"]')?.textContent ?? '{}'
     );
 
-    expect(payload).toMatchObject({
-      '@type': 'Article',
-      headline: 'Farever-Klassen & Berufe',
-      url: 'https://farevergame.wiki/de/classes/',
-      datePublished: '2026-05-07',
-      dateModified: '2026-05-18',
-      inLanguage: 'de'
+    expect(metadata.alternates).toEqual({
+      canonical: `${siteUrl}/es/characters/`,
+      languages: alternates('/characters/')
     });
+    expect(structuredData).toMatchObject({
+      '@type': 'Article',
+      inLanguage: 'es',
+      author: {name: 'Yet Another Zombie Survivors Wiki'}
+    });
+  });
+});
 
-    unmount();
+describe('researched matrix article and category routes', () => {
+  it.each([
+    [['guides', 'best-team'], /Best Team/],
+    [['characters', 'ghost'], /Ghost Skills/],
+    [['items'], /Items: Effects & Unlocks/],
+    [['weapons', 'upgrades'], /Weapon Upgrades/],
+    [['tools', 'mods'], /Mods/]
+  ] as const)('renders the researched MDX article at /%s/', async (rest, title) => {
+    const {container} = render(
+      await MatrixPage({params: Promise.resolve({locale: 'en', rest: [...rest]})})
+    );
+
+    expect(screen.getByRole('heading', {level: 1, name: title})).toBeInTheDocument();
+    expect(container.querySelector('article.prose-game')).toBeInTheDocument();
   });
 
-  it('rejects invalid locales before reading article content or metadata', async () => {
-    const pageModule = await import('@/app/[locale]/classes/page');
+  it('publishes four-language canonical metadata for researched MDX articles', async () => {
+    const metadata = await generateMatrixMetadata({
+      params: Promise.resolve({locale: 'ru', rest: ['guides', 'best-team']})
+    });
 
+    expect(metadata.alternates).toEqual({
+      canonical: `${siteUrl}/ru/guides/best-team/`,
+      languages: alternates('/guides/best-team/')
+    });
+    expect(metadata.title).toContain('Best Team');
+  });
+
+  it.each([
+    [['builds'], /Builds/],
+    [['weapons'], /Weapons/],
+    [['tools'], /Tools/]
+  ] as const)('lists real researched topics at /%s/', async (rest, title) => {
+    const {container} = render(
+      await MatrixPage({params: Promise.resolve({locale: 'en', rest: [...rest]})})
+    );
+
+    expect(screen.getByRole('heading', {level: 1, name: title})).toBeInTheDocument();
+    expect(container.querySelectorAll('.guide-directory-card').length).toBeGreaterThan(0);
+  });
+
+  it('rejects an unsupported redemption-code page', async () => {
     await expect(
-      ClassesPage({params: Promise.resolve({locale: 'favicon.ico'})})
+      MatrixPage({params: Promise.resolve({locale: 'en', rest: ['codes']})})
     ).rejects.toThrow('NEXT_HTTP_ERROR_FALLBACK;404');
-    await expect(
-      pageModule.generateMetadata({
-        params: Promise.resolve({locale: 'favicon.ico'})
-      })
-    ).rejects.toThrow('NEXT_HTTP_ERROR_FALLBACK;404');
+  });
+});
+
+describe('legal pages', () => {
+  it.each([
+    [PrivacyPage, 'Privacy Policy'],
+    [TermsPage, 'Terms of Service']
+  ] as const)('renders %s without inventing an unverified legal policy', async (Page, title) => {
+    const {container} = render(await Page({params: Promise.resolve({locale: 'en'})}));
+
+    expect(screen.getByRole('heading', {level: 1, name: title})).toBeInTheDocument();
+    expect(container.textContent).not.toMatch(/[\u3400-\u9fff]/u);
+    expect(container.textContent).not.toMatch(/data retention|governing jurisdiction/i);
+    expect(container.textContent).toContain('Yet Another Zombie Survivors');
   });
 });

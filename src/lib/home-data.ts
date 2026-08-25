@@ -1,19 +1,16 @@
 import type {Locale} from '@/i18n/routing';
-import {STEAM_URL} from '@/lib/site-data';
+import {
+  GAME_NAME,
+  OFFICIAL_TRAILER_URL,
+  STEAM_URL
+} from '@/lib/site-data';
 import deMessages from '@/messages/de.json';
 import enMessages from '@/messages/en.json';
 import esMessages from '@/messages/es.json';
-import frMessages from '@/messages/fr.json';
+import ruMessages from '@/messages/ru.json';
 
-export type ActionData = {
-  label: string;
-  href: string;
-};
-
-export type Fact = {
-  label: string;
-  value: string;
-};
+export type ActionData = {label: string; href: string};
+export type Fact = {label: string; value: string};
 
 export type HeroData = {
   eyebrow: string;
@@ -22,35 +19,17 @@ export type HeroData = {
   description: string;
   primaryAction: ActionData;
   secondaryAction: ActionData;
+  tertiaryAction: ActionData;
+  videoAction: ActionData;
   stats: Fact[];
   scrollLabel: string;
 };
 
 export type FeatureIcon =
-  | 'book'
-  | 'calendar'
-  | 'chart'
-  | 'code'
-  | 'compass'
-  | 'gamepad'
-  | 'gem'
-  | 'globe'
-  | 'heart'
-  | 'map'
-  | 'mountain'
-  | 'network'
-  | 'radio'
-  | 'scroll'
-  | 'server'
-  | 'shield'
-  | 'sparkles'
-  | 'swords'
-  | 'trophy'
-  | 'users'
-  | 'wand'
-  | 'wifi'
-  | 'wrench'
-  | 'zap';
+  | 'book' | 'calendar' | 'chart' | 'code' | 'compass' | 'gamepad'
+  | 'gem' | 'globe' | 'heart' | 'map' | 'mountain' | 'network' | 'radio'
+  | 'scroll' | 'server' | 'shield' | 'sparkles' | 'swords' | 'trophy'
+  | 'users' | 'wand' | 'wifi' | 'wrench' | 'zap';
 
 export type FeatureCard = {
   title: string;
@@ -69,19 +48,13 @@ export type GuideCardData = {
   action: string;
 };
 
-export type NewsItem = {
-  date: string;
-  text: string;
-};
-
-export type FaqItem = {
-  question: string;
-  answer: string;
-};
+export type NewsItem = {date: string; text: string};
+export type FaqItem = {question: string; answer: string};
 
 export type CtaData = {
   eyebrow: string;
   title: string;
+  description: string;
   primaryAction: ActionData;
   secondaryAction: ActionData;
 };
@@ -124,796 +97,465 @@ export type HomeCopy = {
 
 const englishData: HomeData = {
   hero: {
-    eyebrow: 'A Shiro Games Adventure · Steam Early Access',
-    titleLead: 'Forge Your Legend',
-    titleAccent: 'in Farever',
+    eyebrow: 'Fan-Made Survivor Guide Hub',
+    titleLead: 'Yet Another',
+    titleAccent: 'Zombie Survivors',
     description:
-      'An online co-op action RPG set in the forgotten realm of Siagarta. Explore wild lands, conquer dungeons, master 4 classes, 6 jobs and over 100 weapons.',
-    primaryAction: {label: 'Play on Steam', href: STEAM_URL},
-    secondaryAction: {label: 'Beginner Guide', href: '/beginner-guide/'},
+      'Build a squad of up to three Survivors and turn each run into an escalating storm of bullets, blades, fire, and explosions. Learn the strongest teams, upgrades, synergies, items, and unlock paths for Version 1.0.',
+    primaryAction: {label: 'Start Beginner Guide', href: '/guides/'},
+    secondaryAction: {label: 'Compare Survivors', href: '/characters/'},
+    tertiaryAction: {label: 'Browse All Items', href: '/items/'},
+    videoAction: {label: 'Official 1.0 Trailer', href: OFFICIAL_TRAILER_URL},
     stats: [
-      {value: 'May 7, 2026', label: 'EA Launch'},
-      {value: '$17.99', label: 'Steam Price'},
-      {value: '72%', label: 'Mostly Positive'},
-      {value: '~12 mo', label: 'EA Duration'}
+      {value: 'Aug 20, 2026', label: 'Full Release'},
+      {value: 'Aug 20, 2026', label: 'Updated'},
+      {value: '600,000+', label: 'Copies Sold'},
+      {value: '12,000+', label: 'Steam Reviews'},
+      {value: '9', label: 'Survivors'}
     ],
-    scrollLabel: 'Scroll'
+    scrollLabel: 'Discover the game'
   },
   facts: [
-    {label: 'Developer', value: 'Shiro Games'},
-    {label: 'Genre', value: 'Online Co-op Action RPG'},
-    {label: 'Platform', value: 'PC (Steam)'},
-    {label: 'Players', value: 'Solo or Online Co-op'},
-    {label: 'Price', value: '$17.99 USD'},
-    {label: 'Reviews', value: 'Mostly Positive (1,400+)'},
-    {label: 'Engine', value: 'Heaps (Shiro in-house)'}
+    {label: 'Developer', value: 'Awesome Games Studio'},
+    {label: 'Platform', value: 'Steam'},
+    {label: 'Genre', value: 'Squad-Building Bullet Heaven Roguelike'},
+    {label: 'Copies Sold', value: '600,000+'},
+    {label: 'Steam Reviews', value: '12,000+'},
+    {label: 'Survivors', value: '9'}
   ],
   classes: [
     {
-      badge: 'Frontline · Tank-DPS',
-      title: 'Warrior',
-      description:
-        'Plate-armoured bruiser with strong stagger and self-sustain. The most forgiving class to learn.',
-      href: '/classes/',
+      badge: 'Durable · Heavy Weapons',
+      title: 'Tank',
+      description: 'A durable Survivor with researched Minigun and Rocket Launcher weapon paths.',
+      href: '/characters/',
       action: 'Explore',
       icon: 'shield'
     },
     {
-      badge: 'Ranged · Kite DPS',
-      title: 'Ranger',
-      description:
-        'Bows, traps and pets. Excellent solo class thanks to high mobility and burst at range.',
-      href: '/classes/',
+      badge: 'Ranged · Critical Hits',
+      title: 'Huntress',
+      description: 'A ranged Survivor focused on critical hits, cross-Survivor synergies, and boss pressure.',
+      href: '/characters/huntress/',
       action: 'Explore',
       icon: 'compass'
     },
     {
-      badge: 'AoE · Burst Caster',
-      title: 'Mage',
-      description:
-        'Elemental nuker. Squishy but melts grouped enemies; the highest damage ceiling in the game.',
-      href: '/classes/',
+      badge: 'Melee · Close Range',
+      title: 'Ghost',
+      description: 'A melee-focused Survivor with weapon upgrades, abilities, and squad synergies.',
+      href: '/characters/ghost/',
       action: 'Explore',
-      icon: 'wand'
+      icon: 'swords'
     },
     {
-      badge: 'Support · Hybrid',
-      title: 'Mystic',
-      description:
-        'Buff/heal flex with battle-magic. Best in co-op groups but workable solo with the right weapon.',
-      href: '/classes/',
+      badge: 'Version 1.0 · Ninth Survivor',
+      title: 'Ranger',
+      description: 'Added in version 1.0 and unlocked at Survival Level 175.',
+      href: '/characters/',
       action: 'Explore',
-      icon: 'sparkles'
+      icon: 'users'
     }
   ],
   regions: [
     {
-      badge: 'Starter Region',
-      meta: 'Lv 1–15',
-      title: 'Skyover Island',
-      description:
-        'Floating archipelago of warring factions. Four primary dungeons culminating at the Cradle of the Sky.',
-      href: '/dungeons/',
-      action: 'Region Guide',
-      icon: 'mountain'
+      badge: 'Version 1.0 Arena',
+      meta: 'Verified unlock',
+      title: 'Bio Lab',
+      description: 'The version 1.0 arena unlocks after Dead Terminal is completed on Default.',
+      href: '/guides/',
+      action: 'View Guides',
+      icon: 'map'
     },
     {
-      badge: 'End-Game · EA',
-      meta: 'Lv 12+',
-      title: 'Valley of the Eternal Autumn',
-      description:
-        'Permanent autumn forests filled with nature-and-decay enemies. Heavy poison, tighter boss windows.',
-      href: '/dungeons/',
-      action: 'Region Guide',
-      icon: 'map'
+      badge: 'Version 1.0 Mode',
+      meta: 'Verified unlock',
+      title: 'Boss Rush',
+      description: 'Boss Rush unlocks after Hardcore mode is completed for each map.',
+      href: '/guides/',
+      action: 'View Guides',
+      icon: 'trophy'
     }
   ],
   journey: [
     {
-      title: 'Release Date',
-      description:
-        "Early Access launch info, full release outlook and Shiro Games' year-long EA plan.",
-      href: '/release-date/',
-      action: 'Read More',
-      icon: 'calendar'
-    },
-    {
       title: 'Beginner Guide',
-      description:
-        'Your first 5 hours: choosing a class, free mount, weapon mastery and town basics.',
-      href: '/beginner-guide/',
-      action: 'Read More',
+      description: 'Learn the basic run loop, squad recruitment, permanent progression, items, upgrades, and the fastest route through your first successful runs.',
+      href: '/guides/',
+      action: 'Start Reading',
       icon: 'compass'
     },
     {
-      title: 'Classes & Jobs',
-      description:
-        'All 4 classes and 6 jobs — strengths, roles and recommended pairings.',
-      href: '/classes/',
-      action: 'Read More',
+      title: 'Best Teams & Synergies',
+      description: 'Choose a strong team leader, recruit complementary Survivors, and combine cross-Survivor abilities into reliable early and late-game squads.',
+      href: '/guides/best-team/',
+      action: 'Start Reading',
       icon: 'users'
     },
     {
-      title: 'Weapons & Skills',
-      description:
-        'GW2-style weapon-skill system: how 100+ weapons unlock unique combat abilities.',
-      href: '/weapons/',
-      action: 'Read More',
-      icon: 'swords'
-    },
-    {
-      title: 'Dungeons & Bosses',
-      description:
-        'Skyover Island and the Valley of the Eternal Autumn — every dungeon, faction and boss.',
-      href: '/dungeons/',
-      action: 'Read More',
-      icon: 'shield'
-    },
-    {
-      title: 'Co-op How To',
-      description:
-        'Inviting friends, party scaling, crossplay status and dedicated server tips.',
-      href: '/how-to-play/',
-      action: 'Read More',
-      icon: 'network'
-    },
-    {
-      title: 'Tips & Tricks',
-      description:
-        'Level up fast, find the free mount, optimise crafting, dodge timing and more.',
-      href: '/tips/',
-      action: 'Read More',
+      title: 'Character Skills & Upgrades',
+      description: 'Compare every Survivor’s weapons, abilities, leader bonus, unlock requirements, skill-tree ranks, and strongest upgrade paths.',
+      href: '/characters/',
+      action: 'Start Reading',
       icon: 'zap'
     },
     {
-      title: 'EA Roadmap',
-      description:
-        'New regions, classes, level cap, seasonal events and guilds — the full plan.',
-      href: '/roadmap/',
-      action: 'Read More',
-      icon: 'map'
-    },
-    {
-      title: 'FAQ',
-      description:
-        'Is Farever free? Crossplay? Solo-friendly? PvP? All your questions answered.',
-      href: '/faq/',
-      action: 'Read More',
-      icon: 'book'
+      title: 'Achievements & Unlocks',
+      description: 'Track achievements and learn which Survivors, weapons, items, arenas, modes, and hidden objectives each challenge unlocks.',
+      href: '/guides/achievements/',
+      action: 'Start Reading',
+      icon: 'trophy'
     }
   ],
   tools: [
     {
-      badge: 'Live',
-      title: 'Server Status',
-      description:
-        'Are Farever servers down? Live status, outage timeline and login fixes.',
-      href: '/server-status/',
-      action: 'Open',
-      icon: 'server'
-    },
-    {
-      badge: 'Data',
-      title: 'Steam Charts',
-      description:
-        'Farever player count, 24h peak and 7-day trend — updated daily.',
-      href: '/steam-charts/',
-      action: 'Open',
-      icon: 'chart'
-    },
-    {
-      badge: 'Tier',
-      title: 'Class Tier List',
-      description:
-        'S/A/B rankings for all 4 Farever classes — solo, duo and group scores.',
-      href: '/tier-list/',
+      badge: 'Teams',
+      title: 'Survivor Tier List',
+      description: 'Compare researched Survivor roles and squad synergies without inventing unsupported rankings.',
+      href: '/guides/tier-list/',
       action: 'Open',
       icon: 'trophy'
     },
     {
-      badge: 'Tier',
-      title: 'Best Weapons',
-      description:
-        'Top S/A/B Farever weapons by class with drop locations and upgrade paths.',
-      href: '/best-weapons/',
+      badge: 'Builds',
+      title: 'Best Team',
+      description: 'Build a squad of up to three Survivors around compatible weapons, abilities, and synergies.',
+      href: '/guides/best-team/',
+      action: 'Open',
+      icon: 'users'
+    },
+    {
+      badge: 'Weapons',
+      title: 'Weapon Upgrades',
+      description: 'Explore researched weapon paths, achievement unlocks, and version 1.0 skill trees.',
+      href: '/weapons/upgrades/',
       action: 'Open',
       icon: 'swords'
     },
     {
-      badge: 'Combat',
-      title: 'Bosses Guide',
-      description:
-        'Every Farever boss with phases, mechanics, party size and key drops.',
-      href: '/bosses/',
+      badge: 'Items',
+      title: 'Items & Synergies',
+      description: 'Understand item effects, squad interactions, and researched version 1.0 additions.',
+      href: '/items/',
       action: 'Open',
-      icon: 'shield'
+      icon: 'gem'
     },
     {
-      badge: 'Codes',
-      title: 'Codes',
-      description:
-        'Active Farever promo codes and how to redeem them (updated daily).',
-      href: '/codes/',
+      badge: 'Support',
+      title: 'Save Problems',
+      description: 'Review official Steam Cloud backup guidance before attempting save recovery.',
+      href: '/guides/save-problem/',
       action: 'Open',
-      icon: 'code'
+      icon: 'wrench'
     },
     {
-      badge: 'Tech',
-      title: 'Steam Deck',
-      description:
-        'Farever on Steam Deck — Verified status, FPS, battery life and best settings.',
-      href: '/steam-deck/',
+      badge: 'Community',
+      title: 'Mods',
+      description: 'Check mod sources, update dates, and current version compatibility before installing.',
+      href: '/tools/mods/',
       action: 'Open',
       icon: 'gamepad'
     }
   ],
   guides: [
-    {
-      category: 'Builds',
-      title: 'Best Class Tier List 2026',
-      href: '/guides/farever-best-class/',
-      action: 'Read'
-    },
-    {
-      category: 'Leveling',
-      title: 'Fastest Leveling Guide',
-      href: '/guides/farever-leveling-guide/',
-      action: 'Read'
-    },
-    {
-      category: 'Review',
-      title: 'Is Farever Worth It in 2026?',
-      href: '/guides/is-farever-worth-it/',
-      action: 'Read'
-    },
-    {
-      category: 'Region',
-      title: 'Skyover Island Complete Guide',
-      href: '/guides/farever-skyover-island/',
-      action: 'Read'
-    },
-    {
-      category: 'Region',
-      title: 'Valley of Eternal Autumn Guide',
-      href: '/guides/farever-valley-of-the-eternal-autumn/',
-      action: 'Read'
-    },
-    {
-      category: 'Comparison',
-      title: 'Farever vs Wartales',
-      href: '/guides/farever-vs-wartales/',
-      action: 'Read'
-    }
+    {category: 'Teams', title: 'Best Team & Squad Synergies', href: '/guides/best-team/', action: 'Read'},
+    {category: 'Rankings', title: 'Survivor Tier List', href: '/guides/tier-list/', action: 'Read'},
+    {category: 'Survivor', title: 'Ghost Skills & Builds', href: '/characters/ghost/', action: 'Read'},
+    {category: 'Survivor', title: 'Huntress Skills & Upgrades', href: '/characters/huntress/', action: 'Read'},
+    {category: 'Weapons', title: 'Rocket Launcher and Minigun', href: '/weapons/rocket-launcher-and-minigun/', action: 'Read'},
+    {category: 'Secrets', title: 'Sanji the Rabbit', href: '/guides/sanji-the-rabbit/', action: 'Read'}
   ],
   news: [
     {
-      date: 'May 7, 2026',
-      text: 'Farever launches into Steam Early Access with a 10% discount and a full year-long roadmap.'
+      date: 'Aug 20, 2026',
+      text: 'Version 1.0 adds Ranger, Bio Lab, Boss Rush, Survivors’ Camp, story missions, Friendship, and rank-five skill trees.'
     },
     {
-      date: 'Apr 16, 2026',
-      text: 'Shiro Games drops the official Early Access Release Date Trailer.'
+      date: 'Version 1.0',
+      text: 'Ranger joins the researched roster as the ninth playable Survivor and unlocks at Survival Level 175.'
     },
     {
-      date: '2026 Roadmap',
-      text: 'New biomes, raised level cap, additional skills and classes, seasonal events and guilds planned for EA.'
+      date: 'Developer Notes',
+      text: 'New cross-Survivor synergy nodes, additional items, and achievements expand the verified progression systems.'
     }
   ],
   faq: [
     {
-      question: 'What is Farever?',
-      answer:
-        'Farever is an online co-op action RPG by Shiro Games (Wartales, Northgard), set in the forgotten realm of Siagarta. It entered Steam Early Access on May 7, 2026.'
+      question: 'What is Yet Another Zombie Survivors?',
+      answer: 'It is a squad-building bullet heaven action roguelike developed by Awesome Games Studio.'
     },
     {
-      question: 'Is Farever an MMO?',
-      answer:
-        'Farever is an MMO-lite — a co-op online action RPG where you explore, fight and craft in a shared open world. Party size is small (up to 4) rather than a true massively-multiplayer scale.'
+      question: 'How many Survivors can join one run?',
+      answer: 'Each run starts with one Survivor, and SOS calls can recruit up to two more for a maximum squad of three.'
     },
     {
-      question: 'Is Farever free to play?',
-      answer:
-        'No. Farever is a paid Early Access title at $17.99 USD on Steam. There is no free-to-play tier and no demo.'
+      question: 'How many playable Survivors are in version 1.0?',
+      answer: 'The researched version 1.0 roster includes nine playable Survivors.'
     },
     {
-      question: 'Can I play Farever solo?',
-      answer:
-        'Yes. Every dungeon scales to party size and the game is fully completable solo, though duos are the most efficient.'
-    },
-    {
-      question: 'Are Farever servers down right now?',
-      answer:
-        'Most of the time no — but during peak hours queues can appear. Check our live Farever server status page for the latest report.'
-    },
-    {
-      question: 'When is the Farever full release?',
-      answer:
-        'Shiro Games has stated Farever will remain in Early Access for approximately one year, so the 1.0 release is expected around mid-2027.'
-    },
-    {
-      question: 'Is the game "Farever" or "forever"?',
-      answer:
-        'Farever — one R, capital F. Google often autocorrects to "forever" but the game by Shiro Games is spelled Farever.'
+      question: 'How do I unlock Ranger?',
+      answer: 'The official version 1.0 developer notes state that Ranger unlocks at Survival Level 175.'
     }
   ],
   finalCta: {
-    eyebrow: 'Ready to begin?',
-    title: 'Forge your legend today.',
-    primaryAction: {label: 'Play on Steam', href: STEAM_URL},
-    secondaryAction: {
-      label: 'Start with Beginner Guide',
-      href: '/beginner-guide/'
-    }
+    eyebrow: 'Start your next run',
+    title: 'Ready to Master Yet Another Zombie Survivors?',
+    description: 'From your first SOS rescue to rank-five builds, hidden unlocks, Boss Rush, and high-synergy endgame squads, our fan-made guide hub keeps every useful answer in one place.',
+    primaryAction: {label: 'Read the Beginner Guide', href: '/guides/'},
+    secondaryAction: {label: 'Play on Steam', href: STEAM_URL}
   }
 };
 
 const englishCopy: HomeCopy = {
   about: {
-    eyebrow: 'The Forgotten Realm',
-    title: 'What is Farever?',
+    eyebrow: 'Meet the Survivors',
+    title: 'What is Yet Another Zombie Survivors?',
     paragraphs: [
-      'Farever is an online co-op action RPG by Shiro Games — the studio behind Northgard, Wartales and Dune: Spice Wars. Set in the forgotten realm of Siagarta, it fuses Zelda-style exploration and platforming with MMO-flavoured combat, crafting and party progression.',
-      'The Early Access build (launched May 7, 2026) ships with two regions, multiple dungeons, four classes, six jobs and over a hundred weapons. Roughly twelve months of additional content — new biomes, raised level cap, more classes, seasonal events and guilds — are planned for EA. Play solo or with friends online.'
+      'Yet Another Zombie Survivors is a squad-building bullet heaven action roguelike by Awesome Games Studio. You begin each run with one Survivor, answer SOS calls to recruit up to two more, and combine automatic attacks, weapons, abilities, and items against thousands of undead.',
+      'Version 1.0 adds the Survivors’ Camp, story and character missions, the Ranger, Bio Lab, Boss Rush, rank-five skill trees, more synergies, Torments, Friendship progression, new items, and new achievements. Runs stay easy to start while permanent upgrades and team composition create deep build choices.'
     ],
-    factsLabel: 'Quick Facts'
+    factsLabel: 'Verified Game Facts'
   },
-  classes: {eyebrow: 'Choose Your Path', title: 'The Four Classes'},
-  regions: {eyebrow: 'The World of Siagarta', title: 'Explore Two Regions'},
-  journey: {eyebrow: "Adventurer's Codex", title: 'Start Your Journey'},
-  tools: {eyebrow: 'Live Data & Rankings', title: 'Tools & Tier Lists'},
-  guides: {eyebrow: 'Deep Dive', title: 'Featured Guides', all: 'View All Guides'},
-  news: {eyebrow: 'Heralds of Siagarta', title: 'Latest News'},
-  faq: {eyebrow: 'Quick Answers', title: 'Farever FAQ', all: 'See full FAQ'}
+  classes: {eyebrow: 'Build Your Squad', title: 'Meet the Survivors'},
+  regions: {eyebrow: 'Version 1.0', title: 'New Arenas & Modes'},
+  journey: {eyebrow: 'Start Here', title: 'Your Yet Another Zombie Survivors Journey'},
+  tools: {eyebrow: 'Research-backed Resources', title: 'Guides, Builds & Tools'},
+  guides: {eyebrow: 'Deep Dive', title: 'Featured Guides', all: 'Explore All Guides'},
+  news: {eyebrow: 'Officially Documented', title: 'Version 1.0 Highlights'},
+  faq: {eyebrow: 'Quick Answers', title: 'Yet Another Zombie Survivors FAQ', all: 'Explore All Guides'}
 };
 
-type FeatureTranslation = Partial<
-  Pick<FeatureCard, 'action' | 'badge' | 'description' | 'meta' | 'title'>
->;
-
-type GuideTranslation = Pick<GuideCardData, 'action' | 'category' | 'title'>;
-
-type HomeTranslation = {
-  hero: Omit<HeroData, 'primaryAction' | 'secondaryAction'> & {
-    primaryLabel: string;
-    secondaryLabel: string;
+type Translation = {
+  hero: Pick<HeroData, 'eyebrow' | 'description' | 'scrollLabel'> & {
+    primary: string;
+    secondary: string;
+    tertiary: string;
+    video: string;
   };
+  about: HomeCopy['about'];
+  sections: Omit<HomeCopy, 'about'>;
+  final: {eyebrow: string; title: string; description: string; primary: string; secondary: string};
   facts: Fact[];
-  classes: FeatureTranslation[];
-  regions: FeatureTranslation[];
-  journey: FeatureTranslation[];
-  tools: FeatureTranslation[];
-  guides: GuideTranslation[];
   news: NewsItem[];
   faq: FaqItem[];
-  finalCta: {
-    eyebrow: string;
-    title: string;
-    primaryLabel: string;
-    secondaryLabel: string;
-  };
 };
 
-function translateFeatures(
-  base: FeatureCard[],
-  translations: FeatureTranslation[]
-): FeatureCard[] {
-  return base.map((card, index) => ({...card, ...translations[index]}));
-}
+const translations: Record<Exclude<Locale, 'en'>, Translation> = {
+  ru: {
+    hero: {
+      eyebrow: 'Фанатская база знаний выживших',
+      description: 'Соберите отряд максимум из трёх выживших и изучайте проверенные команды, навыки, синергии, предметы и открытия версии 1.0.',
+      primary: 'Гайд для новичков',
+      secondary: 'Сравнить выживших',
+      tertiary: 'Посмотреть предметы',
+      video: 'Официальный трейлер 1.0',
+      scrollLabel: 'Об игре'
+    },
+    about: {
+      eyebrow: 'Познакомьтесь с выжившими',
+      title: 'Что такое Yet Another Zombie Survivors?',
+      paragraphs: [
+        'Yet Another Zombie Survivors — squad-building bullet heaven roguelike от Awesome Games Studio. Начните с одного выжившего, отвечайте на сигналы SOS и соберите отряд максимум из трёх персонажей.',
+        'Версия 1.0 добавляет Survivors’ Camp, Ranger, Bio Lab, Boss Rush, деревья навыков пятого ранга, Friendship, новые предметы, достижения и синергии.'
+      ],
+      factsLabel: 'Проверенные сведения'
+    },
+    sections: {
+      classes: {eyebrow: 'Соберите отряд', title: 'Познакомьтесь с выжившими'},
+      regions: {eyebrow: 'Версия 1.0', title: 'Новые арены и режимы'},
+      journey: {eyebrow: 'Начните здесь', title: 'Ваш путь в Yet Another Zombie Survivors'},
+      tools: {eyebrow: 'Проверенные материалы', title: 'Гайды, сборки и инструменты'},
+      guides: {eyebrow: 'Подробные материалы', title: 'Избранные гайды', all: 'Все гайды'},
+      news: {eyebrow: 'Данные разработчика', title: 'Нововведения версии 1.0'},
+      faq: {eyebrow: 'Быстрые ответы', title: 'Вопросы о Yet Another Zombie Survivors', all: 'Все гайды'}
+    },
+    final: {
+      eyebrow: 'Начните следующий забег',
+      title: 'Готовы освоить Yet Another Zombie Survivors?',
+      description: 'Гайды по спасению SOS, сборкам пятого ранга, скрытым открытиям, Boss Rush и командным синергиям собраны в одном месте.',
+      primary: 'Читать гайд для новичков',
+      secondary: 'Играть в Steam'
+    },
+    facts: [
+      {label: 'Разработчик', value: 'Awesome Games Studio'},
+      {label: 'Платформа', value: 'Steam'},
+      {label: 'Жанр', value: 'Squad-building bullet heaven roguelike'},
+      {label: 'Проданные копии', value: '600,000+'},
+      {label: 'Отзывы Steam', value: '12,000+'},
+      {label: 'Выжившие', value: '9'}
+    ],
+    news: [
+      {date: '20 августа 2026', text: 'Версия 1.0 добавляет Ranger, Bio Lab, Boss Rush, Survivors’ Camp, Friendship и навыки пятого ранга.'},
+      {date: 'Версия 1.0', text: 'Ranger становится девятым выжившим и открывается на Survival Level 175.'},
+      {date: 'Заметки разработчика', text: 'Новые синергии, предметы и достижения расширяют систему прогрессии.'}
+    ],
+    faq: [
+      {question: 'Что такое Yet Another Zombie Survivors?', answer: 'Это squad-building bullet heaven roguelike от Awesome Games Studio.'},
+      {question: 'Сколько персонажей может быть в отряде?', answer: 'Один стартовый выживший и до двух спасённых по сигналам SOS — максимум три.'},
+      {question: 'Сколько выживших в версии 1.0?', answer: 'Исследование версии 1.0 подтверждает девять выживших.'},
+      {question: 'Как открыть Ranger?', answer: 'Официальные заметки разработчика указывают Survival Level 175.'}
+    ]
+  },
+  es: {
+    hero: {
+      eyebrow: 'Guías de supervivientes hechas por fans',
+      description: 'Forma un equipo de hasta tres supervivientes y descubre builds, sinergias, objetos y desbloqueos contrastados de la versión 1.0.',
+      primary: 'Guía para principiantes',
+      secondary: 'Comparar supervivientes',
+      tertiary: 'Ver todos los objetos',
+      video: 'Tráiler oficial 1.0',
+      scrollLabel: 'Descubre el juego'
+    },
+    about: {
+      eyebrow: 'Conoce a los supervivientes',
+      title: '¿Qué es Yet Another Zombie Survivors?',
+      paragraphs: [
+        'Yet Another Zombie Survivors es un roguelike bullet heaven de Awesome Games Studio. Empiezas con un superviviente y las llamadas SOS permiten formar un equipo de hasta tres.',
+        'La versión 1.0 añade Survivors’ Camp, Ranger, Bio Lab, Boss Rush, habilidades de rango cinco, Friendship, objetos, logros y nuevas sinergias.'
+      ],
+      factsLabel: 'Datos verificados'
+    },
+    sections: {
+      classes: {eyebrow: 'Forma tu equipo', title: 'Conoce a los supervivientes'},
+      regions: {eyebrow: 'Versión 1.0', title: 'Nuevas arenas y modos'},
+      journey: {eyebrow: 'Empieza aquí', title: 'Tu aventura en Yet Another Zombie Survivors'},
+      tools: {eyebrow: 'Recursos contrastados', title: 'Guías, builds y herramientas'},
+      guides: {eyebrow: 'A fondo', title: 'Guías destacadas', all: 'Ver todas las guías'},
+      news: {eyebrow: 'Notas oficiales', title: 'Novedades de la versión 1.0'},
+      faq: {eyebrow: 'Respuestas rápidas', title: 'Preguntas sobre Yet Another Zombie Survivors', all: 'Ver todas las guías'}
+    },
+    final: {
+      eyebrow: 'Empieza tu próxima partida',
+      title: '¿Listo para dominar Yet Another Zombie Survivors?',
+      description: 'Desde el primer rescate SOS hasta las builds de rango cinco, Boss Rush y las sinergias de equipo: todas las respuestas útiles en un solo lugar.',
+      primary: 'Leer la guía para principiantes',
+      secondary: 'Jugar en Steam'
+    },
+    facts: [
+      {label: 'Desarrollador', value: 'Awesome Games Studio'},
+      {label: 'Plataforma', value: 'Steam'},
+      {label: 'Género', value: 'Squad-building bullet heaven roguelike'},
+      {label: 'Copias vendidas', value: '600,000+'},
+      {label: 'Reseñas en Steam', value: '12,000+'},
+      {label: 'Supervivientes', value: '9'}
+    ],
+    news: [
+      {date: '20 ago 2026', text: 'La versión 1.0 incorpora Ranger, Bio Lab, Boss Rush, Survivors’ Camp y habilidades de rango cinco.'},
+      {date: 'Versión 1.0', text: 'Ranger es el noveno superviviente y se desbloquea en Survival Level 175.'},
+      {date: 'Notas oficiales', text: 'Nuevas sinergias, objetos y logros amplían la progresión del juego.'}
+    ],
+    faq: [
+      {question: '¿Qué es Yet Another Zombie Survivors?', answer: 'Es un roguelike bullet heaven de formación de equipos desarrollado por Awesome Games Studio.'},
+      {question: '¿Cuántos supervivientes puede tener un equipo?', answer: 'Uno inicial y hasta dos reclutas SOS: un máximo de tres.'},
+      {question: '¿Cuántos supervivientes hay en la versión 1.0?', answer: 'La investigación confirma nueve supervivientes jugables.'},
+      {question: '¿Cómo se desbloquea Ranger?', answer: 'Las notas oficiales indican Survival Level 175.'}
+    ]
+  },
+  de: {
+    hero: {
+      eyebrow: 'Von Fans erstelltes Survivor-Wiki',
+      description: 'Stelle ein Team aus bis zu drei Überlebenden zusammen und entdecke recherchierte Builds, Synergien, Items und Freischaltungen für Version 1.0.',
+      primary: 'Einsteiger-Guide starten',
+      secondary: 'Überlebende vergleichen',
+      tertiary: 'Alle Items ansehen',
+      video: 'Offizieller 1.0-Trailer',
+      scrollLabel: 'Spiel entdecken'
+    },
+    about: {
+      eyebrow: 'Lerne die Überlebenden kennen',
+      title: 'Was ist Yet Another Zombie Survivors?',
+      paragraphs: [
+        'Yet Another Zombie Survivors ist ein Squad-building Bullet-Heaven-Roguelike von Awesome Games Studio. Du startest mit einem Überlebenden und kannst über SOS-Rufe bis zu zwei weitere rekrutieren.',
+        'Version 1.0 ergänzt Survivors’ Camp, Ranger, Bio Lab, Boss Rush, Rang-fünf-Fähigkeiten, Friendship, neue Items, Erfolge und Synergien.'
+      ],
+      factsLabel: 'Geprüfte Spielfakten'
+    },
+    sections: {
+      classes: {eyebrow: 'Stelle dein Squad zusammen', title: 'Lerne die Überlebenden kennen'},
+      regions: {eyebrow: 'Version 1.0', title: 'Neue Arenen & Modi'},
+      journey: {eyebrow: 'Hier anfangen', title: 'Deine Reise in Yet Another Zombie Survivors'},
+      tools: {eyebrow: 'Recherchierte Ressourcen', title: 'Guides, Builds & Tools'},
+      guides: {eyebrow: 'Im Detail', title: 'Empfohlene Guides', all: 'Alle Guides ansehen'},
+      news: {eyebrow: 'Offiziell dokumentiert', title: 'Highlights aus Version 1.0'},
+      faq: {eyebrow: 'Schnelle Antworten', title: 'Yet Another Zombie Survivors FAQ', all: 'Alle Guides ansehen'}
+    },
+    final: {
+      eyebrow: 'Starte deinen nächsten Run',
+      title: 'Bereit für Yet Another Zombie Survivors?',
+      description: 'Vom ersten SOS-Ruf über Rang-fünf-Builds bis zu Boss Rush und Team-Synergien: Unser Fan-Wiki bündelt die recherchierten Antworten.',
+      primary: 'Einsteiger-Guide lesen',
+      secondary: 'Auf Steam spielen'
+    },
+    facts: [
+      {label: 'Entwickler', value: 'Awesome Games Studio'},
+      {label: 'Plattform', value: 'Steam'},
+      {label: 'Genre', value: 'Squad-building Bullet-Heaven-Roguelike'},
+      {label: 'Verkaufte Exemplare', value: '600,000+'},
+      {label: 'Steam-Bewertungen', value: '12,000+'},
+      {label: 'Überlebende', value: '9'}
+    ],
+    news: [
+      {date: '20. Aug. 2026', text: 'Version 1.0 ergänzt Ranger, Bio Lab, Boss Rush, Survivors’ Camp und Rang-fünf-Fähigkeiten.'},
+      {date: 'Version 1.0', text: 'Ranger ist der neunte Überlebende und wird auf Survival Level 175 freigeschaltet.'},
+      {date: 'Entwicklernotizen', text: 'Neue Synergien, Items und Erfolge erweitern die bestätigten Fortschrittssysteme.'}
+    ],
+    faq: [
+      {question: 'Was ist Yet Another Zombie Survivors?', answer: 'Ein Squad-building Bullet-Heaven-Roguelike von Awesome Games Studio.'},
+      {question: 'Wie groß kann ein Squad werden?', answer: 'Eine Startfigur und bis zu zwei SOS-Rekruten ergeben maximal drei Überlebende.'},
+      {question: 'Wie viele Überlebende enthält Version 1.0?', answer: 'Die Recherche bestätigt neun spielbare Überlebende.'},
+      {question: 'Wie schalte ich Ranger frei?', answer: 'Die offiziellen Entwicklernotizen nennen Survival Level 175.'}
+    ]
+  }
+};
 
-function translateHome(translation: HomeTranslation): HomeData {
-  const {primaryLabel, secondaryLabel, ...hero} = translation.hero;
+function buildLocalizedData(locale: Exclude<Locale, 'en'>): HomeData {
+  const translation = translations[locale];
 
   return {
+    ...englishData,
     hero: {
       ...englishData.hero,
-      ...hero,
-      primaryAction: {
-        ...englishData.hero.primaryAction,
-        label: primaryLabel
-      },
-      secondaryAction: {
-        ...englishData.hero.secondaryAction,
-        label: secondaryLabel
-      }
+      eyebrow: translation.hero.eyebrow,
+      description: translation.hero.description,
+      primaryAction: {...englishData.hero.primaryAction, label: translation.hero.primary},
+      secondaryAction: {...englishData.hero.secondaryAction, label: translation.hero.secondary},
+      tertiaryAction: {...englishData.hero.tertiaryAction, label: translation.hero.tertiary},
+      videoAction: {...englishData.hero.videoAction, label: translation.hero.video},
+      scrollLabel: translation.hero.scrollLabel
     },
     facts: translation.facts,
-    classes: translateFeatures(englishData.classes, translation.classes),
-    regions: translateFeatures(englishData.regions, translation.regions),
-    journey: translateFeatures(englishData.journey, translation.journey),
-    tools: translateFeatures(englishData.tools, translation.tools),
-    guides: englishData.guides.map((guide, index) => ({
-      ...guide,
-      ...translation.guides[index]
-    })),
     news: translation.news,
     faq: translation.faq,
     finalCta: {
       ...englishData.finalCta,
-      eyebrow: translation.finalCta.eyebrow,
-      title: translation.finalCta.title,
-      primaryAction: {
-        ...englishData.finalCta.primaryAction,
-        label: translation.finalCta.primaryLabel
-      },
-      secondaryAction: {
-        ...englishData.finalCta.secondaryAction,
-        label: translation.finalCta.secondaryLabel
-      }
+      eyebrow: translation.final.eyebrow,
+      title: translation.final.title,
+      description: translation.final.description,
+      primaryAction: {...englishData.finalCta.primaryAction, label: translation.final.primary},
+      secondaryAction: {...englishData.finalCta.secondaryAction, label: translation.final.secondary}
     }
   };
 }
 
-const germanData = translateHome({
-  hero: {
-    eyebrow: 'Ein Abenteuer von Shiro Games · Steam Early Access',
-    titleLead: 'Schmiede deine Legende',
-    titleAccent: 'in Farever',
-    description:
-      'Ein Online-Koop-Action-RPG im vergessenen Reich Siagarta. Erkunde wilde Lande, bezwinge Dungeons und meistere 4 Klassen, 6 Berufe und über 100 Waffen.',
-    primaryLabel: 'Auf Steam spielen',
-    secondaryLabel: 'Einsteiger-Guide',
-    stats: [
-      {value: '7. Mai 2026', label: 'EA-Start'},
-      {value: '17,99 $', label: 'Steam-Preis'},
-      {value: '72 %', label: 'Größtenteils positiv'},
-      {value: 'ca. 12 Mon.', label: 'EA-Dauer'}
-    ],
-    scrollLabel: 'Scrollen'
-  },
-  facts: [
-    {label: 'Entwickler', value: 'Shiro Games'},
-    {label: 'Genre', value: 'Online-Koop-Action-RPG'},
-    {label: 'Plattform', value: 'PC (Steam)'},
-    {label: 'Spieler', value: 'Solo oder Online-Koop'},
-    {label: 'Preis', value: '17,99 USD'},
-    {label: 'Rezensionen', value: 'Größtenteils positiv (1.400+)'},
-    {label: 'Engine', value: 'Heaps (Shiro-intern)'}
-  ],
-  classes: [
-    {
-      badge: 'Frontlinie · Tank-DPS',
-      title: 'Krieger',
-      description:
-        'Schwer gepanzerter Kämpfer mit starkem Taumelschaden und Selbstheilung. Die einsteigerfreundlichste Klasse.',
-      action: 'Entdecken'
-    },
-    {
-      badge: 'Fernkampf · Kite-DPS',
-      title: 'Jäger',
-      description:
-        'Bögen, Fallen und Tiere. Dank hoher Mobilität und starkem Fernkampfschaden hervorragend für Solo-Spieler.',
-      action: 'Entdecken'
-    },
-    {
-      badge: 'Fläche · Burst-Zauberer',
-      title: 'Magier',
-      description:
-        'Elementarer Fernkämpfer. Zerbrechlich, aber vernichtend gegen Gruppen und mit dem höchsten Schadenspotenzial.',
-      action: 'Entdecken'
-    },
-    {
-      badge: 'Support · Hybrid',
-      title: 'Mystiker',
-      description:
-        'Flexibler Buff- und Heil-Support mit Kampfmagie. Im Koop am stärksten, mit der richtigen Waffe auch solo spielbar.',
-      action: 'Entdecken'
-    }
-  ],
-  regions: [
-    {
-      badge: 'Startregion',
-      meta: 'Stufe 1–15',
-      description:
-        'Schwebender Archipel rivalisierender Fraktionen. Vier Hauptdungeons führen zur Wiege des Himmels.',
-      action: 'Regions-Guide'
-    },
-    {
-      badge: 'Endgame · EA',
-      meta: 'Ab Stufe 12',
-      title: 'Tal des ewigen Herbstes',
-      description:
-        'Ewige Herbstwälder voller Natur- und Verfallsgegner. Viel Gift und engere Zeitfenster bei Bossen.',
-      action: 'Regions-Guide'
-    }
-  ],
-  journey: [
-    {title: 'Veröffentlichungsdatum', description: 'Infos zum Early-Access-Start, Ausblick auf Version 1.0 und Shiro Games’ einjähriger EA-Plan.', action: 'Mehr lesen'},
-    {title: 'Einsteiger-Guide', description: 'Die ersten 5 Stunden: Klasse wählen, kostenloses Reittier, Waffenmeisterschaft und Stadtgrundlagen.', action: 'Mehr lesen'},
-    {title: 'Klassen & Berufe', description: 'Alle 4 Klassen und 6 Berufe — Stärken, Rollen und empfohlene Kombinationen.', action: 'Mehr lesen'},
-    {title: 'Waffen & Fähigkeiten', description: 'Das GW2-ähnliche Waffensystem: über 100 Waffen schalten einzigartige Kampffähigkeiten frei.', action: 'Mehr lesen'},
-    {title: 'Dungeons & Bosse', description: 'Skyover Island und das Tal des ewigen Herbstes — alle Dungeons, Fraktionen und Bosse.', action: 'Mehr lesen'},
-    {title: 'Koop-Anleitung', description: 'Freunde einladen, Gruppenskalierung, Crossplay-Status und Tipps für dedizierte Server.', action: 'Mehr lesen'},
-    {title: 'Tipps & Tricks', description: 'Schnell leveln, das kostenlose Reittier finden, Handwerk optimieren und richtig ausweichen.', action: 'Mehr lesen'},
-    {title: 'EA-Roadmap', description: 'Neue Regionen, Klassen, Levelgrenze, Saison-Events und Gilden — der vollständige Plan.', action: 'Mehr lesen'},
-    {title: 'FAQ', description: 'Ist Farever kostenlos? Crossplay? Solo-tauglich? PvP? Hier stehen alle Antworten.', action: 'Mehr lesen'}
-  ],
-  tools: [
-    {badge: 'Live', title: 'Serverstatus', description: 'Sind die Farever-Server offline? Live-Status, Störungsverlauf und Login-Lösungen.', action: 'Öffnen'},
-    {badge: 'Daten', title: 'Steam-Charts', description: 'Farever-Spielerzahl, 24-Stunden-Spitze und 7-Tage-Trend — täglich aktualisiert.', action: 'Öffnen'},
-    {badge: 'Rang', title: 'Klassen-Tier-Liste', description: 'S/A/B-Ranglisten für alle 4 Klassen — Solo-, Duo- und Gruppenwertung.', action: 'Öffnen'},
-    {badge: 'Rang', title: 'Beste Waffen', description: 'Die besten S/A/B-Waffen je Klasse mit Fundorten und Upgrade-Pfaden.', action: 'Öffnen'},
-    {badge: 'Kampf', title: 'Boss-Guide', description: 'Alle Farever-Bosse mit Phasen, Mechaniken, Gruppengröße und wichtigen Beutegegenständen.', action: 'Öffnen'},
-    {badge: 'Codes', title: 'Codes', description: 'Aktive Farever-Promocodes und ihre Einlösung — täglich aktualisiert.', action: 'Öffnen'},
-    {badge: 'Technik', title: 'Steam Deck', description: 'Farever auf Steam Deck — Verifizierungsstatus, FPS, Akkulaufzeit und beste Einstellungen.', action: 'Öffnen'}
-  ],
-  guides: [
-    {category: 'Builds', title: 'Beste Klassen-Tier-Liste 2026', action: 'Lesen'},
-    {category: 'Leveln', title: 'Schnellster Level-Guide', action: 'Lesen'},
-    {category: 'Test', title: 'Lohnt sich Farever 2026?', action: 'Lesen'},
-    {category: 'Region', title: 'Komplett-Guide für Skyover Island', action: 'Lesen'},
-    {category: 'Region', title: 'Guide zum Tal des ewigen Herbstes', action: 'Lesen'},
-    {category: 'Vergleich', title: 'Farever vs. Wartales', action: 'Lesen'}
-  ],
-  news: [
-    {date: '7. Mai 2026', text: 'Farever startet mit 10 % Rabatt und einer vollständigen Jahres-Roadmap in den Steam Early Access.'},
-    {date: '16. Apr. 2026', text: 'Shiro Games veröffentlicht den offiziellen Trailer zum Early-Access-Termin.'},
-    {date: 'Roadmap 2026', text: 'Neue Biome, eine höhere Levelgrenze, zusätzliche Fähigkeiten und Klassen, Saison-Events und Gilden sind geplant.'}
-  ],
-  faq: [
-    {question: 'Was ist Farever?', answer: 'Farever ist ein Online-Koop-Action-RPG von Shiro Games (Wartales, Northgard) im vergessenen Reich Siagarta. Der Steam Early Access begann am 7. Mai 2026.'},
-    {question: 'Ist Farever ein MMO?', answer: 'Farever ist ein MMO-lite: ein kooperatives Online-Action-RPG mit gemeinsamer offener Welt. Gruppen sind mit bis zu vier Personen kleiner als in einem echten MMO.'},
-    {question: 'Ist Farever kostenlos spielbar?', answer: 'Nein. Farever ist ein kostenpflichtiger Early-Access-Titel für 17,99 USD auf Steam. Es gibt weder Free-to-play noch eine Demo.'},
-    {question: 'Kann ich Farever solo spielen?', answer: 'Ja. Jeder Dungeon skaliert mit der Gruppengröße und das Spiel ist vollständig solo abschließbar, auch wenn Duos am effizientesten sind.'},
-    {question: 'Sind die Farever-Server gerade offline?', answer: 'Meistens nicht, zu Spitzenzeiten können aber Warteschlangen entstehen. Auf unserer Live-Statusseite steht der aktuelle Bericht.'},
-    {question: 'Wann erscheint Farever vollständig?', answer: 'Shiro Games plant ungefähr ein Jahr Early Access. Version 1.0 wird daher etwa Mitte 2027 erwartet.'},
-    {question: 'Heißt das Spiel „Farever“ oder „forever“?', answer: 'Farever — mit einem R und großem F. Google korrigiert den Namen oft zu „forever“, aber das Spiel von Shiro Games heißt Farever.'}
-  ],
-  finalCta: {
-    eyebrow: 'Bereit für den Anfang?',
-    title: 'Schmiede noch heute deine Legende.',
-    primaryLabel: 'Auf Steam spielen',
-    secondaryLabel: 'Mit dem Einsteiger-Guide starten'
-  }
-});
-
-const spanishData = translateHome({
-  hero: {
-    eyebrow: 'Una aventura de Shiro Games · Acceso anticipado de Steam',
-    titleLead: 'Forja tu leyenda',
-    titleAccent: 'en Farever',
-    description:
-      'Un RPG de acción cooperativo en línea ambientado en el reino olvidado de Siagarta. Explora tierras salvajes, conquista mazmorras y domina 4 clases, 6 oficios y más de 100 armas.',
-    primaryLabel: 'Jugar en Steam',
-    secondaryLabel: 'Guía para principiantes',
-    stats: [
-      {value: '7 may 2026', label: 'Lanzamiento EA'},
-      {value: '17,99 US$', label: 'Precio en Steam'},
-      {value: '72 %', label: 'Mayormente positivas'},
-      {value: '≈12 meses', label: 'Duración del EA'}
-    ],
-    scrollLabel: 'Desplázate'
-  },
-  facts: [
-    {label: 'Desarrollador', value: 'Shiro Games'},
-    {label: 'Género', value: 'RPG de acción cooperativo en línea'},
-    {label: 'Plataforma', value: 'PC (Steam)'},
-    {label: 'Jugadores', value: 'Solo o cooperativo en línea'},
-    {label: 'Precio', value: '17,99 USD'},
-    {label: 'Reseñas', value: 'Mayormente positivas (1.400+)'},
-    {label: 'Motor', value: 'Heaps (interno de Shiro)'}
-  ],
-  classes: [
-    {badge: 'Vanguardia · Tanque-DPS', title: 'Guerrero', description: 'Luchador con armadura pesada, gran capacidad de tambaleo y autosanación. La clase más accesible para aprender.', action: 'Explorar'},
-    {badge: 'A distancia · DPS móvil', title: 'Explorador', description: 'Arcos, trampas y mascotas. Una clase excelente en solitario por su movilidad y daño explosivo a distancia.', action: 'Explorar'},
-    {badge: 'Área · Mago explosivo', title: 'Mago', description: 'Especialista elemental. Frágil, pero derrite grupos de enemigos y tiene el mayor techo de daño.', action: 'Explorar'},
-    {badge: 'Apoyo · Híbrido', title: 'Místico', description: 'Apoyo flexible con mejoras, curación y magia de batalla. Brilla en cooperativo y funciona solo con el arma adecuada.', action: 'Explorar'}
-  ],
-  regions: [
-    {badge: 'Región inicial', meta: 'Nv. 1–15', description: 'Un archipiélago flotante de facciones enfrentadas. Cuatro mazmorras principales culminan en la Cuna del Cielo.', action: 'Guía de la región'},
-    {badge: 'Final del juego · EA', meta: 'Nv. 12+', title: 'Valle del Otoño Eterno', description: 'Bosques de otoño permanente llenos de enemigos de naturaleza y decadencia. Mucho veneno y ventanas de jefe más exigentes.', action: 'Guía de la región'}
-  ],
-  journey: [
-    {title: 'Fecha de lanzamiento', description: 'Datos del acceso anticipado, perspectivas de la versión completa y el plan anual de Shiro Games.', action: 'Leer más'},
-    {title: 'Guía para principiantes', description: 'Tus primeras 5 horas: elegir clase, montura gratis, dominio de armas y fundamentos de la ciudad.', action: 'Leer más'},
-    {title: 'Clases y oficios', description: 'Las 4 clases y los 6 oficios: fortalezas, funciones y combinaciones recomendadas.', action: 'Leer más'},
-    {title: 'Armas y habilidades', description: 'El sistema de habilidades por arma al estilo GW2: más de 100 armas desbloquean técnicas únicas.', action: 'Leer más'},
-    {title: 'Mazmorras y jefes', description: 'Skyover Island y el Valle del Otoño Eterno: todas las mazmorras, facciones y jefes.', action: 'Leer más'},
-    {title: 'Cómo jugar en cooperativo', description: 'Invitar amigos, escalado de grupo, estado del juego cruzado y servidores dedicados.', action: 'Leer más'},
-    {title: 'Consejos y trucos', description: 'Sube rápido, encuentra la montura gratis, optimiza la artesanía y perfecciona las esquivas.', action: 'Leer más'},
-    {title: 'Hoja de ruta de EA', description: 'Nuevas regiones, clases, límite de nivel, eventos de temporada y gremios: el plan completo.', action: 'Leer más'},
-    {title: 'Preguntas frecuentes', description: '¿Farever es gratis? ¿Tiene juego cruzado, modo solo o JcJ? Todas las respuestas.', action: 'Leer más'}
-  ],
-  tools: [
-    {badge: 'En vivo', title: 'Estado del servidor', description: '¿Están caídos los servidores? Estado en vivo, cronología de incidencias y soluciones de acceso.', action: 'Abrir'},
-    {badge: 'Datos', title: 'Gráficos de Steam', description: 'Jugadores de Farever, pico de 24 h y tendencia de 7 días; actualizado a diario.', action: 'Abrir'},
-    {badge: 'Niveles', title: 'Lista de clases', description: 'Clasificaciones S/A/B para las 4 clases en solitario, dúo y grupo.', action: 'Abrir'},
-    {badge: 'Niveles', title: 'Mejores armas', description: 'Las mejores armas S/A/B por clase con ubicaciones y rutas de mejora.', action: 'Abrir'},
-    {badge: 'Combate', title: 'Guía de jefes', description: 'Todos los jefes de Farever con fases, mecánicas, tamaño de grupo y botín clave.', action: 'Abrir'},
-    {badge: 'Códigos', title: 'Códigos', description: 'Códigos promocionales activos y cómo canjearlos; actualizado a diario.', action: 'Abrir'},
-    {badge: 'Tecnología', title: 'Steam Deck', description: 'Farever en Steam Deck: verificación, FPS, batería y mejores ajustes.', action: 'Abrir'}
-  ],
-  guides: [
-    {category: 'Configuraciones', title: 'Mejores clases de 2026', action: 'Leer'},
-    {category: 'Nivelación', title: 'Guía para subir de nivel rápido', action: 'Leer'},
-    {category: 'Análisis', title: '¿Vale la pena Farever en 2026?', action: 'Leer'},
-    {category: 'Región', title: 'Guía completa de Skyover Island', action: 'Leer'},
-    {category: 'Región', title: 'Guía del Valle del Otoño Eterno', action: 'Leer'},
-    {category: 'Comparación', title: 'Farever vs. Wartales', action: 'Leer'}
-  ],
-  news: [
-    {date: '7 may 2026', text: 'Farever llega al acceso anticipado de Steam con un 10 % de descuento y una hoja de ruta anual completa.'},
-    {date: '16 abr 2026', text: 'Shiro Games publica el tráiler oficial de la fecha de acceso anticipado.'},
-    {date: 'Hoja de ruta 2026', text: 'Se planean nuevos biomas, mayor nivel máximo, habilidades, clases, eventos de temporada y gremios.'}
-  ],
-  faq: [
-    {question: '¿Qué es Farever?', answer: 'Farever es un RPG de acción cooperativo en línea de Shiro Games (Wartales, Northgard), ambientado en Siagarta. Entró en acceso anticipado de Steam el 7 de mayo de 2026.'},
-    {question: '¿Farever es un MMO?', answer: 'Farever es un MMO ligero: un RPG de acción cooperativo en un mundo abierto compartido. Los grupos son de hasta cuatro jugadores, no de escala masiva.'},
-    {question: '¿Farever es gratis?', answer: 'No. Farever es un título de acceso anticipado de pago por 17,99 USD en Steam. No tiene modalidad gratuita ni demo.'},
-    {question: '¿Puedo jugar Farever solo?', answer: 'Sí. Todas las mazmorras escalan con el tamaño del grupo y el juego se puede completar en solitario, aunque los dúos son más eficientes.'},
-    {question: '¿Están caídos los servidores de Farever?', answer: 'Normalmente no, aunque puede haber colas en horas punta. Consulta nuestra página de estado en vivo para ver el informe más reciente.'},
-    {question: '¿Cuándo sale la versión completa?', answer: 'Shiro Games ha indicado que Farever permanecerá aproximadamente un año en acceso anticipado, así que la versión 1.0 se espera a mediados de 2027.'},
-    {question: '¿El juego se llama “Farever” o “forever”?', answer: 'Farever, con una sola R y F mayúscula. Google suele corregirlo a “forever”, pero el juego de Shiro Games se escribe Farever.'}
-  ],
-  finalCta: {
-    eyebrow: '¿Listo para empezar?',
-    title: 'Forja tu leyenda hoy.',
-    primaryLabel: 'Jugar en Steam',
-    secondaryLabel: 'Empezar con la guía para principiantes'
-  }
-});
-
-const frenchData = translateHome({
-  hero: {
-    eyebrow: 'Une aventure Shiro Games · Accès anticipé Steam',
-    titleLead: 'Forgez votre légende',
-    titleAccent: 'dans Farever',
-    description:
-      'Un action-RPG coopératif en ligne situé dans le royaume oublié de Siagarta. Explorez des terres sauvages, triomphez des donjons et maîtrisez 4 classes, 6 métiers et plus de 100 armes.',
-    primaryLabel: 'Jouer sur Steam',
-    secondaryLabel: 'Guide du débutant',
-    stats: [
-      {value: '7 mai 2026', label: 'Lancement EA'},
-      {value: '17,99 $', label: 'Prix Steam'},
-      {value: '72 %', label: 'Plutôt positives'},
-      {value: '≈12 mois', label: 'Durée de l’EA'}
-    ],
-    scrollLabel: 'Défiler'
-  },
-  facts: [
-    {label: 'Développeur', value: 'Shiro Games'},
-    {label: 'Genre', value: 'Action-RPG coopératif en ligne'},
-    {label: 'Plateforme', value: 'PC (Steam)'},
-    {label: 'Joueurs', value: 'Solo ou coop en ligne'},
-    {label: 'Prix', value: '17,99 USD'},
-    {label: 'Avis', value: 'Plutôt positives (1 400+)'},
-    {label: 'Moteur', value: 'Heaps (interne à Shiro)'}
-  ],
-  classes: [
-    {badge: 'Première ligne · Tank-DPS', title: 'Guerrier', description: 'Combattant en armure lourde avec beaucoup d’impact et d’autonomie. La classe la plus facile à prendre en main.', action: 'Explorer'},
-    {badge: 'Distance · DPS mobile', title: 'Rôdeur', description: 'Arcs, pièges et familiers. Excellent en solo grâce à sa mobilité et ses dégâts à distance.', action: 'Explorer'},
-    {badge: 'Zone · Mage explosif', title: 'Mage', description: 'Maître des éléments. Fragile, mais redoutable contre les groupes et doté du meilleur potentiel de dégâts.', action: 'Explorer'},
-    {badge: 'Soutien · Hybride', title: 'Mystique', description: 'Soutien polyvalent mêlant améliorations, soins et magie de combat. Idéal en coop et viable en solo.', action: 'Explorer'}
-  ],
-  regions: [
-    {badge: 'Région de départ', meta: 'Niv. 1–15', description: 'Un archipel flottant où s’affrontent plusieurs factions. Quatre donjons majeurs mènent au Berceau du Ciel.', action: 'Guide de région'},
-    {badge: 'Fin de jeu · EA', meta: 'Niv. 12+', title: 'Vallée de l’Automne éternel', description: 'Des forêts figées en automne, peuplées d’ennemis liés à la nature et à la décomposition. Poison fréquent et fenêtres de boss serrées.', action: 'Guide de région'}
-  ],
-  journey: [
-    {title: 'Date de sortie', description: 'Informations sur l’accès anticipé, perspectives de la version complète et programme annuel de Shiro Games.', action: 'Lire la suite'},
-    {title: 'Guide du débutant', description: 'Vos 5 premières heures : choix de classe, monture gratuite, maîtrise des armes et bases en ville.', action: 'Lire la suite'},
-    {title: 'Classes et métiers', description: 'Les 4 classes et 6 métiers : forces, rôles et associations recommandées.', action: 'Lire la suite'},
-    {title: 'Armes et compétences', description: 'Le système façon GW2 : plus de 100 armes débloquent des techniques de combat uniques.', action: 'Lire la suite'},
-    {title: 'Donjons et boss', description: 'Skyover Island et la Vallée de l’Automne éternel : chaque donjon, faction et boss.', action: 'Lire la suite'},
-    {title: 'Jouer en coop', description: 'Inviter des amis, mise à l’échelle du groupe, cross-play et conseils de serveurs dédiés.', action: 'Lire la suite'},
-    {title: 'Astuces et conseils', description: 'Progressez vite, trouvez la monture gratuite, optimisez l’artisanat et maîtrisez l’esquive.', action: 'Lire la suite'},
-    {title: 'Feuille de route EA', description: 'Nouvelles régions, classes, niveau maximal, événements saisonniers et guildes : le plan complet.', action: 'Lire la suite'},
-    {title: 'FAQ', description: 'Farever est-il gratuit ? Cross-play, solo, JcJ ? Toutes les réponses sont ici.', action: 'Lire la suite'}
-  ],
-  tools: [
-    {badge: 'Direct', title: 'État des serveurs', description: 'Les serveurs Farever sont-ils en panne ? État en direct, historique et solutions de connexion.', action: 'Ouvrir'},
-    {badge: 'Données', title: 'Graphiques Steam', description: 'Nombre de joueurs, pic sur 24 h et tendance sur 7 jours — mise à jour quotidienne.', action: 'Ouvrir'},
-    {badge: 'Classement', title: 'Tier list des classes', description: 'Classements S/A/B des 4 classes en solo, duo et groupe.', action: 'Ouvrir'},
-    {badge: 'Classement', title: 'Meilleures armes', description: 'Les meilleures armes S/A/B par classe, leurs emplacements et améliorations.', action: 'Ouvrir'},
-    {badge: 'Combat', title: 'Guide des boss', description: 'Tous les boss de Farever avec phases, mécaniques, taille de groupe et butin clé.', action: 'Ouvrir'},
-    {badge: 'Codes', title: 'Codes', description: 'Codes promotionnels Farever actifs et méthode d’activation — mise à jour quotidienne.', action: 'Ouvrir'},
-    {badge: 'Technique', title: 'Steam Deck', description: 'Farever sur Steam Deck : statut, FPS, autonomie et meilleurs réglages.', action: 'Ouvrir'}
-  ],
-  guides: [
-    {category: 'Builds', title: 'Tier list des classes 2026', action: 'Lire'},
-    {category: 'Progression', title: 'Guide de progression rapide', action: 'Lire'},
-    {category: 'Test', title: 'Farever vaut-il le coup en 2026 ?', action: 'Lire'},
-    {category: 'Région', title: 'Guide complet de Skyover Island', action: 'Lire'},
-    {category: 'Région', title: 'Guide de la Vallée de l’Automne éternel', action: 'Lire'},
-    {category: 'Comparatif', title: 'Farever face à Wartales', action: 'Lire'}
-  ],
-  news: [
-    {date: '7 mai 2026', text: 'Farever arrive en accès anticipé Steam avec 10 % de réduction et une feuille de route annuelle complète.'},
-    {date: '16 avr. 2026', text: 'Shiro Games dévoile la bande-annonce officielle de la date de l’accès anticipé.'},
-    {date: 'Feuille de route 2026', text: 'Nouveaux biomes, niveau maximal relevé, compétences, classes, événements saisonniers et guildes sont prévus.'}
-  ],
-  faq: [
-    {question: 'Qu’est-ce que Farever ?', answer: 'Farever est un action-RPG coopératif en ligne de Shiro Games (Wartales, Northgard), dans le royaume oublié de Siagarta. Il est arrivé en accès anticipé Steam le 7 mai 2026.'},
-    {question: 'Farever est-il un MMO ?', answer: 'Farever est un MMO-lite : un action-RPG coopératif dans un monde ouvert partagé. Les groupes comptent jusqu’à quatre joueurs, loin de l’échelle d’un vrai MMO.'},
-    {question: 'Farever est-il gratuit ?', answer: 'Non. Farever est un jeu payant en accès anticipé à 17,99 USD sur Steam. Il n’existe ni formule gratuite ni démo.'},
-    {question: 'Puis-je jouer à Farever en solo ?', answer: 'Oui. Chaque donjon s’adapte à la taille du groupe et tout le jeu peut être terminé seul, même si les duos sont les plus efficaces.'},
-    {question: 'Les serveurs Farever sont-ils en panne ?', answer: 'La plupart du temps non, mais des files peuvent apparaître aux heures de pointe. Consultez notre page d’état en direct pour le dernier rapport.'},
-    {question: 'Quand sortira la version complète ?', answer: 'Shiro Games a annoncé environ un an d’accès anticipé. La version 1.0 est donc attendue vers le milieu de l’année 2027.'},
-    {question: 'Le jeu s’appelle-t-il « Farever » ou « forever » ?', answer: 'Farever — un seul R et un F majuscule. Google corrige souvent en « forever », mais le jeu de Shiro Games s’écrit Farever.'}
-  ],
-  finalCta: {
-    eyebrow: 'Prêt à commencer ?',
-    title: 'Forgez votre légende dès aujourd’hui.',
-    primaryLabel: 'Jouer sur Steam',
-    secondaryLabel: 'Commencer par le guide du débutant'
-  }
-});
-
-const germanCopy: HomeCopy = {
-  about: {
-    eyebrow: 'Das vergessene Reich',
-    title: 'Was ist Farever?',
-    paragraphs: [
-      'Farever ist ein Online-Koop-Action-RPG von Shiro Games — dem Studio hinter Northgard, Wartales und Dune: Spice Wars. Im vergessenen Reich Siagarta verbindet es Erkundung und Plattformpassagen im Zelda-Stil mit MMO-inspirierten Kämpfen, Handwerk und Gruppenfortschritt.',
-      'Der Early-Access-Build vom 7. Mai 2026 umfasst zwei Regionen, mehrere Dungeons, vier Klassen, sechs Berufe und über hundert Waffen. Für ungefähr zwölf weitere Monate sind neue Biome, eine höhere Levelgrenze, weitere Klassen, Saison-Events und Gilden geplant. Spiele solo oder online mit Freunden.'
-    ],
-    factsLabel: 'Schnelle Fakten'
-  },
-  classes: {eyebrow: 'Wähle deinen Pfad', title: 'Die vier Klassen'},
-  regions: {eyebrow: 'Die Welt von Siagarta', title: 'Erkunde zwei Regionen'},
-  journey: {eyebrow: 'Kodex der Abenteurer', title: 'Beginne deine Reise'},
-  tools: {eyebrow: 'Live-Daten & Ranglisten', title: 'Tools & Tier-Listen'},
-  guides: {eyebrow: 'Im Detail', title: 'Empfohlene Guides', all: 'Alle Guides anzeigen'},
-  news: {eyebrow: 'Herolde von Siagarta', title: 'Neueste Nachrichten'},
-  faq: {eyebrow: 'Schnelle Antworten', title: 'Farever FAQ', all: 'Vollständige FAQ'}
-};
-
-const spanishCopy: HomeCopy = {
-  about: {
-    eyebrow: 'El reino olvidado',
-    title: '¿Qué es Farever?',
-    paragraphs: [
-      'Farever es un RPG de acción cooperativo en línea de Shiro Games, el estudio de Northgard, Wartales y Dune: Spice Wars. En el reino olvidado de Siagarta, combina exploración y plataformas al estilo Zelda con combate, artesanía y progresión de grupo inspirados en los MMO.',
-      'La versión de acceso anticipado del 7 de mayo de 2026 incluye dos regiones, varias mazmorras, cuatro clases, seis oficios y más de cien armas. Se planean unos doce meses de contenido adicional con nuevos biomas, más nivel, clases, eventos de temporada y gremios. Juega solo o con amigos.'
-    ],
-    factsLabel: 'Datos rápidos'
-  },
-  classes: {eyebrow: 'Elige tu camino', title: 'Las cuatro clases'},
-  regions: {eyebrow: 'El mundo de Siagarta', title: 'Explora dos regiones'},
-  journey: {eyebrow: 'Códice del aventurero', title: 'Comienza tu viaje'},
-  tools: {eyebrow: 'Datos y clasificaciones', title: 'Herramientas y listas'},
-  guides: {eyebrow: 'En profundidad', title: 'Guías destacadas', all: 'Ver todas las guías'},
-  news: {eyebrow: 'Heraldos de Siagarta', title: 'Últimas noticias'},
-  faq: {eyebrow: 'Respuestas rápidas', title: 'Preguntas sobre Farever', all: 'Ver todas las preguntas'}
-};
-
-const frenchCopy: HomeCopy = {
-  about: {
-    eyebrow: 'Le royaume oublié',
-    title: 'Qu’est-ce que Farever ?',
-    paragraphs: [
-      'Farever est un action-RPG coopératif en ligne de Shiro Games, le studio derrière Northgard, Wartales et Dune: Spice Wars. Dans le royaume oublié de Siagarta, il mêle exploration et plates-formes façon Zelda à des combats, de l’artisanat et une progression de groupe inspirés des MMO.',
-      'La version en accès anticipé du 7 mai 2026 propose deux régions, plusieurs donjons, quatre classes, six métiers et plus de cent armes. Environ douze mois de contenu supplémentaire sont prévus : biomes, niveau maximal, classes, événements saisonniers et guildes. Jouez seul ou en ligne avec vos amis.'
-    ],
-    factsLabel: 'En bref'
-  },
-  classes: {eyebrow: 'Choisissez votre voie', title: 'Les quatre classes'},
-  regions: {eyebrow: 'Le monde de Siagarta', title: 'Explorez deux régions'},
-  journey: {eyebrow: 'Codex de l’aventurier', title: 'Commencez votre voyage'},
-  tools: {eyebrow: 'Données & classements', title: 'Outils et tier lists'},
-  guides: {eyebrow: 'En profondeur', title: 'Guides à la une', all: 'Voir tous les guides'},
-  news: {eyebrow: 'Hérauts de Siagarta', title: 'Dernières nouvelles'},
-  faq: {eyebrow: 'Réponses rapides', title: 'FAQ Farever', all: 'Voir toute la FAQ'}
-};
-
 const dataByLocale: Record<Locale, HomeData> = {
   en: englishData,
-  de: germanData,
-  es: spanishData,
-  fr: frenchData
+  ru: buildLocalizedData('ru'),
+  es: buildLocalizedData('es'),
+  de: buildLocalizedData('de')
 };
 
 const copyByLocale: Record<Locale, HomeCopy> = {
   en: englishCopy,
-  de: germanCopy,
-  es: spanishCopy,
-  fr: frenchCopy
+  ru: {about: translations.ru.about, ...translations.ru.sections},
+  es: {about: translations.es.about, ...translations.es.sections},
+  de: {about: translations.de.about, ...translations.de.sections}
 };
 
 const seoByLocale: Record<Locale, HomeSeo> = {
   en: enMessages.Home,
-  de: deMessages.Home,
+  ru: ruMessages.Home,
   es: esMessages.Home,
-  fr: frMessages.Home
+  de: deMessages.Home
 };
 
 export function getHomeData(locale: Locale): HomeData {
@@ -927,3 +569,5 @@ export function getHomeCopy(locale: Locale): HomeCopy {
 export function getHomeSeo(locale: Locale): HomeSeo {
   return seoByLocale[locale];
 }
+
+export {GAME_NAME};

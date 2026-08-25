@@ -23,7 +23,7 @@ export default async function NotFound() {
           </a>
           <a
             className="btn-ghost"
-            href={localizeHref(locale, '/beginner-guide/')}
+            href={localizeHref(locale, '/guides/')}
           >
             {messages.beginnerGuide}
           </a>

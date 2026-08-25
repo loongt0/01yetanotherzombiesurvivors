@@ -1,19 +1,76 @@
 {
   "Home": {
-    "title": "Farever Wiki — Co-op Action RPG Guide, Classes & Roadmap",
-    "description": "Farever is a co-op action RPG by Shiro Games, now in Steam Early Access. Get the latest release info, classes, jobs, weapons, dungeons, beginner guide and 2026 roadmap.",
-    "openGraphTitle": "Farever Wiki — Guide, Classes, Weapons & Roadmap",
-    "openGraphDescription": "Everything you need to forge your legend in Farever — the co-op action RPG by Shiro Games."
+    "title": "Yet Another Zombie Survivors Wiki — Guides & Builds",
+    "description": "Master Yet Another Zombie Survivors with beginner guides, survivor builds, tier lists, team synergies, item tips, achievements, weapons, and unlocks.",
+    "openGraphTitle": "Yet Another Zombie Survivors Wiki — Guides & Builds",
+    "openGraphDescription": "Explore beginner guides, survivor builds, best teams, synergies, weapons, items, and unlocks."
   },
   "Header": {
-    "subtitle": "The Forgotten Realm · Wiki", "steam": "Play on Steam", "primaryLabel": "Main navigation", "utilityLabel": "Resources navigation",
-    "navigation": {"classes": "Classes", "weapons": "Weapons", "bosses": "Bosses", "multiplayer": "Multiplayer", "walkthroughs": "Walkthroughs", "guides": "Guides", "serverStatus": "Server Status", "steamCharts": "Steam Charts", "tierList": "Tier List", "bestWeapons": "Best Weapons", "codes": "Codes", "steamDeck": "Steam Deck", "charts": "Charts", "release": "Release", "faq": "FAQ"}
+    "subtitle": "Fan-Made Survivor Guide Hub",
+    "steam": "Play on Steam",
+    "primaryLabel": "Main navigation",
+    "utilityLabel": "Resources navigation",
+    "navigation": {
+      "characters": "Characters",
+      "items": "Items",
+      "weapons": "Weapons",
+      "builds": "Builds",
+      "tools": "Tools",
+      "guides": "Guides",
+      "tierList": "Tier List",
+      "bestTeam": "Best Team",
+      "synergies": "Synergies",
+      "achievements": "Achievements",
+      "ghost": "Ghost",
+      "huntress": "Huntress",
+      "saveProblem": "Save Problem",
+      "mods": "Mods"
+    }
   },
   "Footer": {
-    "about": "Unofficial fan-made guide for the Shiro Games co-op action RPG Farever. All trademarks belong to their respective owners.",
-    "groups": {"guides": "Guides", "resources": "Resources", "liveTools": "Live Tools", "longTailGuides": "Long-tail Guides"},
-    "links": {"beginnerGuide": "Beginner Guide", "classesJobs": "Classes & Jobs", "weapons": "Weapons", "dungeonsBosses": "Dungeons & Bosses", "tipsTricks": "Tips & Tricks", "releaseDate": "Release Date", "roadmap": "EA Roadmap", "systemRequirements": "System Requirements", "howToPlay": "How to Play (Co-op)", "faq": "FAQ", "serverStatus": "Server Status", "steamCharts": "Steam Charts", "tierList": "Tier List", "bestWeapons": "Best Weapons", "bossesGuide": "Bosses Guide", "codes": "Codes", "steamDeck": "Steam Deck", "bestClassTierList": "Best Class Tier List", "levelingGuide": "Leveling Guide", "isItWorthIt": "Is It Worth It?", "skyoverIsland": "Skyover Island", "loreStory": "Lore & Story", "fareverReview": "Farever Review", "bestBuilds": "Best Builds", "pvpStatus": "PvP Status", "consoleRelease": "Console Release", "weaponTierList": "Weapon Tier List", "companionTierList": "Companion Tier List", "companions": "Companions", "hiddenCritter": "Hidden Critter", "quests": "Quests", "coopGuide": "Co-op Guide", "secretOcean": "Secret of the Ocean", "allWeapons": "All Weapons", "playerCount": "Player Count", "maxLevel": "Max Level", "allGuides": "All Guides →"},
-    "languagesLabel": "Languages · Sprachen · Idiomas · Langues", "copyright": "© 2026 farevergame.wiki · Fan site, not affiliated with Shiro Games.", "steam": "Buy on Steam →"
+    "about": "Yet Another Zombie Survivors Wiki is an independent fan-made guide hub for players building stronger squads. It covers Survivors, skills, weapons, items, synergies, achievements, builds, unlocks, and troubleshooting. It is not affiliated with Awesome Games Studio.",
+    "groups": {
+      "guides": "Guides",
+      "survivors": "Survivors",
+      "buildsTools": "Builds & Tools",
+      "moreGuides": "More Guides"
+    },
+    "links": {
+      "beginnerGuide": "Beginner Guide",
+      "tierList": "Tier List",
+      "bestTeam": "Best Team",
+      "synergies": "Synergies",
+      "achievements": "Achievements",
+      "characters": "All Survivors",
+      "ghost": "Ghost",
+      "huntress": "Huntress",
+      "items": "Items",
+      "weapons": "Weapon Upgrades",
+      "generalBuild": "General Points Build 1.0",
+      "weaponStats": "Attack Speed vs Cooldown",
+      "saveProblem": "Save Problem",
+      "trainer": "Trainer",
+      "cheatEngine": "Cheat Engine",
+      "mods": "Mods",
+      "sanji": "Sanji the Rabbit",
+      "weaponUpgrades": "Weapon Upgrades",
+      "rocketMinigun": "Rocket Launcher and Minigun",
+      "allGuides": "All Guides →",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service"
+    },
+    "languagesLabel": "English · Русский · Español · Deutsch",
+    "copyright": "© 2026 Yet Another Zombie Survivors Wiki · Independent fan site; not affiliated with Awesome Games Studio.",
+    "steam": "Play on Steam →",
+    "officialWebsite": "Official Website",
+    "officialDiscord": "Official Discord",
+    "officialYoutube": "Official YouTube"
   },
-  "NotFound": {"eyebrow": "404", "title": "Lost in Siagarta", "description": "That page doesn't exist — yet. Try the homepage or jump straight to a guide.", "home": "Return Home", "beginnerGuide": "Beginner Guide"}
+  "NotFound": {
+    "eyebrow": "404",
+    "title": "Lost Among the Horde",
+    "description": "This page is not available yet. Return to the homepage or start with the beginner guide.",
+    "home": "Return Home",
+    "beginnerGuide": "Beginner Guide"
+  }
 }

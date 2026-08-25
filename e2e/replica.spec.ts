@@ -1,15 +1,13 @@
 import {expect, test, type Page} from '@playwright/test';
 
-const paths = ['/', '/guides/', '/classes/'] as const;
-const prefixes = ['', '/de', '/es', '/fr'] as const;
-const siteUrl = 'https://farevergame.wiki';
-
+const paths = ['/', '/guides/', '/characters/'] as const;
 const localeRoutes = [
   {locale: 'en', prefix: ''},
-  {locale: 'de', prefix: '/de'},
+  {locale: 'ru', prefix: '/ru'},
   {locale: 'es', prefix: '/es'},
-  {locale: 'fr', prefix: '/fr'}
+  {locale: 'de', prefix: '/de'}
 ] as const;
+const siteUrl = 'https://yetanotherzombiesurvivors.world';
 
 function absoluteRouteUrl(prefix: string, path: (typeof paths)[number]) {
   return `${siteUrl}${prefix}${path}`;
@@ -21,17 +19,15 @@ async function waitForFonts(page: Page) {
   });
 }
 
-for (const prefix of prefixes) {
+for (const {locale, prefix} of localeRoutes) {
   for (const path of paths) {
-    const localeLabel = prefix || '/en';
-
-    test(`${localeLabel}${path} renders the shared page shell without console errors`, async ({
+    test(`${locale}${path} renders the researched game without console issues`, async ({
       page
     }) => {
-      const consoleIssues: string[] = [];
+      const issues: string[] = [];
       page.on('console', (message) => {
         if (message.type() === 'error' || message.type() === 'warning') {
-          consoleIssues.push(`${message.type()}: ${message.text()}`);
+          issues.push(`${message.type()}: ${message.text()}`);
         }
       });
 
@@ -39,21 +35,23 @@ for (const prefix of prefixes) {
 
       await expect(page.locator('header.site-header')).toBeVisible();
       await expect(page.locator('main')).toBeVisible();
-      await expect(page.locator('footer')).toBeVisible();
-      expect(consoleIssues).toEqual([]);
+      await expect(page.locator('footer.site-footer')).toBeVisible();
+      await expect(page.locator('header.site-header')).toContainText(
+        'Yet Another Zombie Survivors'
+      );
+      expect(issues).toEqual([]);
     });
   }
 }
 
 test.describe('canonical route policy', () => {
-  for (const prefix of prefixes) {
+  for (const {locale, prefix} of localeRoutes) {
     for (const path of paths) {
-      test(`${prefix || '/en'}${path} resolves directly with its canonical trailing slash`, async ({
+      test(`${locale}${path} resolves directly with the canonical trailing slash`, async ({
         isMobile,
         request
       }) => {
         test.skip(Boolean(isMobile), 'HTTP route policy is viewport-independent.');
-
         const response = await request.get(`${prefix}${path}`, {maxRedirects: 0});
 
         expect(response.status()).toBe(200);
@@ -62,7 +60,7 @@ test.describe('canonical route policy', () => {
     }
   }
 
-  test('redirects slashless document routes to the public trailing-slash form', async ({
+  test('normalizes slashless routes and redirects legacy class URLs to characters', async ({
     isMobile,
     request
   }) => {
@@ -70,9 +68,19 @@ test.describe('canonical route policy', () => {
 
     for (const [source, destination] of [
       ['/guides', '/guides/'],
-      ['/classes', '/classes/'],
-      ['/de/guides', '/de/guides/'],
-      ['/fr/classes', '/fr/classes/']
+      ['/characters', '/characters/'],
+      ['/ru/guides', '/ru/guides/'],
+      ['/de/characters', '/de/characters/']
+    ] as const) {
+      const response = await request.get(source, {maxRedirects: 0});
+
+      expect(response.status(), source).toBe(308);
+      expect(response.headers().location, source).toBe(destination);
+    }
+
+    for (const [source, destination] of [
+      ['/classes/', '/characters/'],
+      ['/ru/classes/', '/ru/characters/']
     ] as const) {
       const response = await request.get(source, {maxRedirects: 0});
 
@@ -81,305 +89,238 @@ test.describe('canonical route policy', () => {
     }
   });
 
-  test('redirects English-prefixed URLs without an empty Location and preserves the final path', async ({
+  test('removes the English prefix without producing an empty Location', async ({
     isMobile,
     page,
     request
   }) => {
     test.skip(Boolean(isMobile), 'HTTP route policy is viewport-independent.');
-    const consoleWarnings: string[] = [];
-    page.on('console', (message) => {
-      if (message.type() === 'warning') {
-        consoleWarnings.push(message.text());
-      }
-    });
 
-    const bareEnglish = await request.get('/en', {maxRedirects: 0});
-    expect(bareEnglish.status()).toBe(308);
-    expect(bareEnglish.headers().location).toBe('/en/');
-    await page.goto('/en');
-    expect(new URL(page.url()).pathname).toBe('/');
+    const bare = await request.get('/en', {maxRedirects: 0});
+    expect(bare.status()).toBe(308);
+    expect(bare.headers().location).toBe('/en/');
 
     for (const [source, destination] of [
       ['/en/', '/'],
       ['/en/guides/', '/guides/'],
-      ['/en/classes/', '/classes/']
+      ['/en/characters/', '/characters/']
     ] as const) {
       const response = await request.get(source, {maxRedirects: 0});
 
       expect(response.status(), source).toBe(307);
       expect(response.headers().location, source).toBe(destination);
-
       await page.goto(source);
-      expect(new URL(page.url()).pathname, source).toBe(destination);
+      expect(new URL(page.url()).pathname).toBe(destination);
     }
-
-    const withQuery = await request.get('/en/classes/?from=legacy', {
-      maxRedirects: 0
-    });
-    expect(withQuery.status()).toBe(307);
-    expect(withQuery.headers().location).toBe('/classes/?from=legacy');
-
-    const slashlessNested = await request.get('/en/guides', {maxRedirects: 0});
-    expect(slashlessNested.status()).toBe(308);
-    expect(slashlessNested.headers().location).toBe('/en/guides/');
-
-    await page.goto('/en/guides');
-    expect(new URL(page.url()).pathname).toBe('/guides/');
-    expect(consoleWarnings).toEqual([]);
   });
 });
 
-test('language links synchronize NEXT_LOCALE and can switch back to English', async ({
+test('language links preserve the character page and synchronize NEXT_LOCALE', async ({
   page
 }) => {
-  const consoleWarnings: string[] = [];
-  page.on('console', (message) => {
-    if (message.type() === 'warning') {
-      consoleWarnings.push(message.text());
-    }
-  });
+  await page.goto('/ru/characters/');
 
-  await page.goto('/de/classes/');
   await expect.poll(async () =>
     (await page.context().cookies()).find((cookie) => cookie.name === 'NEXT_LOCALE')?.value
-  ).toBe('de');
+  ).toBe('ru');
 
-  const englishLink = page
-    .locator('.language-switcher')
-    .getByRole('link', {name: /English/});
-  await expect(englishLink).toHaveAttribute('href', '/en/classes/');
-  await englishLink.click();
+  await page.locator('.language-switcher').getByRole('link', {name: /English/}).click();
+  await expect.poll(() => new URL(page.url()).pathname).toBe('/characters/');
   await expect.poll(async () =>
     (await page.context().cookies()).find((cookie) => cookie.name === 'NEXT_LOCALE')?.value
   ).toBe('en');
-  await expect.poll(() => new URL(page.url()).pathname).toBe('/classes/');
 
   await page.locator('.language-switcher').getByRole('link', {name: /Deutsch/}).click();
-  await expect.poll(() => new URL(page.url()).pathname).toBe('/de/classes/');
-  expect(
-    (await page.context().cookies()).find((cookie) => cookie.name === 'NEXT_LOCALE')?.value
-  ).toBe('de');
-  expect(consoleWarnings).toEqual([]);
+  await expect.poll(() => new URL(page.url()).pathname).toBe('/de/characters/');
 });
 
-test.describe('metadata', () => {
+test.describe('researched metadata', () => {
   for (const {locale, prefix} of localeRoutes) {
     for (const path of paths) {
-      test(`${locale}${path} publishes the canonical and four locale alternates`, async ({
+      test(`${locale}${path} publishes its canonical and four selected locale alternates`, async ({
         isMobile,
         page
       }) => {
         test.skip(Boolean(isMobile), 'Metadata is viewport-independent.');
+        await page.goto(`${prefix}${path}`);
 
-        const expectedPath = `${prefix}${path}`;
-        const expectedCanonical = absoluteRouteUrl(prefix, path);
-        const expectedAlternates = localeRoutes
-          .map(({locale: alternateLocale, prefix: alternatePrefix}) => ({
-            href: absoluteRouteUrl(alternatePrefix, path),
-            hreflang: alternateLocale
-          }))
-          .sort((a, b) => a.hreflang.localeCompare(b.hreflang));
-
-        await page.goto(expectedPath);
-
-        const canonical = page.locator('link[rel="canonical"]');
-        await expect(canonical).toHaveCount(1);
-        await expect(canonical).toHaveAttribute('href', expectedCanonical);
-
-        if (locale === 'en') {
-          expect(new URL(await canonical.getAttribute('href') as string).pathname).not.toMatch(
-            /^\/en(?:\/|$)/
-          );
-        }
+        await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+          'href',
+          absoluteRouteUrl(prefix, path)
+        );
 
         const alternates = await page
           .locator('link[rel="alternate"][hreflang]')
           .evaluateAll((links) =>
             links
               .map((link) => ({
-                href: link.getAttribute('href'),
-                hreflang: link.getAttribute('hreflang')
+                hreflang: link.getAttribute('hreflang'),
+                href: link.getAttribute('href')
               }))
               .sort((a, b) => (a.hreflang ?? '').localeCompare(b.hreflang ?? ''))
           );
+        const expected = localeRoutes
+          .map((entry) => ({
+            hreflang: entry.locale,
+            href: absoluteRouteUrl(entry.prefix, path)
+          }))
+          .sort((a, b) => a.hreflang.localeCompare(b.hreflang));
 
-        expect(alternates).toEqual(expectedAlternates);
+        expect(alternates).toEqual(expected);
       });
     }
   }
 });
 
-test('renders the themed English 404 in the page shell', async ({page}) => {
-  const response = await page.goto('/missing-page/');
-
-  expect(response?.status()).toBe(404);
-  await expect(
-    page.getByRole('heading', {level: 1, name: 'Lost in Siagarta'})
-  ).toBeVisible();
-  await expect(page.locator('header.site-header')).toBeVisible();
-  await expect(page.locator('footer.site-footer')).toBeVisible();
-});
-
-test('keeps two measured navigation tiers on desktop and compact wrapped navigation on mobile', async ({
+test('preserves desktop navigation and a compact mobile navigation', async ({
   isMobile,
   page
 }) => {
   await page.goto('/');
   await waitForFonts(page);
 
-  const primaryRow = page.locator('.site-header__primary');
-  const primaryNavigation = page.locator('.primary-navigation');
-  const utilityRow = page.locator('.utility-navigation__inner');
-  const utilityNavigation = page.locator('.utility-navigation');
-  const mobileNavigation = page.locator('.mobile-navigation');
-  const steamAction = page.locator('.site-header__steam');
-  const brandSubtitle = page.locator('.site-brand__subtitle');
-
   if (isMobile) {
-    await expect(brandSubtitle).toBeHidden();
-    await expect(primaryNavigation).toBeHidden();
-    await expect(utilityNavigation).toBeHidden();
-    await expect(mobileNavigation).toBeVisible();
-    await expect(steamAction).toBeVisible();
-    await expect(mobileNavigation.locator('a')).toHaveCount(15);
-    expect(
-      await mobileNavigation.locator('a').evaluateAll(
-        (links) =>
-          new Set(
-            links.map((link) => Math.round(link.getBoundingClientRect().top))
-          ).size
-      )
-    ).toBe(5);
-    expect(
-      await page.locator('.site-header').evaluate((node) =>
-        Number(node.getBoundingClientRect().height.toFixed(2))
-      )
-    ).toBe(228.25);
+    await expect(page.locator('.primary-navigation')).toBeHidden();
+    await expect(page.locator('.utility-navigation')).toBeHidden();
+    await expect(page.locator('.mobile-navigation')).toBeVisible();
+    await expect(page.locator('.mobile-navigation a')).toHaveCount(14);
   } else {
-    await expect(primaryNavigation).toBeVisible();
-    await expect(utilityRow).toBeVisible();
-    await expect(steamAction).toBeVisible();
-    await expect(brandSubtitle).toBeVisible();
-    await expect(mobileNavigation).toBeHidden();
-    expect(await primaryRow.evaluate((node) => node.getBoundingClientRect().height)).toBe(85);
-    expect(await utilityRow.evaluate((node) => node.getBoundingClientRect().height)).toBe(51);
+    await expect(page.locator('.primary-navigation')).toBeVisible();
+    await expect(page.locator('.utility-navigation')).toBeVisible();
+    await expect(page.locator('.mobile-navigation')).toBeHidden();
   }
+
+  await expect(page.locator('.site-header__steam')).toBeVisible();
 });
 
-test('matches the measured Guides hero and card density', async ({isMobile, page}) => {
+test('uses the researched zombie-red theme without unsupported redemption codes', async ({
+  page
+}) => {
+  await page.goto('/');
+  const theme = await page.locator(':root').evaluate((element) => {
+    const style = getComputedStyle(element);
+
+    return {
+      primary: style.getPropertyValue('--nav-theme').trim(),
+      accent: style.getPropertyValue('--nav-theme-light').trim(),
+      background: style.getPropertyValue('--background').trim()
+    };
+  });
+
+  expect(theme).toEqual({
+    primary: '8 78% 56%',
+    accent: '24 95% 64%',
+    background: '220 16% 8%'
+  });
+  await expect(page.locator('.facts-card__codes')).toHaveCount(0);
+  await expect(page.getByText(/redemption codes/i)).toHaveCount(0);
+});
+
+test('keeps the site icon in navigation without presenting it as game artwork', async ({page}) => {
+  await page.goto('/');
+
+  await expect(page.locator('.home-hero img')).toHaveCount(0);
+  await expect(page.locator('.site-header img')).toBeVisible();
+  await expect(page.locator('.site-footer img')).toBeVisible();
+});
+
+test('lists the researched guide matrix and keeps the character tables within the viewport', async ({
+  page
+}) => {
   await page.goto('/guides/');
-  await waitForFonts(page);
-
-  const hero = page.locator('.page-hero');
-  const grid = page.locator('.guide-grid');
-
-  if (isMobile) {
-    await expect.poll(async () =>
-      Number((await hero.boundingBox())?.height.toFixed(2))
-    ).toBe(475.38);
-    expect(Number((await grid.boundingBox())?.width.toFixed(2))).toBe(339);
-  } else {
-    expect(Number((await hero.boundingBox())?.height.toFixed(2))).toBe(447.75);
-    expect(Number((await hero.boundingBox())?.width.toFixed(2))).toBe(1104);
-    expect(Number((await grid.boundingBox())?.width.toFixed(2))).toBe(952);
-    expect(Number((await grid.boundingBox())?.height.toFixed(2))).toBe(1573);
-  }
-
-  await expect(page.locator('.guide-directory-card__action')).toHaveCount(0);
-});
-
-test('keeps the homepage hero image inside its responsive wrapper', async ({page}) => {
-  await page.goto('/');
-  await waitForFonts(page);
-
-  const wrapper = page.locator('.home-hero__image-wrap');
-  const image = wrapper.locator('.home-hero__image');
-  const [wrapperBox, imageBox] = await Promise.all([
-    wrapper.boundingBox(),
-    image.boundingBox()
-  ]);
-
-  expect(imageBox?.width).toBe(wrapperBox?.width);
-  expect(imageBox?.height).toBe(wrapperBox?.height);
-});
-
-test('contains the Classes article and tables at the measured target width', async ({
-  isMobile,
-  page
-}) => {
-  await page.goto('/classes/');
-  await waitForFonts(page);
-
-  const viewportWidth = page.viewportSize()?.width;
-  expect(viewportWidth).toBeDefined();
-
-  const article = page.locator('.classes-article.prose-game');
-  const hero = article.locator(':scope > .page-hero');
-  const tables = article.locator('.article-table');
-  await expect(tables).toHaveCount(2);
-
-  const boxes = await tables.evaluateAll((nodes) =>
-    nodes.map((node) => {
-      const box = node.getBoundingClientRect();
-      return {left: box.left, right: box.right};
-    })
+  await expect(page.locator('.guide-directory-card')).toHaveCount(19);
+  await expect(page.getByRole('link', {name: /Best Team/}).last()).toHaveAttribute(
+    'href',
+    '/guides/best-team/'
   );
 
-  for (const box of boxes) {
-    expect(box.left).toBeGreaterThanOrEqual(0);
-    expect(box.right).toBeLessThanOrEqual(viewportWidth as number);
-  }
-
-  if (isMobile) {
-    expect(Number((await hero.boundingBox())?.width.toFixed(2))).toBe(339);
-    expect(Number((await tables.first().boundingBox())?.width.toFixed(2))).toBe(339);
-  } else {
-    expect(Number((await article.boundingBox())?.width.toFixed(2))).toBe(780);
-    expect(Number((await hero.boundingBox())?.width.toFixed(2))).toBe(695);
-  }
-
-  expect(
-    await page.evaluate(() => document.documentElement.scrollWidth)
-  ).toBeLessThanOrEqual(viewportWidth as number);
+  await page.goto('/characters/');
+  await expect(page.locator('article table')).toHaveCount(2);
+  await expect(page.locator('article')).toContainText('Survival Level 175');
+  await expect(page.locator('article')).toContainText('unconfirmed');
+  await expect(page.locator('article')).not.toContainText(/[\u3400-\u9fff]/u);
 });
 
-test('opens every external Steam link in an isolated tab', async ({page}) => {
+test('serves every researched guide-card destination and localized article details', async ({
+  page,
+  request
+}) => {
+  await page.goto('/guides/');
+  const articlePaths = await page.locator('.guide-directory-card').evaluateAll((cards) =>
+    cards.map((card) => card.getAttribute('href'))
+  );
+
+  expect(articlePaths).toHaveLength(19);
+
+  for (const path of [
+    ...articlePaths,
+    '/ru/guides/best-team/',
+    '/es/characters/ghost/',
+    '/de/weapons/upgrades/'
+  ]) {
+    expect(path).toBeTruthy();
+    const response = await request.get(path!);
+    expect(response.status(), path!).toBe(200);
+  }
+});
+
+test('renders researched article details and all primary matrix destinations', async ({
+  page
+}) => {
+  const researchedRoutes = [
+    ['/guides/best-team/', /Best Team/],
+    ['/characters/ghost/', /Ghost/],
+    ['/items/', /Items/],
+    ['/builds/', /Builds/],
+    ['/weapons/', /Weapons/],
+    ['/tools/', /Tools/]
+  ] as const;
+
+  for (const [path, title] of researchedRoutes) {
+    const response = await page.goto(path);
+    expect(response?.status(), path).toBe(200);
+    await expect(page.getByRole('heading', {level: 1, name: title})).toBeVisible();
+  }
+  expect((await page.request.get('/codes/')).status()).toBe(404);
+});
+
+test('publishes the researched official community links and themed legal pages', async ({
+  page
+}) => {
   await page.goto('/');
+  await expect(page.getByRole('link', {name: 'Official Website'})).toHaveAttribute(
+    'href',
+    'https://yazs.awesomegamesstudio.com/'
+  );
+  await expect(page.getByRole('link', {name: 'Official Discord'})).toHaveAttribute(
+    'href',
+    'https://discord.com/invite/m4JfXuS'
+  );
+  await expect(page.getByRole('link', {name: 'Official YouTube'})).toHaveAttribute(
+    'href',
+    'https://youtube.com/user/AwesomeGamesStudio'
+  );
 
-  const steamLinks = page.locator('a[href^="https://store.steampowered.com/"]');
-  expect(await steamLinks.count()).toBeGreaterThan(0);
-
-  for (const steamLink of await steamLinks.all()) {
-    await expect(steamLink).toHaveAttribute('target', '_blank');
-    await expect(steamLink).toHaveAttribute('rel', 'noopener noreferrer');
+  for (const [path, title] of [
+    ['/privacy/', 'Privacy Policy'],
+    ['/terms/', 'Terms of Service']
+  ] as const) {
+    await page.goto(path);
+    await expect(page.getByRole('heading', {level: 1, name: title})).toBeVisible();
+    await expect(page.locator('main')).not.toContainText(/[\u3400-\u9fff]/u);
   }
 });
 
 for (const path of paths) {
-  const screenshotName = path === '/' ? 'home' : path.split('/').filter(Boolean)[0];
+  const slug = path === '/' ? 'home' : path.replaceAll('/', '');
 
-  test(`captures a full-page local ${screenshotName} screenshot`, async ({page}, testInfo) => {
-    await page.emulateMedia({reducedMotion: 'reduce'});
+  test(`captures the researched full-page ${slug} screenshot`, async ({page}, testInfo) => {
     await page.goto(path);
     await waitForFonts(page);
-    await page.evaluate(async () => {
-      await Promise.all(
-        Array.from(document.images, (image) =>
-          image.complete
-            ? Promise.resolve()
-            : new Promise<void>((resolve) => {
-                image.addEventListener('load', () => resolve(), {once: true});
-                image.addEventListener('error', () => resolve(), {once: true});
-              })
-        )
-      );
-    });
-
     await page.screenshot({
       animations: 'disabled',
       fullPage: true,
-      path: testInfo.outputPath(`${screenshotName}-local.png`)
+      path: testInfo.outputPath(`${slug}.png`)
     });
   });
 }

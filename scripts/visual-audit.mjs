@@ -16,11 +16,13 @@ const baselinePath = path.join(
 const routes = [
   {path: '/', slug: 'home'},
   {path: '/guides/', slug: 'guides'},
-  {path: '/classes/', slug: 'classes'}
+  {path: '/characters/', slug: 'characters'}
 ];
 const sources = [
-  {name: 'reference', origin: 'https://farevergame.wiki'},
-  {name: 'local', origin: 'http://127.0.0.1:3000'}
+  {name: 'local', origin: 'http://127.0.0.1:3000'},
+  ...(process.env.VISUAL_REFERENCE_URL
+    ? [{name: 'reference', origin: process.env.VISUAL_REFERENCE_URL}]
+    : [])
 ];
 const viewports = [
   {name: 'desktop', options: {viewport: {width: 1440, height: 1000}}},

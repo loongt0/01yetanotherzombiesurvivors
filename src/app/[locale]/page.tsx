@@ -3,47 +3,38 @@ import {hasLocale} from 'next-intl';
 import {notFound} from 'next/navigation';
 
 import {HomeSections} from '@/components/home-sections';
-import {routing, type Locale} from '@/i18n/routing';
+import {localizeHref, routing, type Locale} from '@/i18n/routing';
 import {getHomeData, getHomeSeo} from '@/lib/home-data';
-import {STEAM_URL} from '@/lib/site-data';
+import {
+  GAME_NAME,
+  OFFICIAL_WEBSITE_URL,
+  SITE_KEYWORDS,
+  SITE_NAME,
+  SITE_URL,
+  STEAM_URL
+} from '@/lib/site-data';
 
-type HomePageProps = {
-  params: Promise<{locale: string}>;
-};
+type HomePageProps = {params: Promise<{locale: string}>};
 
-const SITE_URL = 'https://farevergame.wiki';
-const EN_WEBSITE_DESCRIPTION =
-  'Unofficial Farever wiki and guide hub — classes, weapons, dungeons, bosses, roadmap and live server status for the Shiro Games co-op action RPG.';
-const EN_GAME_DESCRIPTION =
-  'Online co-op action RPG by Shiro Games (Wartales, Northgard). Released into Steam Early Access on May 7, 2026.';
-
-const alternateUrls: Record<Locale, string> = {
-  en: `${SITE_URL}/`,
-  de: `${SITE_URL}/de/`,
-  es: `${SITE_URL}/es/`,
-  fr: `${SITE_URL}/fr/`
-};
+const alternateUrls = Object.fromEntries(
+  routing.locales.map((locale) => [locale, `${SITE_URL}${localizeHref(locale, '/')}`])
+) as Record<Locale, string>;
 
 const openGraphLocales: Record<Locale, string> = {
   en: 'en_US',
-  de: 'de_DE',
+  ru: 'ru_RU',
   es: 'es_ES',
-  fr: 'fr_FR'
+  de: 'de_DE'
 };
 
 async function resolveLocale(params: HomePageProps['params']): Promise<Locale> {
   const {locale} = await params;
 
-  if (!hasLocale(routing.locales, locale)) {
-    notFound();
-  }
-
+  if (!hasLocale(routing.locales, locale)) notFound();
   return locale;
 }
 
-export async function generateMetadata({
-  params
-}: HomePageProps): Promise<Metadata> {
+export async function generateMetadata({params}: HomePageProps): Promise<Metadata> {
   const locale = await resolveLocale(params);
   const seo = getHomeSeo(locale);
   const canonical = alternateUrls[locale];
@@ -52,16 +43,13 @@ export async function generateMetadata({
     metadataBase: new URL(SITE_URL),
     title: seo.title,
     description: seo.description,
-    icons: {icon: '/icon.png'},
-    alternates: {
-      canonical,
-      languages: alternateUrls
-    },
+    keywords: [...SITE_KEYWORDS],
+    alternates: {canonical, languages: alternateUrls},
     openGraph: {
       type: 'website',
       locale: openGraphLocales[locale],
       url: canonical,
-      siteName: 'Farever Wiki',
+      siteName: SITE_NAME,
       title: seo.openGraphTitle,
       description: seo.openGraphDescription,
       images: ['/og.png']
@@ -80,7 +68,7 @@ function getHomeStructuredData(locale: Locale) {
   const seo = getHomeSeo(locale);
   const canonical = alternateUrls[locale];
   const websiteId = `${SITE_URL}/#website`;
-  const organizationId = `${SITE_URL}/#org`;
+  const organizationId = `${SITE_URL}/#organization`;
   const gameId = `${SITE_URL}/#game`;
 
   return [
@@ -91,9 +79,8 @@ function getHomeStructuredData(locale: Locale) {
           '@type': 'WebSite',
           '@id': websiteId,
           url: canonical,
-          name: 'Farever Wiki',
-          description:
-            locale === 'en' ? EN_WEBSITE_DESCRIPTION : seo.description,
+          name: SITE_NAME,
+          description: seo.description,
           inLanguage: locale,
           publisher: {'@id': organizationId},
           about: {'@id': gameId}
@@ -101,33 +88,26 @@ function getHomeStructuredData(locale: Locale) {
         {
           '@type': 'Organization',
           '@id': organizationId,
-          name: 'Farever Wiki',
+          name: SITE_NAME,
           url: `${SITE_URL}/`,
-          logo: {
-            '@type': 'ImageObject',
-            url: `${SITE_URL}/icon.png`,
-            width: 512,
-            height: 512
-          }
+          logo: {'@type': 'ImageObject', url: `${SITE_URL}/icon.png`}
         },
         {
           '@type': 'VideoGame',
           '@id': gameId,
-          name: 'Farever',
-          alternateName: ['FAREVER'],
-          description: locale === 'en' ? EN_GAME_DESCRIPTION : data.hero.description,
+          name: GAME_NAME,
+          description: data.hero.description,
           url: STEAM_URL,
-          gamePlatform: ['PC', 'Steam'],
+          gamePlatform: ['Steam'],
           applicationCategory: 'Game',
-          operatingSystem: ['Windows'],
           publisher: {
             '@type': 'Organization',
-            name: 'Shiro Games',
-            url: 'https://shirogames.com/'
+            name: 'Awesome Games Studio',
+            url: OFFICIAL_WEBSITE_URL
           },
-          author: {'@type': 'Organization', name: 'Shiro Games'},
-          genre: ['Action RPG', 'Co-op', 'MMO-lite', 'Open World'],
-          datePublished: '2026-05-07'
+          author: {'@type': 'Organization', name: 'Awesome Games Studio'},
+          genre: ['Bullet Heaven', 'Action Roguelike', 'Squad Builder'],
+          datePublished: '2026-08-20'
         }
       ]
     },
@@ -138,12 +118,12 @@ function getHomeStructuredData(locale: Locale) {
       description: seo.description,
       url: canonical,
       mainEntityOfPage: {'@type': 'WebPage', '@id': canonical},
-      datePublished: '2026-05-07',
-      dateModified: '2026-05-18',
-      author: {'@type': 'Organization', name: 'Farever Wiki'},
+      datePublished: '2026-08-20',
+      dateModified: '2026-08-20',
+      author: {'@type': 'Organization', name: SITE_NAME},
       publisher: {
         '@type': 'Organization',
-        name: 'Farever Wiki',
+        name: SITE_NAME,
         logo: {'@type': 'ImageObject', url: `${SITE_URL}/icon.png`}
       },
       about: {'@id': gameId},
@@ -165,11 +145,10 @@ function getHomeStructuredData(locale: Locale) {
 
 export default async function HomePage({params}: HomePageProps) {
   const locale = await resolveLocale(params);
-  const structuredData = getHomeStructuredData(locale);
 
   return (
     <>
-      {structuredData.map((schema, index) => (
+      {getHomeStructuredData(locale).map((schema, index) => (
         <script
           key={index}
           type="application/ld+json"

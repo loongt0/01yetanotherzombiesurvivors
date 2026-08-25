@@ -1,3 +1,4 @@
+import type {Metadata} from 'next';
 import {hasLocale, NextIntlClientProvider} from 'next-intl';
 import {notFound} from 'next/navigation';
 import type {ReactNode} from 'react';
@@ -11,6 +12,19 @@ type LocaleLayoutProps = Readonly<{
   children: ReactNode;
   params: Promise<{locale: string}>;
 }>;
+
+export const metadata: Metadata = {
+  icons: {
+    icon: [
+      {url: '/favicon.ico'},
+      {url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png'},
+      {url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png'},
+      {url: '/icon.png', sizes: '512x512', type: 'image/png'}
+    ],
+    apple: [{url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png'}]
+  },
+  manifest: '/site.webmanifest'
+};
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({locale}));

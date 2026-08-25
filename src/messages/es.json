@@ -1,19 +1,76 @@
 {
   "Home": {
-    "title": "Farever Wiki Español — Guías, Clases, Armas y Hoja de Ruta",
-    "description": "El wiki español de Farever para el RPG de acción cooperativo de Shiro Games: clases, armas, mazmorras, guía para principiantes y hoja de ruta de 2026.",
-    "openGraphTitle": "Farever Wiki Español — Guías, Clases y Armas",
-    "openGraphDescription": "Todo lo que necesitas para forjar tu leyenda en Farever, el RPG cooperativo de Shiro Games."
+    "title": "Yet Another Zombie Survivors Wiki — Guías y Builds",
+    "description": "Guías de Yet Another Zombie Survivors: supervivientes, mejores equipos, sinergias, objetos, armas, logros y desbloqueos.",
+    "openGraphTitle": "Yet Another Zombie Survivors Wiki — Guías y Builds",
+    "openGraphDescription": "Descubre personajes, mejores equipos, sinergias, armas y objetos de la versión 1.0."
   },
   "Header": {
-    "subtitle": "El reino olvidado · Wiki", "steam": "Jugar en Steam", "primaryLabel": "Navegación principal", "utilityLabel": "Navegación de recursos",
-    "navigation": {"classes": "Clases", "weapons": "Armas", "bosses": "Jefes", "multiplayer": "Multijugador", "walkthroughs": "Recorridos", "guides": "Guías", "serverStatus": "Estado del servidor", "steamCharts": "Gráficos de Steam", "tierList": "Lista de niveles", "bestWeapons": "Mejores armas", "codes": "Códigos", "steamDeck": "Steam Deck", "charts": "Gráficos", "release": "Lanzamiento", "faq": "Preguntas frecuentes"}
+    "subtitle": "Guías de supervivientes hechas por fans",
+    "steam": "Jugar en Steam",
+    "primaryLabel": "Navegación principal",
+    "utilityLabel": "Navegación de recursos",
+    "navigation": {
+      "characters": "Personajes",
+      "items": "Objetos",
+      "weapons": "Armas",
+      "builds": "Builds",
+      "tools": "Herramientas",
+      "guides": "Guías",
+      "tierList": "Tier List",
+      "bestTeam": "Mejor equipo",
+      "synergies": "Sinergias",
+      "achievements": "Logros",
+      "ghost": "Ghost",
+      "huntress": "Huntress",
+      "saveProblem": "Problemas de guardado",
+      "mods": "Mods"
+    }
   },
   "Footer": {
-    "about": "Guía no oficial creada por fans para Farever, el RPG de acción cooperativo de Shiro Games. Todas las marcas pertenecen a sus respectivos propietarios.",
-    "groups": {"guides": "Guías", "resources": "Recursos", "liveTools": "Herramientas en vivo", "longTailGuides": "Más guías"},
-    "links": {"beginnerGuide": "Guía para principiantes", "classesJobs": "Clases y oficios", "weapons": "Armas", "dungeonsBosses": "Mazmorras y jefes", "tipsTricks": "Consejos y trucos", "releaseDate": "Fecha de lanzamiento", "roadmap": "Hoja de ruta de EA", "systemRequirements": "Requisitos del sistema", "howToPlay": "Cómo jugar (cooperativo)", "faq": "Preguntas frecuentes", "serverStatus": "Estado del servidor", "steamCharts": "Gráficos de Steam", "tierList": "Lista de niveles", "bestWeapons": "Mejores armas", "bossesGuide": "Guía de jefes", "codes": "Códigos", "steamDeck": "Steam Deck", "bestClassTierList": "Mejores clases", "levelingGuide": "Guía de nivelación", "isItWorthIt": "¿Vale la pena?", "skyoverIsland": "Skyover Island", "loreStory": "Historia y lore", "fareverReview": "Análisis de Farever", "bestBuilds": "Mejores configuraciones", "pvpStatus": "Estado del JcJ", "consoleRelease": "Lanzamiento en consola", "weaponTierList": "Lista de niveles de armas", "companionTierList": "Lista de niveles de compañeros", "companions": "Compañeros", "hiddenCritter": "Criatura oculta", "quests": "Misiones", "coopGuide": "Guía cooperativa", "secretOcean": "Secreto del océano", "allWeapons": "Todas las armas", "playerCount": "Número de jugadores", "maxLevel": "Nivel máximo", "allGuides": "Todas las guías →"},
-    "languagesLabel": "Languages · Sprachen · Idiomas · Langues", "copyright": "© 2026 farevergame.wiki · Sitio de fans, no afiliado con Shiro Games.", "steam": "Comprar en Steam →"
+    "about": "Yet Another Zombie Survivors Wiki es una guía independiente creada por fans sobre supervivientes, habilidades, armas, objetos, sinergias, logros y builds. No está afiliada con Awesome Games Studio.",
+    "groups": {
+      "guides": "Guías",
+      "survivors": "Supervivientes",
+      "buildsTools": "Builds y herramientas",
+      "moreGuides": "Más guías"
+    },
+    "links": {
+      "beginnerGuide": "Guía para principiantes",
+      "tierList": "Tier List",
+      "bestTeam": "Mejor equipo",
+      "synergies": "Sinergias",
+      "achievements": "Logros",
+      "characters": "Supervivientes",
+      "ghost": "Ghost",
+      "huntress": "Huntress",
+      "items": "Objetos",
+      "weapons": "Mejoras de armas",
+      "generalBuild": "Puntos generales 1.0",
+      "weaponStats": "Velocidad y enfriamiento",
+      "saveProblem": "Problemas de guardado",
+      "trainer": "Trainer",
+      "cheatEngine": "Cheat Engine",
+      "mods": "Mods",
+      "sanji": "Sanji el conejo",
+      "weaponUpgrades": "Mejoras de armas",
+      "rocketMinigun": "Lanzacohetes y minigun",
+      "allGuides": "Todas las guías →",
+      "privacy": "Política de privacidad",
+      "terms": "Términos de servicio"
+    },
+    "languagesLabel": "English · Русский · Español · Deutsch",
+    "copyright": "© 2026 Yet Another Zombie Survivors Wiki · Sitio independiente de fans; no afiliado con Awesome Games Studio.",
+    "steam": "Jugar en Steam →",
+    "officialWebsite": "Web oficial",
+    "officialDiscord": "Discord oficial",
+    "officialYoutube": "YouTube oficial"
   },
-  "NotFound": {"eyebrow": "404", "title": "Perdido en Siagarta", "description": "Esa página aún no existe. Prueba la página de inicio o ve directamente a una guía.", "home": "Volver al inicio", "beginnerGuide": "Guía para principiantes"}
+  "NotFound": {
+    "eyebrow": "404",
+    "title": "Perdido entre la horda",
+    "description": "Esta página aún no está disponible. Vuelve al inicio o consulta la guía para principiantes.",
+    "home": "Volver al inicio",
+    "beginnerGuide": "Guía para principiantes"
+  }
 }

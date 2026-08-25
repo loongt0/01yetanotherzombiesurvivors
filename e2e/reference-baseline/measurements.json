@@ -1,436 +1,10 @@
 [
   {
-    "source": "reference",
-    "viewport": "desktop",
-    "route": "/",
-    "screenshotPath": "test-results/visual-audit/reference/desktop/home.png",
-    "documentHeight": 10701,
-    "header": {
-      "total": {
-        "height": 137,
-        "width": 1440,
-        "left": 0,
-        "top": 0
-      },
-      "primary": {
-        "height": 85,
-        "width": 1240,
-        "left": 100,
-        "top": 0
-      },
-      "utility": {
-        "height": 51,
-        "width": 1240,
-        "left": 100,
-        "top": 86
-      },
-      "primaryNavDisplay": "flex",
-      "steamDisplay": "flex",
-      "subtitleDisplay": "block",
-      "utilityFlexWrap": "nowrap",
-      "utilityLineCount": 1
-    },
-    "hero": {
-      "height": 1189.64,
-      "width": 1440,
-      "left": 0,
-      "top": 94.5
-    },
-    "outer": {
-      "height": 85,
-      "width": 1240,
-      "left": 100,
-      "top": 0
-    },
-    "prose": null,
-    "proseInner": null,
-    "guideGrid": {
-      "rect": null,
-      "columns": null,
-      "cards": 0,
-      "cardMeasurements": []
-    },
-    "palette": {
-      "background": "rgb(5, 3, 12)",
-      "foreground": "rgb(245, 241, 255)",
-      "bgVariable": "#05030c",
-      "goldVariable": "#d4af6a",
-      "mutedVariable": ""
-    },
-    "fonts": {
-      "body": "Inter, system-ui, sans-serif",
-      "display": "Metamorphous, \"Cormorant Garamond\", serif"
-    },
-    "footer": {
-      "total": {
-        "height": 1044.75,
-        "width": 1440,
-        "left": 0,
-        "top": 9655.83
-      },
-      "columns": 5,
-      "groups": 5
-    },
-    "headings": [
-      "Forge Your Legendin Farever",
-      "What is Farever?",
-      "The Four Classes",
-      "Explore Two Regions",
-      "Start Your Journey",
-      "Tools & Tier Lists",
-      "Featured Guides",
-      "Latest News",
-      "Farever FAQ",
-      "Forge your legend today."
-    ],
-    "grids": [
-      {
-        "childCount": 4,
-        "columns": 4,
-        "className": "mt-14 grid grid-cols-2 md:grid-cols-4 gap-px bg-gold/15 border border-gold/15 max-w-3xl mx-auto"
-      },
-      {
-        "childCount": 2,
-        "columns": 5,
-        "className": "grid md:grid-cols-5 gap-10 items-center max-w-5xl mx-auto"
-      },
-      {
-        "childCount": 4,
-        "columns": 4,
-        "className": "grid sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto"
-      },
-      {
-        "childCount": 2,
-        "columns": 2,
-        "className": "grid md:grid-cols-2 gap-6 max-w-5xl mx-auto"
-      },
-      {
-        "childCount": 9,
-        "columns": 3,
-        "className": "grid sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto"
-      },
-      {
-        "childCount": 7,
-        "columns": 3,
-        "className": "grid sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto"
-      },
-      {
-        "childCount": 6,
-        "columns": 3,
-        "className": "grid md:grid-cols-3 gap-5 max-w-6xl mx-auto"
-      }
-    ]
-  },
-  {
-    "source": "reference",
-    "viewport": "desktop",
-    "route": "/guides/",
-    "screenshotPath": "test-results/visual-audit/reference/desktop/guides.png",
-    "documentHeight": 3415,
-    "header": {
-      "total": {
-        "height": 137,
-        "width": 1440,
-        "left": 0,
-        "top": 0
-      },
-      "primary": {
-        "height": 85,
-        "width": 1240,
-        "left": 100,
-        "top": 0
-      },
-      "utility": {
-        "height": 51,
-        "width": 1240,
-        "left": 100,
-        "top": 86
-      },
-      "primaryNavDisplay": "flex",
-      "steamDisplay": "flex",
-      "subtitleDisplay": "block",
-      "utilityFlexWrap": "nowrap",
-      "utilityLineCount": 1
-    },
-    "hero": {
-      "height": 447.75,
-      "width": 1104,
-      "left": 168,
-      "top": 137
-    },
-    "outer": {
-      "height": 85,
-      "width": 1240,
-      "left": 100,
-      "top": 0
-    },
-    "prose": null,
-    "proseInner": null,
-    "guideGrid": {
-      "rect": {
-        "height": 1573,
-        "width": 952,
-        "left": 244,
-        "top": 610.25
-      },
-      "columns": 2,
-      "cards": 14,
-      "cardMeasurements": [
-        {
-          "title": "Farever Best Class — Tier List for Solo & Co-op (2026)",
-          "rect": {
-            "height": 223.77,
-            "width": 465.38,
-            "left": 244,
-            "top": 610.25
-          }
-        },
-        {
-          "title": "Farever Leveling Guide — How to Level Fast in Early Access",
-          "rect": {
-            "height": 223.77,
-            "width": 465.38,
-            "left": 730.63,
-            "top": 610.25
-          }
-        },
-        {
-          "title": "Farever Crafting Guide — Jobs, Mats and Tier 3+ Gear",
-          "rect": {
-            "height": 199.59,
-            "width": 465.38,
-            "left": 244,
-            "top": 855.27
-          }
-        },
-        {
-          "title": "Farever Mount Guide — Free Mount, Upgrades & Rare Variants",
-          "rect": {
-            "height": 199.59,
-            "width": 465.38,
-            "left": 730.63,
-            "top": 855.27
-          }
-        },
-        {
-          "title": "Farever vs Wartales — Which Shiro Games RPG to Play?",
-          "rect": {
-            "height": 199.59,
-            "width": 465.38,
-            "left": 244,
-            "top": 1076.11
-          }
-        },
-        {
-          "title": "Is Farever Worth It in 2026? — An Honest Take",
-          "rect": {
-            "height": 199.59,
-            "width": 465.38,
-            "left": 730.63,
-            "top": 1076.11
-          }
-        },
-        {
-          "title": "Farever Solo vs Co-op — Which Is Better?",
-          "rect": {
-            "height": 199.59,
-            "width": 465.38,
-            "left": 244,
-            "top": 1296.95
-          }
-        },
-        {
-          "title": "Skyover Island — Complete Region Guide",
-          "rect": {
-            "height": 199.59,
-            "width": 465.38,
-            "left": 730.63,
-            "top": 1296.95
-          }
-        },
-        {
-          "title": "Valley of the Eternal Autumn — Complete Region Guide",
-          "rect": {
-            "height": 223.77,
-            "width": 465.38,
-            "left": 244,
-            "top": 1517.8
-          }
-        },
-        {
-          "title": "Farever 2026 Roadmap — What&apos;s Coming This Year",
-          "rect": {
-            "height": 223.77,
-            "width": 465.38,
-            "left": 730.63,
-            "top": 1517.8
-          }
-        },
-        {
-          "title": "Farever Lore — The Forgotten Realm of Siagarta",
-          "rect": {
-            "height": 199.59,
-            "width": 465.38,
-            "left": 244,
-            "top": 1762.81
-          }
-        },
-        {
-          "title": "Farever Best Mount — Free Pick & Top Rare Variants",
-          "rect": {
-            "height": 199.59,
-            "width": 465.38,
-            "left": 730.63,
-            "top": 1762.81
-          }
-        },
-        {
-          "title": "Farever vs Diablo 4 — Which Co-op ARPG Is for You?",
-          "rect": {
-            "height": 199.59,
-            "width": 465.38,
-            "left": 244,
-            "top": 1983.66
-          }
-        },
-        {
-          "title": "Farever vs Lost Ark — Co-op vs MMO Grind",
-          "rect": {
-            "height": 199.59,
-            "width": 465.38,
-            "left": 730.63,
-            "top": 1983.66
-          }
-        }
-      ]
-    },
-    "palette": {
-      "background": "rgb(5, 3, 12)",
-      "foreground": "rgb(245, 241, 255)",
-      "bgVariable": "#05030c",
-      "goldVariable": "#d4af6a",
-      "mutedVariable": ""
-    },
-    "fonts": {
-      "body": "Inter, system-ui, sans-serif",
-      "display": "Metamorphous, \"Cormorant Garamond\", serif"
-    },
-    "footer": {
-      "total": {
-        "height": 1044.75,
-        "width": 1440,
-        "left": 0,
-        "top": 2370.25
-      },
-      "columns": 5,
-      "groups": 5
-    },
-    "headings": [
-      "All Farever Guides"
-    ],
-    "grids": [
-      {
-        "childCount": 14,
-        "columns": 2,
-        "className": "grid md:grid-cols-2 gap-5 max-w-4xl mx-auto"
-      }
-    ]
-  },
-  {
-    "source": "reference",
-    "viewport": "desktop",
-    "route": "/classes/",
-    "screenshotPath": "test-results/visual-audit/reference/desktop/classes.png",
-    "documentHeight": 5883,
-    "header": {
-      "total": {
-        "height": 137,
-        "width": 1440,
-        "left": 0,
-        "top": 0
-      },
-      "primary": {
-        "height": 85,
-        "width": 1240,
-        "left": 100,
-        "top": 0
-      },
-      "utility": {
-        "height": 51,
-        "width": 1240,
-        "left": 100,
-        "top": 86
-      },
-      "primaryNavDisplay": "flex",
-      "steamDisplay": "flex",
-      "subtitleDisplay": "block",
-      "utilityFlexWrap": "nowrap",
-      "utilityLineCount": 1
-    },
-    "hero": {
-      "height": 537,
-      "width": 695,
-      "left": 372.5,
-      "top": 137
-    },
-    "outer": {
-      "height": 85,
-      "width": 1240,
-      "left": 100,
-      "top": 0
-    },
-    "prose": {
-      "height": 4598.78,
-      "width": 780,
-      "left": 330,
-      "top": 137
-    },
-    "proseInner": null,
-    "guideGrid": {
-      "rect": null,
-      "columns": null,
-      "cards": 0,
-      "cardMeasurements": []
-    },
-    "palette": {
-      "background": "rgb(5, 3, 12)",
-      "foreground": "rgb(245, 241, 255)",
-      "bgVariable": "#05030c",
-      "goldVariable": "#d4af6a",
-      "mutedVariable": ""
-    },
-    "fonts": {
-      "body": "Inter, system-ui, sans-serif",
-      "display": "Metamorphous, \"Cormorant Garamond\", serif"
-    },
-    "footer": {
-      "total": {
-        "height": 1044.75,
-        "width": 1440,
-        "left": 0,
-        "top": 4837.78
-      },
-      "columns": 5,
-      "groups": 5
-    },
-    "headings": [
-      "Farever Classes & Jobs",
-      "The 4 classes",
-      "The 6 jobs",
-      "Best class combos for co-op",
-      "Should you respec?",
-      "Class deep-dives",
-      "FAQ — Farever classes",
-      "Related"
-    ],
-    "grids": []
-  },
-  {
     "source": "local",
     "viewport": "desktop",
     "route": "/",
     "screenshotPath": "test-results/visual-audit/local/desktop/home.png",
-    "documentHeight": 10701,
+    "documentHeight": 9480,
     "header": {
       "total": {
         "height": 137,
@@ -457,7 +31,7 @@
       "utilityLineCount": 1
     },
     "hero": {
-      "height": 1189.64,
+      "height": 1005.14,
       "width": 1440,
       "left": 0,
       "top": 94.5
@@ -477,11 +51,11 @@
       "cardMeasurements": []
     },
     "palette": {
-      "background": "rgb(5, 3, 12)",
-      "foreground": "rgb(245, 241, 255)",
-      "bgVariable": "#05030c",
-      "goldVariable": "#d4af6a",
-      "mutedVariable": "#9a92c0"
+      "background": "rgb(17, 19, 24)",
+      "foreground": "rgb(243, 240, 237)",
+      "bgVariable": "hsl(220 16% 8%)",
+      "goldVariable": "hsl(8 78% 56%)",
+      "mutedVariable": "hsl(215 12% 68%)"
     },
     "fonts": {
       "body": "Inter, ui-sans-serif, system-ui, -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
@@ -489,30 +63,30 @@
     },
     "footer": {
       "total": {
-        "height": 1044.75,
+        "height": 718.89,
         "width": 1440,
         "left": 0,
-        "top": 9655.98
+        "top": 8761.59
       },
       "columns": 5,
       "groups": 5
     },
     "headings": [
-      "Forge Your Legend in Farever",
-      "What is Farever?",
-      "The Four Classes",
-      "Explore Two Regions",
-      "Start Your Journey",
-      "Tools & Tier Lists",
+      "Yet Another Zombie Survivors",
+      "What is Yet Another Zombie Survivors?",
+      "Meet the Survivors",
+      "New Arenas & Modes",
+      "Your Yet Another Zombie Survivors Journey",
+      "Guides, Builds & Tools",
       "Featured Guides",
-      "Latest News",
-      "Farever FAQ",
-      "Forge your legend today."
+      "Version 1.0 Highlights",
+      "Yet Another Zombie Survivors FAQ",
+      "Ready to Master Yet Another Zombie Survivors?"
     ],
     "grids": [
       {
-        "childCount": 4,
-        "columns": 4,
+        "childCount": 5,
+        "columns": 5,
         "className": "home-hero__stats"
       },
       {
@@ -531,12 +105,12 @@
         "className": "home-grid home-grid--two"
       },
       {
-        "childCount": 9,
+        "childCount": 4,
         "columns": 3,
         "className": "home-grid home-grid--three"
       },
       {
-        "childCount": 7,
+        "childCount": 6,
         "columns": 3,
         "className": "home-grid home-grid--three"
       },
@@ -552,7 +126,7 @@
     "viewport": "desktop",
     "route": "/guides/",
     "screenshotPath": "test-results/visual-audit/local/desktop/guides.png",
-    "documentHeight": 3415,
+    "documentHeight": 8984,
     "header": {
       "total": {
         "height": 137,
@@ -579,7 +153,7 @@
       "utilityLineCount": 1
     },
     "hero": {
-      "height": 447.75,
+      "height": 571,
       "width": 1104,
       "left": 168,
       "top": 137
@@ -590,152 +164,202 @@
       "left": 100,
       "top": 0
     },
-    "prose": null,
+    "prose": {
+      "height": 4801.34,
+      "width": 780,
+      "left": 330,
+      "top": 3277.16
+    },
     "proseInner": null,
     "guideGrid": {
       "rect": {
-        "height": 1573,
+        "height": 2458.66,
         "width": 952,
         "left": 244,
-        "top": 610.25
+        "top": 733.5
       },
       "columns": 2,
-      "cards": 14,
+      "cards": 19,
       "cardMeasurements": [
         {
-          "title": "Farever Best Class — Tier List for Solo & Co-op (2026)",
+          "title": "Yet Another Zombie Survivors Tier List: Version 1.0",
           "rect": {
             "height": 223.77,
             "width": 465.38,
             "left": 244,
-            "top": 610.25
+            "top": 733.5
           }
         },
         {
-          "title": "Farever Leveling Guide — How to Level Fast in Early Access",
+          "title": "Yet Another Zombie Survivors Best Team: Squad Guide",
           "rect": {
             "height": 223.77,
             "width": 465.38,
             "left": 730.63,
-            "top": 610.25
+            "top": 733.5
           }
         },
         {
-          "title": "Farever Crafting Guide — Jobs, Mats and Tier 3+ Gear",
-          "rect": {
-            "height": 199.59,
-            "width": 465.38,
-            "left": 244,
-            "top": 855.27
-          }
-        },
-        {
-          "title": "Farever Mount Guide — Free Mount, Upgrades & Rare Variants",
-          "rect": {
-            "height": 199.59,
-            "width": 465.38,
-            "left": 730.63,
-            "top": 855.27
-          }
-        },
-        {
-          "title": "Farever vs Wartales — Which Shiro Games RPG to Play?",
-          "rect": {
-            "height": 199.59,
-            "width": 465.38,
-            "left": 244,
-            "top": 1076.11
-          }
-        },
-        {
-          "title": "Is Farever Worth It in 2026? — An Honest Take",
-          "rect": {
-            "height": 199.59,
-            "width": 465.38,
-            "left": 730.63,
-            "top": 1076.11
-          }
-        },
-        {
-          "title": "Farever Solo vs Co-op — Which Is Better?",
-          "rect": {
-            "height": 199.59,
-            "width": 465.38,
-            "left": 244,
-            "top": 1296.95
-          }
-        },
-        {
-          "title": "Skyover Island — Complete Region Guide",
-          "rect": {
-            "height": 199.59,
-            "width": 465.38,
-            "left": 730.63,
-            "top": 1296.95
-          }
-        },
-        {
-          "title": "Valley of the Eternal Autumn — Complete Region Guide",
+          "title": "Yet Another Zombie Survivors Synergies: Team Guide",
           "rect": {
             "height": 223.77,
             "width": 465.38,
             "left": 244,
-            "top": 1517.8
+            "top": 978.52
           }
         },
         {
-          "title": "Farever 2026 Roadmap — What's Coming This Year",
+          "title": "Yet Another Zombie Survivors Achievements: 1.0 Guide",
           "rect": {
             "height": 223.77,
             "width": 465.38,
             "left": 730.63,
-            "top": 1517.8
+            "top": 978.52
           }
         },
         {
-          "title": "Farever Lore — The Forgotten Realm of Siagarta",
+          "title": "Yet Another Zombie Survivors Problem With Save: Fix",
           "rect": {
-            "height": 199.59,
+            "height": 223.77,
             "width": 465.38,
             "left": 244,
-            "top": 1762.81
+            "top": 1223.53
           }
         },
         {
-          "title": "Farever Best Mount — Free Pick & Top Rare Variants",
+          "title": "Yet Another Zombie Survivors Characters & Survivors",
           "rect": {
-            "height": 199.59,
+            "height": 223.77,
             "width": 465.38,
             "left": 730.63,
-            "top": 1762.81
+            "top": 1223.53
           }
         },
         {
-          "title": "Farever vs Diablo 4 — Which Co-op ARPG Is for You?",
+          "title": "Yet Another Zombie Survivors Hidden Characters Guide",
           "rect": {
-            "height": 199.59,
+            "height": 223.77,
             "width": 465.38,
             "left": 244,
-            "top": 1983.66
+            "top": 1468.55
           }
         },
         {
-          "title": "Farever vs Lost Ark — Co-op vs MMO Grind",
+          "title": "Yet Another Zombie Survivors Ghost Skills: Build Guide",
           "rect": {
-            "height": 199.59,
+            "height": 223.77,
             "width": 465.38,
             "left": 730.63,
-            "top": 1983.66
+            "top": 1468.55
+          }
+        },
+        {
+          "title": "Yet Another Zombie Survivors Huntress Skills Guide",
+          "rect": {
+            "height": 223.77,
+            "width": 465.38,
+            "left": 244,
+            "top": 1713.56
+          }
+        },
+        {
+          "title": "Yet Another Zombie Survivors Sanji the Rabbit Guide",
+          "rect": {
+            "height": 223.77,
+            "width": 465.38,
+            "left": 730.63,
+            "top": 1713.56
+          }
+        },
+        {
+          "title": "Yet Another Zombie Survivors Items: Effects & Unlocks",
+          "rect": {
+            "height": 223.77,
+            "width": 465.38,
+            "left": 244,
+            "top": 1958.58
+          }
+        },
+        {
+          "title": "Yet Another Zombie Survivors Best General Points Build 1.0",
+          "rect": {
+            "height": 223.77,
+            "width": 465.38,
+            "left": 730.63,
+            "top": 1958.58
+          }
+        },
+        {
+          "title": "Yet Another Zombie Survivors Weapon Upgrades Guide",
+          "rect": {
+            "height": 223.77,
+            "width": 465.38,
+            "left": 244,
+            "top": 2203.59
+          }
+        },
+        {
+          "title": "Yet Another Zombie Survivors Huntress Upgrades Guide",
+          "rect": {
+            "height": 223.77,
+            "width": 465.38,
+            "left": 730.63,
+            "top": 2203.59
+          }
+        },
+        {
+          "title": "Yet Another Zombie Survivors Weapon Attack Speed vs Weapon Cooldown",
+          "rect": {
+            "height": 253.52,
+            "width": 465.38,
+            "left": 244,
+            "top": 2448.61
+          }
+        },
+        {
+          "title": "Yet Another Zombie Survivors Rocket Launcher and Minigun",
+          "rect": {
+            "height": 253.52,
+            "width": 465.38,
+            "left": 730.63,
+            "top": 2448.61
+          }
+        },
+        {
+          "title": "Yet Another Zombie Survivors Trainer: Safety Guide",
+          "rect": {
+            "height": 223.77,
+            "width": 465.38,
+            "left": 244,
+            "top": 2723.38
+          }
+        },
+        {
+          "title": "Yet Another Zombie Survivors Cheat Engine: Safe Guide",
+          "rect": {
+            "height": 223.77,
+            "width": 465.38,
+            "left": 730.63,
+            "top": 2723.38
+          }
+        },
+        {
+          "title": "Yet Another Zombie Survivors Mods: Install & Safety",
+          "rect": {
+            "height": 223.77,
+            "width": 465.38,
+            "left": 244,
+            "top": 2968.39
           }
         }
       ]
     },
     "palette": {
-      "background": "rgb(5, 3, 12)",
-      "foreground": "rgb(245, 241, 255)",
-      "bgVariable": "#05030c",
-      "goldVariable": "#d4af6a",
-      "mutedVariable": "#9a92c0"
+      "background": "rgb(17, 19, 24)",
+      "foreground": "rgb(243, 240, 237)",
+      "bgVariable": "hsl(220 16% 8%)",
+      "goldVariable": "hsl(8 78% 56%)",
+      "mutedVariable": "hsl(215 12% 68%)"
     },
     "fonts": {
       "body": "Inter, ui-sans-serif, system-ui, -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
@@ -743,20 +367,28 @@
     },
     "footer": {
       "total": {
-        "height": 1044.75,
+        "height": 718.89,
         "width": 1440,
         "left": 0,
-        "top": 2370.25
+        "top": 8265.5
       },
       "columns": 5,
       "groups": 5
     },
     "headings": [
-      "All Farever Guides"
+      "Yet Another Zombie Survivors Guides",
+      "Understand the Core Gameplay Loop",
+      "Choose a Starting Survivor With a Clear Job",
+      "Recruit Through SOS and Build Around Synergies",
+      "Use Items to Reinforce the Current Build",
+      "Understand Weapons, Abilities, and Permanent Progression",
+      "Unlock Ranger, Bio Lab, and Boss Rush",
+      "Separate Achievements From Torments",
+      "Protect Progress Before Using Tools or Mods"
     ],
     "grids": [
       {
-        "childCount": 14,
+        "childCount": 19,
         "columns": 2,
         "className": "guide-grid"
       }
@@ -765,9 +397,9 @@
   {
     "source": "local",
     "viewport": "desktop",
-    "route": "/classes/",
-    "screenshotPath": "test-results/visual-audit/local/desktop/classes.png",
-    "documentHeight": 5907,
+    "route": "/characters/",
+    "screenshotPath": "test-results/visual-audit/local/desktop/characters.png",
+    "documentHeight": 7335,
     "header": {
       "total": {
         "height": 137,
@@ -794,7 +426,7 @@
       "utilityLineCount": 1
     },
     "hero": {
-      "height": 537,
+      "height": 694.25,
       "width": 695,
       "left": 372.5,
       "top": 137
@@ -806,16 +438,16 @@
       "top": 0
     },
     "prose": {
-      "height": 4591.59,
+      "height": 6345.59,
       "width": 780,
       "left": 330,
       "top": 137
     },
     "proseInner": {
-      "height": 3908.41,
+      "height": 5523.84,
       "width": 695,
       "left": 372.5,
-      "top": 718.19
+      "top": 856.75
     },
     "guideGrid": {
       "rect": null,
@@ -824,11 +456,11 @@
       "cardMeasurements": []
     },
     "palette": {
-      "background": "rgb(5, 3, 12)",
-      "foreground": "rgb(245, 241, 255)",
-      "bgVariable": "#05030c",
-      "goldVariable": "#d4af6a",
-      "mutedVariable": "#9a92c0"
+      "background": "rgb(17, 19, 24)",
+      "foreground": "rgb(243, 240, 237)",
+      "bgVariable": "hsl(220 16% 8%)",
+      "goldVariable": "hsl(8 78% 56%)",
+      "mutedVariable": "hsl(215 12% 68%)"
     },
     "fonts": {
       "body": "Inter, ui-sans-serif, system-ui, -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
@@ -836,449 +468,24 @@
     },
     "footer": {
       "total": {
-        "height": 1044.75,
+        "height": 718.89,
         "width": 1440,
         "left": 0,
-        "top": 4862.59
+        "top": 6616.59
       },
       "columns": 5,
       "groups": 5
     },
     "headings": [
-      "Farever Classes & Jobs",
-      "The 4 classes",
-      "The 6 jobs",
-      "Best class combos for co-op",
-      "Should you respec?",
-      "Class deep-dives",
-      "FAQ — Farever classes",
-      "Related"
-    ],
-    "grids": []
-  },
-  {
-    "source": "reference",
-    "viewport": "mobile",
-    "route": "/",
-    "screenshotPath": "test-results/visual-audit/reference/mobile/home.png",
-    "documentHeight": 17273,
-    "header": {
-      "total": {
-        "height": 228.25,
-        "width": 390,
-        "left": 0,
-        "top": 0
-      },
-      "primary": {
-        "height": 85,
-        "width": 390,
-        "left": 0,
-        "top": 0
-      },
-      "utility": {
-        "height": 143.25,
-        "width": 390,
-        "left": 0,
-        "top": 85
-      },
-      "primaryNavDisplay": "none",
-      "steamDisplay": "flex",
-      "subtitleDisplay": "none",
-      "utilityFlexWrap": "wrap",
-      "utilityLineCount": 5
-    },
-    "hero": {
-      "height": 1285.69,
-      "width": 390,
-      "left": 0,
-      "top": 185.75
-    },
-    "outer": {
-      "height": 85,
-      "width": 390,
-      "left": 0,
-      "top": 0
-    },
-    "prose": null,
-    "proseInner": null,
-    "guideGrid": {
-      "rect": null,
-      "columns": null,
-      "cards": 0,
-      "cardMeasurements": []
-    },
-    "palette": {
-      "background": "rgb(5, 3, 12)",
-      "foreground": "rgb(245, 241, 255)",
-      "bgVariable": "#05030c",
-      "goldVariable": "#d4af6a",
-      "mutedVariable": ""
-    },
-    "fonts": {
-      "body": "Inter, system-ui, sans-serif",
-      "display": "Metamorphous, \"Cormorant Garamond\", serif"
-    },
-    "footer": {
-      "total": {
-        "height": 2021.88,
-        "width": 390,
-        "left": 0,
-        "top": 15251.52
-      },
-      "columns": 1,
-      "groups": 5
-    },
-    "headings": [
-      "Forge Your Legendin Farever",
-      "What is Farever?",
-      "The Four Classes",
-      "Explore Two Regions",
-      "Start Your Journey",
-      "Tools & Tier Lists",
-      "Featured Guides",
-      "Latest News",
-      "Farever FAQ",
-      "Forge your legend today."
-    ],
-    "grids": [
-      {
-        "childCount": 4,
-        "columns": 2,
-        "className": "mt-14 grid grid-cols-2 md:grid-cols-4 gap-px bg-gold/15 border border-gold/15 max-w-3xl mx-auto"
-      },
-      {
-        "childCount": 2,
-        "columns": 1,
-        "className": "grid md:grid-cols-5 gap-10 items-center max-w-5xl mx-auto"
-      },
-      {
-        "childCount": 4,
-        "columns": 1,
-        "className": "grid sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto"
-      },
-      {
-        "childCount": 2,
-        "columns": 1,
-        "className": "grid md:grid-cols-2 gap-6 max-w-5xl mx-auto"
-      },
-      {
-        "childCount": 9,
-        "columns": 1,
-        "className": "grid sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto"
-      },
-      {
-        "childCount": 7,
-        "columns": 1,
-        "className": "grid sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto"
-      },
-      {
-        "childCount": 6,
-        "columns": 1,
-        "className": "grid md:grid-cols-3 gap-5 max-w-6xl mx-auto"
-      }
-    ]
-  },
-  {
-    "source": "reference",
-    "viewport": "mobile",
-    "route": "/guides/",
-    "screenshotPath": "test-results/visual-audit/reference/mobile/guides.png",
-    "documentHeight": 6693,
-    "header": {
-      "total": {
-        "height": 228.25,
-        "width": 390,
-        "left": 0,
-        "top": 0
-      },
-      "primary": {
-        "height": 85,
-        "width": 390,
-        "left": 0,
-        "top": 0
-      },
-      "utility": {
-        "height": 143.25,
-        "width": 390,
-        "left": 0,
-        "top": 85
-      },
-      "primaryNavDisplay": "none",
-      "steamDisplay": "flex",
-      "subtitleDisplay": "none",
-      "utilityFlexWrap": "wrap",
-      "utilityLineCount": 5
-    },
-    "hero": {
-      "height": 475.38,
-      "width": 339,
-      "left": 25.5,
-      "top": 228.25
-    },
-    "outer": {
-      "height": 85,
-      "width": 390,
-      "left": 0,
-      "top": 0
-    },
-    "prose": null,
-    "proseInner": null,
-    "guideGrid": {
-      "rect": {
-        "height": 3754.81,
-        "width": 339,
-        "left": 25.5,
-        "top": 729.13
-      },
-      "columns": 1,
-      "cards": 14,
-      "cardMeasurements": [
-        {
-          "title": "Farever Best Class — Tier List for Solo & Co-op (2026)",
-          "rect": {
-            "height": 253.52,
-            "width": 339,
-            "left": 25.5,
-            "top": 729.13
-          }
-        },
-        {
-          "title": "Farever Leveling Guide — How to Level Fast in Early Access",
-          "rect": {
-            "height": 277.69,
-            "width": 339,
-            "left": 25.5,
-            "top": 1003.89
-          }
-        },
-        {
-          "title": "Farever Crafting Guide — Jobs, Mats and Tier 3+ Gear",
-          "rect": {
-            "height": 253.52,
-            "width": 339,
-            "left": 25.5,
-            "top": 1302.83
-          }
-        },
-        {
-          "title": "Farever Mount Guide — Free Mount, Upgrades & Rare Variants",
-          "rect": {
-            "height": 253.52,
-            "width": 339,
-            "left": 25.5,
-            "top": 1577.59
-          }
-        },
-        {
-          "title": "Farever vs Wartales — Which Shiro Games RPG to Play?",
-          "rect": {
-            "height": 253.52,
-            "width": 339,
-            "left": 25.5,
-            "top": 1852.36
-          }
-        },
-        {
-          "title": "Is Farever Worth It in 2026? — An Honest Take",
-          "rect": {
-            "height": 223.77,
-            "width": 339,
-            "left": 25.5,
-            "top": 2127.13
-          }
-        },
-        {
-          "title": "Farever Solo vs Co-op — Which Is Better?",
-          "rect": {
-            "height": 223.77,
-            "width": 339,
-            "left": 25.5,
-            "top": 2372.14
-          }
-        },
-        {
-          "title": "Skyover Island — Complete Region Guide",
-          "rect": {
-            "height": 223.77,
-            "width": 339,
-            "left": 25.5,
-            "top": 2617.16
-          }
-        },
-        {
-          "title": "Valley of the Eternal Autumn — Complete Region Guide",
-          "rect": {
-            "height": 277.69,
-            "width": 339,
-            "left": 25.5,
-            "top": 2862.17
-          }
-        },
-        {
-          "title": "Farever 2026 Roadmap — What&apos;s Coming This Year",
-          "rect": {
-            "height": 253.52,
-            "width": 339,
-            "left": 25.5,
-            "top": 3161.11
-          }
-        },
-        {
-          "title": "Farever Lore — The Forgotten Realm of Siagarta",
-          "rect": {
-            "height": 253.52,
-            "width": 339,
-            "left": 25.5,
-            "top": 3435.88
-          }
-        },
-        {
-          "title": "Farever Best Mount — Free Pick & Top Rare Variants",
-          "rect": {
-            "height": 253.52,
-            "width": 339,
-            "left": 25.5,
-            "top": 3710.64
-          }
-        },
-        {
-          "title": "Farever vs Diablo 4 — Which Co-op ARPG Is for You?",
-          "rect": {
-            "height": 253.52,
-            "width": 339,
-            "left": 25.5,
-            "top": 3985.41
-          }
-        },
-        {
-          "title": "Farever vs Lost Ark — Co-op vs MMO Grind",
-          "rect": {
-            "height": 223.77,
-            "width": 339,
-            "left": 25.5,
-            "top": 4260.17
-          }
-        }
-      ]
-    },
-    "palette": {
-      "background": "rgb(5, 3, 12)",
-      "foreground": "rgb(245, 241, 255)",
-      "bgVariable": "#05030c",
-      "goldVariable": "#d4af6a",
-      "mutedVariable": ""
-    },
-    "fonts": {
-      "body": "Inter, system-ui, sans-serif",
-      "display": "Metamorphous, \"Cormorant Garamond\", serif"
-    },
-    "footer": {
-      "total": {
-        "height": 2021.88,
-        "width": 390,
-        "left": 0,
-        "top": 4670.94
-      },
-      "columns": 1,
-      "groups": 5
-    },
-    "headings": [
-      "All Farever Guides"
-    ],
-    "grids": [
-      {
-        "childCount": 14,
-        "columns": 1,
-        "className": "grid md:grid-cols-2 gap-5 max-w-4xl mx-auto"
-      }
-    ]
-  },
-  {
-    "source": "reference",
-    "viewport": "mobile",
-    "route": "/classes/",
-    "screenshotPath": "test-results/visual-audit/reference/mobile/classes.png",
-    "documentHeight": 9838,
-    "header": {
-      "total": {
-        "height": 228.25,
-        "width": 390,
-        "left": 0,
-        "top": 0
-      },
-      "primary": {
-        "height": 85,
-        "width": 390,
-        "left": 0,
-        "top": 0
-      },
-      "utility": {
-        "height": 143.25,
-        "width": 390,
-        "left": 0,
-        "top": 85
-      },
-      "primaryNavDisplay": "none",
-      "steamDisplay": "flex",
-      "subtitleDisplay": "none",
-      "utilityFlexWrap": "wrap",
-      "utilityLineCount": 5
-    },
-    "hero": {
-      "height": 500.88,
-      "width": 339,
-      "left": 25.5,
-      "top": 228.25
-    },
-    "outer": {
-      "height": 85,
-      "width": 390,
-      "left": 0,
-      "top": 0
-    },
-    "prose": {
-      "height": 7485.66,
-      "width": 390,
-      "left": 0,
-      "top": 228.25
-    },
-    "proseInner": null,
-    "guideGrid": {
-      "rect": null,
-      "columns": null,
-      "cards": 0,
-      "cardMeasurements": []
-    },
-    "palette": {
-      "background": "rgb(5, 3, 12)",
-      "foreground": "rgb(245, 241, 255)",
-      "bgVariable": "#05030c",
-      "goldVariable": "#d4af6a",
-      "mutedVariable": ""
-    },
-    "fonts": {
-      "body": "Inter, system-ui, sans-serif",
-      "display": "Metamorphous, \"Cormorant Garamond\", serif"
-    },
-    "footer": {
-      "total": {
-        "height": 2021.88,
-        "width": 390,
-        "left": 0,
-        "top": 7815.91
-      },
-      "columns": 1,
-      "groups": 5
-    },
-    "headings": [
-      "Farever Classes & Jobs",
-      "The 4 classes",
-      "The 6 jobs",
-      "Best class combos for co-op",
-      "Should you respec?",
-      "Class deep-dives",
-      "FAQ — Farever classes",
-      "Related"
+      "Yet Another Zombie Survivors Characters & Survivors",
+      "The Nine Confirmed Version 1.0 Survivors",
+      "How Squad Recruitment and Leader Choice Work",
+      "Ranger and the Verified Survival Level 175 Unlock",
+      "Tank Weapons and Defensive Team Interactions",
+      "Huntress, Ghost, and Ranged or Melee Roles",
+      "Engineer, Medic, and Documented Squad Synergies",
+      "Version 1.0 Progression Systems",
+      "Choose Characters by Objective and Evidence"
     ],
     "grids": []
   },
@@ -1287,10 +494,10 @@
     "viewport": "mobile",
     "route": "/",
     "screenshotPath": "test-results/visual-audit/local/mobile/home.png",
-    "documentHeight": 17274,
+    "documentHeight": 15670,
     "header": {
       "total": {
-        "height": 228.25,
+        "height": 200.88,
         "width": 390,
         "left": 0,
         "top": 0
@@ -1314,10 +521,10 @@
       "utilityLineCount": 1
     },
     "hero": {
-      "height": 1285.69,
+      "height": 1366.64,
       "width": 390,
       "left": 0,
-      "top": 185.75
+      "top": 158.38
     },
     "outer": {
       "height": 85,
@@ -1334,11 +541,11 @@
       "cardMeasurements": []
     },
     "palette": {
-      "background": "rgb(5, 3, 12)",
-      "foreground": "rgb(245, 241, 255)",
-      "bgVariable": "#05030c",
-      "goldVariable": "#d4af6a",
-      "mutedVariable": "#9a92c0"
+      "background": "rgb(17, 19, 24)",
+      "foreground": "rgb(243, 240, 237)",
+      "bgVariable": "hsl(220 16% 8%)",
+      "goldVariable": "hsl(8 78% 56%)",
+      "mutedVariable": "hsl(215 12% 68%)"
     },
     "fonts": {
       "body": "Inter, ui-sans-serif, system-ui, -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
@@ -1346,29 +553,29 @@
     },
     "footer": {
       "total": {
-        "height": 2021.88,
+        "height": 1715.5,
         "width": 390,
         "left": 0,
-        "top": 15251.83
+        "top": 13954.78
       },
       "columns": 1,
       "groups": 5
     },
     "headings": [
-      "Forge Your Legend in Farever",
-      "What is Farever?",
-      "The Four Classes",
-      "Explore Two Regions",
-      "Start Your Journey",
-      "Tools & Tier Lists",
+      "Yet Another Zombie Survivors",
+      "What is Yet Another Zombie Survivors?",
+      "Meet the Survivors",
+      "New Arenas & Modes",
+      "Your Yet Another Zombie Survivors Journey",
+      "Guides, Builds & Tools",
       "Featured Guides",
-      "Latest News",
-      "Farever FAQ",
-      "Forge your legend today."
+      "Version 1.0 Highlights",
+      "Yet Another Zombie Survivors FAQ",
+      "Ready to Master Yet Another Zombie Survivors?"
     ],
     "grids": [
       {
-        "childCount": 4,
+        "childCount": 5,
         "columns": 2,
         "className": "home-hero__stats"
       },
@@ -1388,12 +595,12 @@
         "className": "home-grid home-grid--two"
       },
       {
-        "childCount": 9,
+        "childCount": 4,
         "columns": 1,
         "className": "home-grid home-grid--three"
       },
       {
-        "childCount": 7,
+        "childCount": 6,
         "columns": 1,
         "className": "home-grid home-grid--three"
       },
@@ -1409,10 +616,10 @@
     "viewport": "mobile",
     "route": "/guides/",
     "screenshotPath": "test-results/visual-audit/local/mobile/guides.png",
-    "documentHeight": 6639,
+    "documentHeight": 19184,
     "header": {
       "total": {
-        "height": 228.25,
+        "height": 200.88,
         "width": 390,
         "left": 0,
         "top": 0
@@ -1436,225 +643,10 @@
       "utilityLineCount": 1
     },
     "hero": {
-      "height": 475.38,
+      "height": 660.25,
       "width": 339,
       "left": 25.5,
-      "top": 228.25
-    },
-    "outer": {
-      "height": 85,
-      "width": 390,
-      "left": 0,
-      "top": 0
-    },
-    "prose": null,
-    "proseInner": null,
-    "guideGrid": {
-      "rect": {
-        "height": 3700.89,
-        "width": 339,
-        "left": 25.5,
-        "top": 729.13
-      },
-      "columns": 1,
-      "cards": 14,
-      "cardMeasurements": [
-        {
-          "title": "Farever Best Class — Tier List for Solo & Co-op (2026)",
-          "rect": {
-            "height": 253.52,
-            "width": 339,
-            "left": 25.5,
-            "top": 729.13
-          }
-        },
-        {
-          "title": "Farever Leveling Guide — How to Level Fast in Early Access",
-          "rect": {
-            "height": 277.69,
-            "width": 339,
-            "left": 25.5,
-            "top": 1003.89
-          }
-        },
-        {
-          "title": "Farever Crafting Guide — Jobs, Mats and Tier 3+ Gear",
-          "rect": {
-            "height": 253.52,
-            "width": 339,
-            "left": 25.5,
-            "top": 1302.83
-          }
-        },
-        {
-          "title": "Farever Mount Guide — Free Mount, Upgrades & Rare Variants",
-          "rect": {
-            "height": 253.52,
-            "width": 339,
-            "left": 25.5,
-            "top": 1577.59
-          }
-        },
-        {
-          "title": "Farever vs Wartales — Which Shiro Games RPG to Play?",
-          "rect": {
-            "height": 253.52,
-            "width": 339,
-            "left": 25.5,
-            "top": 1852.36
-          }
-        },
-        {
-          "title": "Is Farever Worth It in 2026? — An Honest Take",
-          "rect": {
-            "height": 223.77,
-            "width": 339,
-            "left": 25.5,
-            "top": 2127.13
-          }
-        },
-        {
-          "title": "Farever Solo vs Co-op — Which Is Better?",
-          "rect": {
-            "height": 223.77,
-            "width": 339,
-            "left": 25.5,
-            "top": 2372.14
-          }
-        },
-        {
-          "title": "Skyover Island — Complete Region Guide",
-          "rect": {
-            "height": 223.77,
-            "width": 339,
-            "left": 25.5,
-            "top": 2617.16
-          }
-        },
-        {
-          "title": "Valley of the Eternal Autumn — Complete Region Guide",
-          "rect": {
-            "height": 253.52,
-            "width": 339,
-            "left": 25.5,
-            "top": 2862.17
-          }
-        },
-        {
-          "title": "Farever 2026 Roadmap — What's Coming This Year",
-          "rect": {
-            "height": 223.77,
-            "width": 339,
-            "left": 25.5,
-            "top": 3136.94
-          }
-        },
-        {
-          "title": "Farever Lore — The Forgotten Realm of Siagarta",
-          "rect": {
-            "height": 253.52,
-            "width": 339,
-            "left": 25.5,
-            "top": 3381.95
-          }
-        },
-        {
-          "title": "Farever Best Mount — Free Pick & Top Rare Variants",
-          "rect": {
-            "height": 253.52,
-            "width": 339,
-            "left": 25.5,
-            "top": 3656.72
-          }
-        },
-        {
-          "title": "Farever vs Diablo 4 — Which Co-op ARPG Is for You?",
-          "rect": {
-            "height": 253.52,
-            "width": 339,
-            "left": 25.5,
-            "top": 3931.48
-          }
-        },
-        {
-          "title": "Farever vs Lost Ark — Co-op vs MMO Grind",
-          "rect": {
-            "height": 223.77,
-            "width": 339,
-            "left": 25.5,
-            "top": 4206.25
-          }
-        }
-      ]
-    },
-    "palette": {
-      "background": "rgb(5, 3, 12)",
-      "foreground": "rgb(245, 241, 255)",
-      "bgVariable": "#05030c",
-      "goldVariable": "#d4af6a",
-      "mutedVariable": "#9a92c0"
-    },
-    "fonts": {
-      "body": "Inter, ui-sans-serif, system-ui, -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
-      "display": "Metamorphous, \"Cormorant Garamond\", Georgia, serif"
-    },
-    "footer": {
-      "total": {
-        "height": 2021.88,
-        "width": 390,
-        "left": 0,
-        "top": 4617.02
-      },
-      "columns": 1,
-      "groups": 5
-    },
-    "headings": [
-      "All Farever Guides"
-    ],
-    "grids": [
-      {
-        "childCount": 14,
-        "columns": 1,
-        "className": "guide-grid"
-      }
-    ]
-  },
-  {
-    "source": "local",
-    "viewport": "mobile",
-    "route": "/classes/",
-    "screenshotPath": "test-results/visual-audit/local/mobile/classes.png",
-    "documentHeight": 9893,
-    "header": {
-      "total": {
-        "height": 228.25,
-        "width": 390,
-        "left": 0,
-        "top": 0
-      },
-      "primary": {
-        "height": 85,
-        "width": 390,
-        "left": 0,
-        "top": 0
-      },
-      "utility": {
-        "height": 0,
-        "width": 0,
-        "left": 0,
-        "top": 0
-      },
-      "primaryNavDisplay": "none",
-      "steamDisplay": "flex",
-      "subtitleDisplay": "none",
-      "utilityFlexWrap": "nowrap",
-      "utilityLineCount": 1
-    },
-    "hero": {
-      "height": 500.88,
-      "width": 339,
-      "left": 25.5,
-      "top": 228.25
+      "top": 200.88
     },
     "outer": {
       "height": 85,
@@ -1663,16 +655,289 @@
       "top": 0
     },
     "prose": {
-      "height": 7508.86,
-      "width": 390,
-      "left": 0,
-      "top": 228.25
-    },
-    "proseInner": {
-      "height": 6878.8,
+      "height": 10210.19,
       "width": 339,
       "left": 25.5,
-      "top": 773.31
+      "top": 7070.86
+    },
+    "proseInner": null,
+    "guideGrid": {
+      "rect": {
+        "height": 6099.23,
+        "width": 339,
+        "left": 25.5,
+        "top": 886.63
+      },
+      "columns": 1,
+      "cards": 19,
+      "cardMeasurements": [
+        {
+          "title": "Yet Another Zombie Survivors Tier List: Version 1.0",
+          "rect": {
+            "height": 301.86,
+            "width": 339,
+            "left": 25.5,
+            "top": 886.63
+          }
+        },
+        {
+          "title": "Yet Another Zombie Survivors Best Team: Squad Guide",
+          "rect": {
+            "height": 301.86,
+            "width": 339,
+            "left": 25.5,
+            "top": 1209.73
+          }
+        },
+        {
+          "title": "Yet Another Zombie Survivors Synergies: Team Guide",
+          "rect": {
+            "height": 277.69,
+            "width": 339,
+            "left": 25.5,
+            "top": 1532.84
+          }
+        },
+        {
+          "title": "Yet Another Zombie Survivors Achievements: 1.0 Guide",
+          "rect": {
+            "height": 301.86,
+            "width": 339,
+            "left": 25.5,
+            "top": 1831.78
+          }
+        },
+        {
+          "title": "Yet Another Zombie Survivors Problem With Save: Fix",
+          "rect": {
+            "height": 301.86,
+            "width": 339,
+            "left": 25.5,
+            "top": 2154.89
+          }
+        },
+        {
+          "title": "Yet Another Zombie Survivors Characters & Survivors",
+          "rect": {
+            "height": 301.86,
+            "width": 339,
+            "left": 25.5,
+            "top": 2478
+          }
+        },
+        {
+          "title": "Yet Another Zombie Survivors Hidden Characters Guide",
+          "rect": {
+            "height": 301.86,
+            "width": 339,
+            "left": 25.5,
+            "top": 2801.11
+          }
+        },
+        {
+          "title": "Yet Another Zombie Survivors Ghost Skills: Build Guide",
+          "rect": {
+            "height": 301.86,
+            "width": 339,
+            "left": 25.5,
+            "top": 3124.22
+          }
+        },
+        {
+          "title": "Yet Another Zombie Survivors Huntress Skills Guide",
+          "rect": {
+            "height": 301.86,
+            "width": 339,
+            "left": 25.5,
+            "top": 3447.33
+          }
+        },
+        {
+          "title": "Yet Another Zombie Survivors Sanji the Rabbit Guide",
+          "rect": {
+            "height": 301.86,
+            "width": 339,
+            "left": 25.5,
+            "top": 3770.44
+          }
+        },
+        {
+          "title": "Yet Another Zombie Survivors Items: Effects & Unlocks",
+          "rect": {
+            "height": 301.86,
+            "width": 339,
+            "left": 25.5,
+            "top": 4093.55
+          }
+        },
+        {
+          "title": "Yet Another Zombie Survivors Best General Points Build 1.0",
+          "rect": {
+            "height": 301.86,
+            "width": 339,
+            "left": 25.5,
+            "top": 4416.66
+          }
+        },
+        {
+          "title": "Yet Another Zombie Survivors Weapon Upgrades Guide",
+          "rect": {
+            "height": 301.86,
+            "width": 339,
+            "left": 25.5,
+            "top": 4739.77
+          }
+        },
+        {
+          "title": "Yet Another Zombie Survivors Huntress Upgrades Guide",
+          "rect": {
+            "height": 277.69,
+            "width": 339,
+            "left": 25.5,
+            "top": 5062.88
+          }
+        },
+        {
+          "title": "Yet Another Zombie Survivors Weapon Attack Speed vs Weapon Cooldown",
+          "rect": {
+            "height": 331.61,
+            "width": 339,
+            "left": 25.5,
+            "top": 5361.81
+          }
+        },
+        {
+          "title": "Yet Another Zombie Survivors Rocket Launcher and Minigun",
+          "rect": {
+            "height": 301.86,
+            "width": 339,
+            "left": 25.5,
+            "top": 5714.67
+          }
+        },
+        {
+          "title": "Yet Another Zombie Survivors Trainer: Safety Guide",
+          "rect": {
+            "height": 301.86,
+            "width": 339,
+            "left": 25.5,
+            "top": 6037.78
+          }
+        },
+        {
+          "title": "Yet Another Zombie Survivors Cheat Engine: Safe Guide",
+          "rect": {
+            "height": 301.86,
+            "width": 339,
+            "left": 25.5,
+            "top": 6360.89
+          }
+        },
+        {
+          "title": "Yet Another Zombie Survivors Mods: Install & Safety",
+          "rect": {
+            "height": 301.86,
+            "width": 339,
+            "left": 25.5,
+            "top": 6684
+          }
+        }
+      ]
+    },
+    "palette": {
+      "background": "rgb(17, 19, 24)",
+      "foreground": "rgb(243, 240, 237)",
+      "bgVariable": "hsl(220 16% 8%)",
+      "goldVariable": "hsl(8 78% 56%)",
+      "mutedVariable": "hsl(215 12% 68%)"
+    },
+    "fonts": {
+      "body": "Inter, ui-sans-serif, system-ui, -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+      "display": "Metamorphous, \"Cormorant Garamond\", Georgia, serif"
+    },
+    "footer": {
+      "total": {
+        "height": 1715.5,
+        "width": 390,
+        "left": 0,
+        "top": 17468.05
+      },
+      "columns": 1,
+      "groups": 5
+    },
+    "headings": [
+      "Yet Another Zombie Survivors Guides",
+      "Understand the Core Gameplay Loop",
+      "Choose a Starting Survivor With a Clear Job",
+      "Recruit Through SOS and Build Around Synergies",
+      "Use Items to Reinforce the Current Build",
+      "Understand Weapons, Abilities, and Permanent Progression",
+      "Unlock Ranger, Bio Lab, and Boss Rush",
+      "Separate Achievements From Torments",
+      "Protect Progress Before Using Tools or Mods"
+    ],
+    "grids": [
+      {
+        "childCount": 19,
+        "columns": 1,
+        "className": "guide-grid"
+      }
+    ]
+  },
+  {
+    "source": "local",
+    "viewport": "mobile",
+    "route": "/characters/",
+    "screenshotPath": "test-results/visual-audit/local/mobile/characters.png",
+    "documentHeight": 13328,
+    "header": {
+      "total": {
+        "height": 200.88,
+        "width": 390,
+        "left": 0,
+        "top": 0
+      },
+      "primary": {
+        "height": 85,
+        "width": 390,
+        "left": 0,
+        "top": 0
+      },
+      "utility": {
+        "height": 0,
+        "width": 0,
+        "left": 0,
+        "top": 0
+      },
+      "primaryNavDisplay": "none",
+      "steamDisplay": "flex",
+      "subtitleDisplay": "none",
+      "utilityFlexWrap": "nowrap",
+      "utilityLineCount": 1
+    },
+    "hero": {
+      "height": 703.81,
+      "width": 339,
+      "left": 25.5,
+      "top": 200.88
+    },
+    "outer": {
+      "height": 85,
+      "width": 390,
+      "left": 0,
+      "top": 0
+    },
+    "prose": {
+      "height": 11277.75,
+      "width": 390,
+      "left": 0,
+      "top": 200.88
+    },
+    "proseInner": {
+      "height": 10463.44,
+      "width": 339,
+      "left": 25.5,
+      "top": 930.19
     },
     "guideGrid": {
       "rect": null,
@@ -1681,11 +946,11 @@
       "cardMeasurements": []
     },
     "palette": {
-      "background": "rgb(5, 3, 12)",
-      "foreground": "rgb(245, 241, 255)",
-      "bgVariable": "#05030c",
-      "goldVariable": "#d4af6a",
-      "mutedVariable": "#9a92c0"
+      "background": "rgb(17, 19, 24)",
+      "foreground": "rgb(243, 240, 237)",
+      "bgVariable": "hsl(220 16% 8%)",
+      "goldVariable": "hsl(8 78% 56%)",
+      "mutedVariable": "hsl(215 12% 68%)"
     },
     "fonts": {
       "body": "Inter, ui-sans-serif, system-ui, -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
@@ -1693,23 +958,24 @@
     },
     "footer": {
       "total": {
-        "height": 2021.88,
+        "height": 1715.5,
         "width": 390,
         "left": 0,
-        "top": 7871.11
+        "top": 11612.63
       },
       "columns": 1,
       "groups": 5
     },
     "headings": [
-      "Farever Classes & Jobs",
-      "The 4 classes",
-      "The 6 jobs",
-      "Best class combos for co-op",
-      "Should you respec?",
-      "Class deep-dives",
-      "FAQ — Farever classes",
-      "Related"
+      "Yet Another Zombie Survivors Characters & Survivors",
+      "The Nine Confirmed Version 1.0 Survivors",
+      "How Squad Recruitment and Leader Choice Work",
+      "Ranger and the Verified Survival Level 175 Unlock",
+      "Tank Weapons and Defensive Team Interactions",
+      "Huntress, Ghost, and Ranged or Melee Roles",
+      "Engineer, Medic, and Documented Squad Synergies",
+      "Version 1.0 Progression Systems",
+      "Choose Characters by Objective and Evidence"
     ],
     "grids": []
   }

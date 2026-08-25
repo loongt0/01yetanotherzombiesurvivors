@@ -1,19 +1,76 @@
 {
   "Home": {
-    "title": "Farever Wiki Deutsch — Klassen, Waffen & Koop-Guide",
-    "description": "Das deutsche Farever-Wiki für Shiro Games’ Koop-Action-RPG: Klassen, Waffen, Dungeons, Einsteiger-Guide, Roadmap und aktuelle Spieldaten.",
-    "openGraphTitle": "Farever Wiki Deutsch — Guides, Klassen & Waffen",
-    "openGraphDescription": "Alles, was du brauchst, um deine Legende in Farever zu schmieden — auf Deutsch."
+    "title": "Yet Another Zombie Survivors Wiki — Guides & Builds",
+    "description": "Guides zu Yet Another Zombie Survivors: Überlebende, beste Teams, Synergien, Items, Waffen, Erfolge und Freischaltungen.",
+    "openGraphTitle": "Yet Another Zombie Survivors Wiki — Guides & Builds",
+    "openGraphDescription": "Entdecke Überlebende, beste Teams, Synergien, Waffen und Items für Version 1.0."
   },
   "Header": {
-    "subtitle": "Das vergessene Reich · Wiki", "steam": "Auf Steam spielen", "primaryLabel": "Hauptnavigation", "utilityLabel": "Ressourcennavigation",
-    "navigation": {"classes": "Klassen", "weapons": "Waffen", "bosses": "Bosse", "multiplayer": "Mehrspieler", "walkthroughs": "Komplettlösungen", "guides": "Guides", "serverStatus": "Serverstatus", "steamCharts": "Steam-Charts", "tierList": "Tier-Liste", "bestWeapons": "Beste Waffen", "codes": "Codes", "steamDeck": "Steam Deck", "charts": "Charts", "release": "Veröffentlichung", "faq": "FAQ"}
+    "subtitle": "Von Fans erstelltes Survivor-Wiki",
+    "steam": "Auf Steam spielen",
+    "primaryLabel": "Hauptnavigation",
+    "utilityLabel": "Ressourcennavigation",
+    "navigation": {
+      "characters": "Charaktere",
+      "items": "Items",
+      "weapons": "Waffen",
+      "builds": "Builds",
+      "tools": "Tools",
+      "guides": "Guides",
+      "tierList": "Tier-Liste",
+      "bestTeam": "Bestes Team",
+      "synergies": "Synergien",
+      "achievements": "Erfolge",
+      "ghost": "Ghost",
+      "huntress": "Huntress",
+      "saveProblem": "Speicherprobleme",
+      "mods": "Mods"
+    }
   },
   "Footer": {
-    "about": "Inoffizieller, von Fans erstellter Guide zum Koop-Action-RPG Farever von Shiro Games. Alle Marken gehören ihren jeweiligen Eigentümern.",
-    "groups": {"guides": "Guides", "resources": "Ressourcen", "liveTools": "Live-Tools", "longTailGuides": "Weitere Guides"},
-    "links": {"beginnerGuide": "Anfänger-Guide", "classesJobs": "Klassen & Berufe", "weapons": "Waffen", "dungeonsBosses": "Dungeons & Bosse", "tipsTricks": "Tipps & Tricks", "releaseDate": "Veröffentlichungsdatum", "roadmap": "EA-Roadmap", "systemRequirements": "Systemanforderungen", "howToPlay": "So spielt man (Koop)", "faq": "FAQ", "serverStatus": "Serverstatus", "steamCharts": "Steam-Charts", "tierList": "Tier-Liste", "bestWeapons": "Beste Waffen", "bossesGuide": "Boss-Guide", "codes": "Codes", "steamDeck": "Steam Deck", "bestClassTierList": "Beste Klassen-Tier-Liste", "levelingGuide": "Level-Guide", "isItWorthIt": "Lohnt es sich?", "skyoverIsland": "Skyover Island", "loreStory": "Lore & Geschichte", "fareverReview": "Farever-Test", "bestBuilds": "Beste Builds", "pvpStatus": "PvP-Status", "consoleRelease": "Konsolen-Release", "weaponTierList": "Waffen-Tier-Liste", "companionTierList": "Begleiter-Tier-Liste", "companions": "Begleiter", "hiddenCritter": "Verstecktes Wesen", "quests": "Quests", "coopGuide": "Koop-Guide", "secretOcean": "Geheimnis des Ozeans", "allWeapons": "Alle Waffen", "playerCount": "Spielerzahl", "maxLevel": "Maximallevel", "allGuides": "Alle Guides →"},
-    "languagesLabel": "Languages · Sprachen · Idiomas · Langues", "copyright": "© 2026 farevergame.wiki · Fanseite, nicht mit Shiro Games verbunden.", "steam": "Auf Steam kaufen →"
+    "about": "Yet Another Zombie Survivors Wiki ist ein unabhängiges Fan-Wiki zu Überlebenden, Fähigkeiten, Waffen, Items, Synergien, Erfolgen und Builds. Es steht in keiner Verbindung zu Awesome Games Studio.",
+    "groups": {
+      "guides": "Guides",
+      "survivors": "Überlebende",
+      "buildsTools": "Builds & Tools",
+      "moreGuides": "Weitere Guides"
+    },
+    "links": {
+      "beginnerGuide": "Einsteiger-Guide",
+      "tierList": "Tier-Liste",
+      "bestTeam": "Bestes Team",
+      "synergies": "Synergien",
+      "achievements": "Erfolge",
+      "characters": "Alle Überlebenden",
+      "ghost": "Ghost",
+      "huntress": "Huntress",
+      "items": "Items",
+      "weapons": "Waffen-Upgrades",
+      "generalBuild": "Allgemeine Punkte 1.0",
+      "weaponStats": "Angriffstempo und Abklingzeit",
+      "saveProblem": "Speicherprobleme",
+      "trainer": "Trainer",
+      "cheatEngine": "Cheat Engine",
+      "mods": "Mods",
+      "sanji": "Sanji das Kaninchen",
+      "weaponUpgrades": "Waffen-Upgrades",
+      "rocketMinigun": "Raketenwerfer und Minigun",
+      "allGuides": "Alle Guides →",
+      "privacy": "Datenschutz",
+      "terms": "Nutzungsbedingungen"
+    },
+    "languagesLabel": "English · Русский · Español · Deutsch",
+    "copyright": "© 2026 Yet Another Zombie Survivors Wiki · Unabhängige Fanseite; nicht mit Awesome Games Studio verbunden.",
+    "steam": "Auf Steam spielen →",
+    "officialWebsite": "Offizielle Website",
+    "officialDiscord": "Offizieller Discord",
+    "officialYoutube": "Offizieller YouTube-Kanal"
   },
-  "NotFound": {"eyebrow": "404", "title": "Verloren in Siagarta", "description": "Diese Seite existiert noch nicht. Kehre zur Startseite zurück oder springe direkt zu einem Guide.", "home": "Zur Startseite", "beginnerGuide": "Anfänger-Guide"}
+  "NotFound": {
+    "eyebrow": "404",
+    "title": "In der Horde verloren",
+    "description": "Diese Seite ist noch nicht verfügbar. Kehre zur Startseite zurück oder öffne den Einsteiger-Guide.",
+    "home": "Zur Startseite",
+    "beginnerGuide": "Einsteiger-Guide"
+  }
 }

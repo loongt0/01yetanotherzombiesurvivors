@@ -28,7 +28,6 @@ import {
   type LucideIcon
 } from 'lucide-react';
 
-import {GameImage} from '@/components/game-image';
 import {SectionTitle} from '@/components/section-title';
 import {localizeHref, type Locale} from '@/i18n/routing';
 import {
@@ -216,19 +215,6 @@ export function HomeSections({locale}: {locale: Locale}) {
         </div>
         <div className="noise" aria-hidden="true" />
         <div className="home-hero__content">
-          <div className="home-hero__image-wrap">
-            <GameImage
-              src="/icon.png"
-              alt="Farever"
-              width={144}
-              height={144}
-              intrinsicWidth={154}
-              intrinsicHeight={152}
-              fillContainer
-              loading="eager"
-              className="home-hero__image"
-            />
-          </div>
           <div className="home-hero__eyebrow">
             <span className="diamond-bullet" aria-hidden="true" />
             {data.hero.eyebrow}
@@ -251,6 +237,18 @@ export function HomeSections({locale}: {locale: Locale}) {
               className="btn-ghost"
             />
           </div>
+          <div className="home-hero__secondary-links">
+            <ActionLink
+              action={data.hero.tertiaryAction}
+              locale={locale}
+              className="home-hero__text-link"
+            />
+            <ActionLink
+              action={data.hero.videoAction}
+              locale={locale}
+              className="home-hero__text-link"
+            />
+          </div>
           <dl className="home-hero__stats">
             {data.hero.stats.map((stat) => (
               <div key={stat.label}>
@@ -259,7 +257,7 @@ export function HomeSections({locale}: {locale: Locale}) {
               </div>
             ))}
           </dl>
-          <a className="home-hero__scroll" href="#about-farever">
+          <a className="home-hero__scroll" href="#about-game">
             {data.hero.scrollLabel}
             <ArrowDown size={18} aria-hidden="true" />
           </a>
@@ -267,30 +265,13 @@ export function HomeSections({locale}: {locale: Locale}) {
       </section>
 
       <div className="shell-container home-sections">
-        <section className="home-section" id="about-farever">
+        <section className="home-section" id="about-game">
           <SectionTitle eyebrow={copy.about.eyebrow} title={copy.about.title} />
           <div className="about-grid">
             <div className="about-copy">
-              {locale === 'en' ? (
-                <>
-                  <p>
-                    <strong>Farever</strong> is an online co-op action RPG by{' '}
-                    <strong>Shiro Games</strong> — the studio behind <em>Northgard</em>,{' '}
-                    <em>Wartales</em> and <em>Dune: Spice Wars</em>. Set in the forgotten
-                    realm of <strong>Siagarta</strong>, it fuses Zelda-style exploration and
-                    platforming with MMO-flavoured combat, crafting and party progression.
-                  </p>
-                  <p>
-                    The Early Access build (launched <strong>May 7, 2026</strong>) ships with
-                    two regions, multiple dungeons, four classes, six jobs and over a hundred
-                    weapons. Roughly twelve months of additional content — new biomes, raised
-                    level cap, more classes, seasonal events and guilds — are planned for EA.
-                    Play solo or with friends online.
-                  </p>
-                </>
-              ) : (
-                copy.about.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)
-              )}
+              {copy.about.paragraphs.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
             </div>
             <aside className="card facts-card" aria-label={copy.about.factsLabel}>
               <h3>{copy.about.factsLabel}</h3>
@@ -395,7 +376,7 @@ export function HomeSections({locale}: {locale: Locale}) {
             ))}
           </div>
           <div className="home-section__action">
-            <a className="btn-ghost" href={localizeHref(locale, '/faq/')}>
+            <a className="btn-ghost" href={localizeHref(locale, '/guides/')}>
               {copy.faq.all}
               <ArrowRight size={16} aria-hidden="true" />
             </a>
@@ -411,6 +392,7 @@ export function HomeSections({locale}: {locale: Locale}) {
               <span className="diamond-bullet" aria-hidden="true" />
             </div>
             <h2>{data.finalCta.title}</h2>
+            <p>{data.finalCta.description}</p>
             <div className="home-hero__actions">
               <ActionLink
                 action={data.finalCta.primaryAction}

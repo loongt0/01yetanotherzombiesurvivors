@@ -4,13 +4,21 @@ import {Link, usePathname} from '@/i18n/navigation';
 import type {Locale} from '@/i18n/routing';
 import {localeOptions} from '@/lib/site-data';
 
-const PRESERVED_PATHS = new Set(['/', '/guides/', '/classes/']);
+const PRESERVED_PATHS = new Set([
+  '/',
+  '/guides/',
+  '/characters/',
+  '/privacy/',
+  '/terms/'
+]);
 
-function getPreservedPath(pathname: string): '/' | '/guides/' | '/classes/' {
+function getPreservedPath(
+  pathname: string
+): '/' | '/guides/' | '/characters/' | '/privacy/' | '/terms/' {
   const normalized = pathname === '/' ? '/' : `/${pathname.replace(/^\/+|\/+$/g, '')}/`;
 
   return PRESERVED_PATHS.has(normalized)
-    ? (normalized as '/' | '/guides/' | '/classes/')
+    ? (normalized as '/' | '/guides/' | '/characters/' | '/privacy/' | '/terms/')
     : '/';
 }
 
@@ -19,7 +27,10 @@ export function LanguageSwitcher({locale}: {locale: Locale}) {
   const preservedPath = getPreservedPath(pathname);
 
   return (
-    <nav className="language-switcher" aria-label="Languages · Sprachen · Idiomas · Langues">
+    <nav
+      className="language-switcher"
+      aria-label={localeOptions.map((option) => option.label).join(' · ')}
+    >
       <ul>
         {localeOptions.map((option) => (
           <li key={option.locale}>

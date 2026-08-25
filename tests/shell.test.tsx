@@ -14,94 +14,73 @@ vi.mock('@/i18n/navigation', () => ({
     href: string;
     locale?: string;
   }) => (
-    <a
-      href={locale ? `/${locale}${href === '/' ? '' : href}` : href}
-      {...props}
-    />
+    <a href={locale ? `/${locale}${href === '/' ? '' : href}` : href} {...props} />
   ),
-  usePathname: () => '/classes/'
+  usePathname: () => '/characters/'
 }));
 
-describe('shared shell', () => {
-  it('renders both navigation tiers and the Steam action', () => {
+describe('researched shared shell', () => {
+  it('renders both matrix-derived navigation tiers and the real Steam action', () => {
     const {container} = render(<SiteHeader locale="en" />);
 
     expect(
-      screen.getAllByRole('link', {name: 'Classes'}).every((link) =>
-        link.getAttribute('href') === '/classes/'
+      screen.getAllByRole('link', {name: 'Characters'}).every((link) =>
+        link.getAttribute('href') === '/characters/'
       )
     ).toBe(true);
-    expect(
-      screen.getAllByRole('link', {name: 'Server Status'})
-    ).toHaveLength(2);
+    expect(screen.getAllByRole('link', {name: 'Best Team'})).toHaveLength(2);
     expect(screen.getByRole('link', {name: /Play on Steam/i})).toHaveAttribute(
-      'target',
-      '_blank'
+      'href',
+      'https://store.steampowered.com/app/2163330/Yet_Another_Zombie_Survivors/'
     );
-    expect(
-      container.querySelectorAll('.mobile-navigation a')
-    ).toHaveLength(15);
+    expect(container.querySelectorAll('.mobile-navigation a')).toHaveLength(14);
   });
 
-  it('labels the footer and all four locales', () => {
+  it('labels the footer and all four researched locales', () => {
     render(<SiteFooter locale="en" />);
 
-    expect(
-      screen.getByText(/Unofficial fan-made guide/i)
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole('navigation', {name: /Languages/i})
-    ).toBeInTheDocument();
+    expect(screen.getByText(/independent fan-made guide hub/i)).toBeInTheDocument();
+    expect(screen.getByRole('navigation', {name: /English · Русский/i})).toBeInTheDocument();
     expect(screen.getByRole('link', {name: /English/i})).toHaveAttribute(
       'href',
-      '/classes/'
+      '/characters/'
     );
-    expect(screen.getByRole('link', {name: /Deutsch/i})).toHaveAttribute(
+    expect(screen.getByRole('link', {name: /Русский/i})).toHaveAttribute(
       'href',
-      '/de/classes/'
+      '/ru/characters/'
     );
     expect(screen.getByRole('link', {name: /Español/i})).toHaveAttribute(
       'href',
-      '/es/classes/'
+      '/es/characters/'
     );
-    expect(screen.getByRole('link', {name: /Français/i})).toHaveAttribute(
+    expect(screen.getByRole('link', {name: /Deutsch/i})).toHaveAttribute(
       'href',
-      '/fr/classes/'
+      '/de/characters/'
     );
   });
 
   it('keeps image dimensions and alt context after a load failure', () => {
-    render(
-      <GameImage
-        src="/missing-art.png"
-        alt="Skyover Island"
-        width={320}
-        height={180}
-      />
-    );
+    render(<GameImage src="/missing-art.png" alt="Survivor Ranger" width={320} height={180} />);
+    fireEvent.error(screen.getByRole('img', {name: 'Survivor Ranger'}));
 
-    fireEvent.error(screen.getByRole('img', {name: 'Skyover Island'}));
-
-    const fallback = screen.getByRole('img', {
-      name: /Skyover Island.*image unavailable/i
-    });
-    expect(fallback).toHaveStyle({width: '320px', height: '180px'});
+    expect(
+      screen.getByRole('img', {name: /Survivor Ranger.*image unavailable/i})
+    ).toHaveStyle({width: '320px', height: '180px'});
   });
 
   it('separates an image intrinsic ratio from its measured rendered box', () => {
     const view = render(
       <GameImage
         src="/icon.png"
-        alt="Farever"
+        alt="Yet Another Zombie Survivors"
         width={42}
         height={42}
         intrinsicWidth={154}
         intrinsicHeight={152}
       />
     );
-
     const image = view.container.querySelector('img');
-    expect(image).not.toBeNull();
+
     expect(image).toHaveAttribute('width', '154');
     expect(image).toHaveAttribute('height', '152');
     expect(image).toHaveStyle({width: '42px', height: '42px'});
@@ -111,7 +90,7 @@ describe('shared shell', () => {
     const view = render(
       <GameImage
         src="/icon.png"
-        alt="Farever"
+        alt="Yet Another Zombie Survivors"
         width={144}
         height={144}
         intrinsicWidth={154}

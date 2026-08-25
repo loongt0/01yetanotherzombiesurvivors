@@ -1,100 +1,104 @@
 import deMessages from '@/messages/de.json';
 import enMessages from '@/messages/en.json';
 import esMessages from '@/messages/es.json';
-import frMessages from '@/messages/fr.json';
+import ruMessages from '@/messages/ru.json';
 import type {Locale} from '@/i18n/routing';
 
+export const GAME_NAME = 'Yet Another Zombie Survivors';
+export const SITE_NAME = `${GAME_NAME} Wiki`;
+export const SITE_URL = (
+  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://yetanotherzombiesurvivors.world'
+).replace(/\/$/, '');
+
+export const OFFICIAL_WEBSITE_URL = 'https://yazs.awesomegamesstudio.com/';
 export const STEAM_URL =
-  'https://store.steampowered.com/app/3672400/Farever/';
+  'https://store.steampowered.com/app/2163330/Yet_Another_Zombie_Survivors/';
+export const DISCORD_URL = 'https://discord.com/invite/m4JfXuS';
+export const YOUTUBE_URL = 'https://youtube.com/user/AwesomeGamesStudio';
+export const STEAM_COMMUNITY_URL = 'https://steamcommunity.com/app/2163330';
+export const OFFICIAL_TRAILER_URL = 'https://www.youtube.com/watch?v=hwp9tDmVjiU';
+
+export const SITE_KEYWORDS = [
+  GAME_NAME,
+  'YAZS',
+  'Steam',
+  'guide',
+  'tier list',
+  'builds',
+  'characters',
+  'items'
+] as const;
 
 export const primaryNavigation = [
-  {key: 'classes', href: '/classes/'},
+  {key: 'characters', href: '/characters/'},
+  {key: 'items', href: '/items/'},
   {key: 'weapons', href: '/weapons/'},
-  {key: 'bosses', href: '/bosses/'},
-  {key: 'multiplayer', href: '/multiplayer/'},
-  {key: 'walkthroughs', href: '/guide/'},
+  {key: 'builds', href: '/builds/'},
+  {key: 'tools', href: '/tools/'},
   {key: 'guides', href: '/guides/'}
 ] as const;
 
 export const utilityNavigation = [
-  {key: 'serverStatus', href: '/server-status/'},
-  {key: 'steamCharts', href: '/steam-charts/'},
-  {key: 'tierList', href: '/tier-list/'},
-  {key: 'bestWeapons', href: '/best-weapons/'},
-  {key: 'codes', href: '/codes/'},
-  {key: 'steamDeck', href: '/steam-deck/'},
-  {key: 'charts', href: '/charts/'},
-  {key: 'release', href: '/release/'},
-  {key: 'faq', href: '/faq/'}
+  {key: 'tierList', href: '/guides/tier-list/'},
+  {key: 'bestTeam', href: '/guides/best-team/'},
+  {key: 'synergies', href: '/guides/synergies/'},
+  {key: 'achievements', href: '/guides/achievements/'},
+  {key: 'ghost', href: '/characters/ghost/'},
+  {key: 'huntress', href: '/characters/huntress/'},
+  {key: 'saveProblem', href: '/guides/save-problem/'},
+  {key: 'mods', href: '/tools/mods/'}
 ] as const;
 
 export const footerGroups = [
   {
     key: 'guides',
     links: [
-      {key: 'beginnerGuide', href: '/beginner-guide/'},
-      {key: 'classesJobs', href: '/classes/'},
-      {key: 'weapons', href: '/weapons/'},
-      {key: 'dungeonsBosses', href: '/dungeons/'},
-      {key: 'tipsTricks', href: '/tips/'}
+      {key: 'beginnerGuide', href: '/guides/'},
+      {key: 'tierList', href: '/guides/tier-list/'},
+      {key: 'bestTeam', href: '/guides/best-team/'},
+      {key: 'synergies', href: '/guides/synergies/'},
+      {key: 'achievements', href: '/guides/achievements/'}
     ]
   },
   {
-    key: 'resources',
+    key: 'survivors',
     links: [
-      {key: 'releaseDate', href: '/release-date/'},
-      {key: 'roadmap', href: '/roadmap/'},
-      {key: 'systemRequirements', href: '/system-requirements/'},
-      {key: 'howToPlay', href: '/how-to-play/'},
-      {key: 'faq', href: '/faq/'}
+      {key: 'characters', href: '/characters/'},
+      {key: 'ghost', href: '/characters/ghost/'},
+      {key: 'huntress', href: '/characters/huntress/'},
+      {key: 'items', href: '/items/'},
+      {key: 'weapons', href: '/weapons/upgrades/'}
     ]
   },
   {
-    key: 'liveTools',
+    key: 'buildsTools',
     links: [
-      {key: 'serverStatus', href: '/server-status/'},
-      {key: 'steamCharts', href: '/steam-charts/'},
-      {key: 'tierList', href: '/tier-list/'},
-      {key: 'bestWeapons', href: '/best-weapons/'},
-      {key: 'bossesGuide', href: '/bosses/'},
-      {key: 'codes', href: '/codes/'},
-      {key: 'steamDeck', href: '/steam-deck/'}
+      {key: 'generalBuild', href: '/builds/general-points-build-1-0/'},
+      {key: 'weaponStats', href: '/weapons/attack-speed-vs-cooldown/'},
+      {key: 'saveProblem', href: '/guides/save-problem/'},
+      {key: 'trainer', href: '/tools/trainer/'},
+      {key: 'cheatEngine', href: '/tools/cheat-engine/'},
+      {key: 'mods', href: '/tools/mods/'}
     ]
   },
   {
-    key: 'longTailGuides',
+    key: 'moreGuides',
     links: [
-      {key: 'bestClassTierList', href: '/guides/farever-best-class/'},
-      {key: 'levelingGuide', href: '/guides/farever-leveling-guide/'},
-      {key: 'isItWorthIt', href: '/guides/is-farever-worth-it/'},
-      {key: 'skyoverIsland', href: '/guides/farever-skyover-island/'},
-      {key: 'loreStory', href: '/guides/farever-lore/'},
-      {key: 'fareverReview', href: '/review/'},
-      {key: 'bestBuilds', href: '/builds/'},
-      {key: 'levelingGuide', href: '/leveling-guide/'},
-      {key: 'pvpStatus', href: '/pvp/'},
-      {key: 'consoleRelease', href: '/console/'},
-      {key: 'weaponTierList', href: '/weapon-tier-list/'},
-      {key: 'companionTierList', href: '/companion-tier-list/'},
-      {key: 'companions', href: '/companions/'},
-      {key: 'hiddenCritter', href: '/hidden-critter/'},
-      {key: 'quests', href: '/quests/'},
-      {key: 'coopGuide', href: '/coop/'},
-      {key: 'skyoverIsland', href: '/skover-island/'},
-      {key: 'secretOcean', href: '/secret-of-the-ocean/'},
-      {key: 'allWeapons', href: '/all-weapons/'},
-      {key: 'playerCount', href: '/player-count/'},
-      {key: 'maxLevel', href: '/max-level/'},
-      {key: 'allGuides', href: '/guides/'}
+      {key: 'sanji', href: '/guides/sanji-the-rabbit/'},
+      {key: 'weaponUpgrades', href: '/weapons/upgrades/'},
+      {key: 'rocketMinigun', href: '/weapons/rocket-launcher-and-minigun/'},
+      {key: 'allGuides', href: '/guides/'},
+      {key: 'privacy', href: '/privacy/'},
+      {key: 'terms', href: '/terms/'}
     ]
   }
 ] as const;
 
 export const localeOptions = [
   {locale: 'en', label: 'English', flag: '🇬🇧'},
-  {locale: 'de', label: 'Deutsch', flag: '🇩🇪'},
+  {locale: 'ru', label: 'Русский', flag: '🇷🇺'},
   {locale: 'es', label: 'Español', flag: '🇪🇸'},
-  {locale: 'fr', label: 'Français', flag: '🇫🇷'}
+  {locale: 'de', label: 'Deutsch', flag: '🇩🇪'}
 ] as const satisfies ReadonlyArray<{
   locale: Locale;
   label: string;
@@ -107,7 +111,11 @@ type SharedMessages = {
     steam: string;
     primaryLabel: string;
     utilityLabel: string;
-    navigation: Record<(typeof primaryNavigation)[number]['key'] | (typeof utilityNavigation)[number]['key'], string>;
+    navigation: Record<
+      | (typeof primaryNavigation)[number]['key']
+      | (typeof utilityNavigation)[number]['key'],
+      string
+    >;
   };
   Footer: {
     about: string;
@@ -116,6 +124,9 @@ type SharedMessages = {
     languagesLabel: string;
     copyright: string;
     steam: string;
+    officialWebsite: string;
+    officialDiscord: string;
+    officialYoutube: string;
   };
   NotFound: {
     eyebrow: string;
@@ -128,9 +139,9 @@ type SharedMessages = {
 
 const messagesByLocale: Record<Locale, SharedMessages> = {
   en: enMessages,
-  de: deMessages,
+  ru: ruMessages,
   es: esMessages,
-  fr: frMessages
+  de: deMessages
 };
 
 export function getSiteMessages(locale: Locale): SharedMessages {
