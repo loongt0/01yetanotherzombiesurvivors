@@ -1,6 +1,7 @@
 import type {Metadata} from 'next';
 import {hasLocale, NextIntlClientProvider} from 'next-intl';
 import {notFound} from 'next/navigation';
+import Script from 'next/script';
 import type {ReactNode} from 'react';
 
 import '@/app/globals.css';
@@ -41,6 +42,9 @@ export default async function LocaleLayout({
   }
 
   const messages = (await import(`../../messages/${locale}.json`)).default;
+  const measurementId = process.env.NEXT_PUBLIC_GA_ID;
+  const analyticsEnabled =
+    measurementId !== undefined && /^G-[A-Z0-9]+$/.test(measurementId);
 
   return (
     <html lang={locale} data-scroll-behavior="smooth">
@@ -50,6 +54,20 @@ export default async function LocaleLayout({
           {children}
           <SiteFooter locale={locale} />
         </NextIntlClientProvider>
+        {analyticsEnabled && (
+          <Script
+            src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}
+            strategy="afterInteractive"
+          />
+        )}
+        {analyticsEnabled && (
+          <Script id="google-analytics-init" strategy="afterInteractive">
+            {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${measurementId}');`}
+          </Script>
+        )}
       </body>
     </html>
   );

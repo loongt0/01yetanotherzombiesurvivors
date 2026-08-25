@@ -24,6 +24,20 @@ canonical URLs, localized alternates, and structured data use
 `https://yetanotherzombiesurvivors.world` by default. Override
 `NEXT_PUBLIC_SITE_URL` only when deploying to another explicitly configured origin.
 
+## Google Analytics
+
+Google Analytics 4 is optional. Set your real measurement ID in `.env.local` for
+local development or in your hosting provider's production environment:
+
+```bash
+NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
+```
+
+The Google tag loads across all pages and locales only when the value is a valid
+GA4 measurement ID. Leave the variable unset to disable analytics. Configure it
+before running `npm run build`, because Next.js embeds public environment
+variables at build time; redeploy or rebuild after changing the value.
+
 ## Routes and locales
 
 The primary English URLs are:
