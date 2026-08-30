@@ -64,7 +64,10 @@ describe('researched MDX content registry', () => {
     (locale) => {
       const cards = getGuideCards(locale);
 
-      expect(cards.map((card) => card.slug)).toEqual(researchedGuideSlugs);
+      expect(cards).toHaveLength(researchedGuideSlugs.length);
+      expect(cards.map((card) => card.slug)).toEqual(
+        expect.arrayContaining(researchedGuideSlugs)
+      );
       expect(cards.find((card) => card.slug === 'best-team')?.href).toBe(
         '/guides/best-team/'
       );
@@ -125,5 +128,14 @@ describe('researched MDX content registry', () => {
     expect(getGuideByHref('en', '/characters/')?.Content).toBe(
       getCharactersArticle('en').Content
     );
+  });
+
+  it('uses Russian documents for the six localized high-demand guides', () => {
+    expect(getGuideByHref('ru', '/guides/best-team/')?.title).toContain('лучшая команда');
+    expect(getGuideByHref('ru', '/builds/')?.title).toContain('билды');
+    expect(getGuideByHref('ru', '/characters/ghost/build/')?.title).toContain('Ghost');
+    expect(getGuideByHref('ru', '/guides/skill-tree/')?.title).toContain('дерево навыков');
+    expect(getGuideByHref('ru', '/guides/friendship-and-team-bond/')?.title).toContain('Team Bond');
+    expect(getGuideByHref('ru', '/weapons/rocket-launcher-and-minigun/')?.title).toContain('Minigun');
   });
 });

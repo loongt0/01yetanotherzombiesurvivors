@@ -82,6 +82,14 @@ describe('researched homepage', () => {
     expect(metadata.keywords).toContain('YAZS');
   });
 
+  it('uses search-focused German homepage metadata', async () => {
+    const metadata = await generateHomeMetadata({params: Promise.resolve({locale: 'de'})});
+
+    expect(metadata.title).toBe('Yet Another Zombie Survivors Guide: Builds & Wiki');
+    expect(metadata.description).toContain('Guide auf Deutsch');
+    expect(String(metadata.description)).toHaveLength(151);
+  });
+
   it('embeds verified publisher and squad-game structured data without invented offers', async () => {
     const {container} = render(await HomePage({params: Promise.resolve({locale: 'en'})}));
     const payloads = Array.from(container.querySelectorAll('script[type="application/ld+json"]')).map(
@@ -228,16 +236,49 @@ describe('researched matrix article and category routes', () => {
     expect(container.querySelector('article.prose-game')).toBeInTheDocument();
   });
 
-  it('publishes only the real English alternate for untranslated MDX articles', async () => {
+  it('publishes Russian canonical and hreflang for a localized MDX article', async () => {
     const metadata = await generateMatrixMetadata({
       params: Promise.resolve({locale: 'ru', rest: ['guides', 'best-team']})
     });
 
     expect(metadata.alternates).toEqual({
-      canonical: `${siteUrl}/guides/best-team/`,
-      languages: {en: `${siteUrl}/guides/best-team/`}
+      canonical: `${siteUrl}/ru/guides/best-team/`,
+      languages: {
+        en: `${siteUrl}/guides/best-team/`,
+        ru: `${siteUrl}/ru/guides/best-team/`
+      }
     });
-    expect(metadata.title).toContain('Best Team');
+    expect(metadata.title).toContain('лучшая команда');
+  });
+
+  it('keeps English canonical for an untranslated Russian article request', async () => {
+    const metadata = await generateMatrixMetadata({
+      params: Promise.resolve({locale: 'ru', rest: ['guides', 'tier-list']})
+    });
+
+    expect(metadata.alternates).toEqual({
+      canonical: `${siteUrl}/guides/tier-list/`,
+      languages: {en: `${siteUrl}/guides/tier-list/`}
+    });
+    expect(metadata.title).toContain('Tier List');
+  });
+
+  it('renders the six localized Russian articles without redirecting', async () => {
+    for (const rest of [
+      ['guides', 'best-team'],
+      ['builds'],
+      ['characters', 'ghost', 'build'],
+      ['guides', 'skill-tree'],
+      ['guides', 'friendship-and-team-bond'],
+      ['weapons', 'rocket-launcher-and-minigun']
+    ]) {
+      const {container} = render(
+        await MatrixPage({params: Promise.resolve({locale: 'ru', rest})})
+      );
+
+      expect(container.querySelector('article.prose-game')).toBeInTheDocument();
+      expect(container.textContent).toMatch(/[А-Яа-яЁё]/u);
+    }
   });
 
   it.each([

@@ -1,6 +1,6 @@
 import type {MetadataRoute} from 'next';
 
-import {getGuideCards} from '@/content/registry';
+import {getGuideCards, getLocalizedGuideCards} from '@/content/registry';
 import {localizeHref, routing, type Locale} from '@/i18n/routing';
 import {SITE_URL} from '@/lib/site-data';
 
@@ -39,5 +39,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(`${article.updated}T00:00:00Z`)
     }));
 
-  return [...localizedEntries, ...directoryEntries, ...articleEntries];
+  const russianArticleEntries = getLocalizedGuideCards('ru').map((article) => ({
+    url: `${SITE_URL}${localizeHref('ru', article.href)}`,
+    lastModified: new Date(`${article.updated}T00:00:00Z`),
+    alternates: {
+      languages: {
+        en: `${SITE_URL}${article.href}`,
+        ru: `${SITE_URL}${localizeHref('ru', article.href)}`
+      }
+    }
+  }));
+
+  return [...localizedEntries, ...directoryEntries, ...articleEntries, ...russianArticleEntries];
 }

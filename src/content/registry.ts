@@ -1,9 +1,15 @@
 import type {ComponentType} from 'react';
-import type {Locale} from '@/i18n/routing';
+import {routing, type Locale} from '@/i18n/routing';
 import {parseContentFrontmatter, type ContentFrontmatter} from './schema';
 
 import enCharacters, {frontmatter as enCharactersFrontmatter} from './en/characters.mdx';
 import ruCharacters, {frontmatter as ruCharactersFrontmatter} from './ru/characters.mdx';
+import ruBestTeam, {frontmatter as ruBestTeamFrontmatter} from './ru/guides/best-team.mdx';
+import ruBuilds, {frontmatter as ruBuildsFrontmatter} from './ru/guides/builds.mdx';
+import ruFriendship, {frontmatter as ruFriendshipFrontmatter} from './ru/guides/friendship-and-team-bond.mdx';
+import ruGhostBuild, {frontmatter as ruGhostBuildFrontmatter} from './ru/guides/ghost-build.mdx';
+import ruRocketMinigun, {frontmatter as ruRocketMinigunFrontmatter} from './ru/guides/rocket-launcher-and-minigun.mdx';
+import ruSkillTree, {frontmatter as ruSkillTreeFrontmatter} from './ru/guides/skill-tree.mdx';
 import esCharacters, {frontmatter as esCharactersFrontmatter} from './es/characters.mdx';
 import deCharacters, {frontmatter as deCharactersFrontmatter} from './de/characters.mdx';
 import beginnerGuide, {frontmatter as beginnerGuideFrontmatter} from './en/guides/guide.mdx';
@@ -100,7 +106,58 @@ const englishGuides = Object.fromEntries(
   })
 );
 
-const guideDocumentsByLocale: GuideDocumentRegistry = {en: englishGuides};
+function createGuideCard(
+  frontmatter: unknown,
+  Content: ComponentType,
+  href: string,
+  source: string
+): GuideCardRecord {
+  return {...parseContentFrontmatter(frontmatter, source), href, Content};
+}
+
+const russianGuides: Partial<Record<string, GuideCardRecord>> = {
+  'best-team': createGuideCard(
+    ruBestTeamFrontmatter,
+    ruBestTeam,
+    '/guides/best-team/',
+    'src/content/ru/guides/best-team.mdx'
+  ),
+  builds: createGuideCard(
+    ruBuildsFrontmatter,
+    ruBuilds,
+    '/builds/',
+    'src/content/ru/guides/builds.mdx'
+  ),
+  'friendship-and-team-bond': createGuideCard(
+    ruFriendshipFrontmatter,
+    ruFriendship,
+    '/guides/friendship-and-team-bond/',
+    'src/content/ru/guides/friendship-and-team-bond.mdx'
+  ),
+  'ghost-build': createGuideCard(
+    ruGhostBuildFrontmatter,
+    ruGhostBuild,
+    '/characters/ghost/build/',
+    'src/content/ru/guides/ghost-build.mdx'
+  ),
+  'rocket-launcher-and-minigun': createGuideCard(
+    ruRocketMinigunFrontmatter,
+    ruRocketMinigun,
+    '/weapons/rocket-launcher-and-minigun/',
+    'src/content/ru/guides/rocket-launcher-and-minigun.mdx'
+  ),
+  'skill-tree': createGuideCard(
+    ruSkillTreeFrontmatter,
+    ruSkillTree,
+    '/guides/skill-tree/',
+    'src/content/ru/guides/skill-tree.mdx'
+  )
+};
+
+const guideDocumentsByLocale: GuideDocumentRegistry = {
+  en: englishGuides,
+  ru: russianGuides
+};
 
 export function resolveGuideCards(locale: Locale, registry: GuideDocumentRegistry): GuideCardRecord[] {
   const localizedDocuments: Partial<Record<string, GuideCardRecord>> =
@@ -121,6 +178,27 @@ export function getGuideByHref(
   href: string
 ): GuideCardRecord | undefined {
   return getGuideCards(locale).find((card) => card.href === href);
+}
+
+export function getLocalizedGuideByHref(
+  locale: Locale,
+  href: string
+): GuideCardRecord | undefined {
+  const documents = locale === routing.defaultLocale
+    ? guideDocumentsByLocale.en
+    : guideDocumentsByLocale[locale];
+
+  return Object.values(documents ?? {}).find((card) => card?.href === href);
+}
+
+export function getLocalizedGuideCards(locale: Locale): GuideCardRecord[] {
+  const documents = locale === routing.defaultLocale
+    ? guideDocumentsByLocale.en
+    : guideDocumentsByLocale[locale];
+
+  return Object.values(documents ?? {})
+    .filter((card): card is GuideCardRecord => card !== undefined)
+    .sort((a, b) => b.updated.localeCompare(a.updated));
 }
 
 export function getCharactersArticle(locale: Locale): ArticleRecord {
