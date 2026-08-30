@@ -36,7 +36,7 @@ const keywordPages = [
     '/weapons/attack-speed-vs-cooldown/'
   ],
   [
-    'yet another zombie survivors rocket launcher and minigun',
+    'rocket launcher vs minigun',
     '/weapons/rocket-launcher-and-minigun/'
   ],
   ['yet another zombie survivors trainer', '/tools/trainer/'],
@@ -126,4 +126,30 @@ describe('researched one-keyword-one-page publishing contract', () => {
       expect(text).not.toMatch(/229\s+achievements/i);
     }
   );
+
+  it('publishes the Tank weapon comparison with official-only evidence and a scannable table', async () => {
+    const path = '/weapons/rocket-launcher-and-minigun/';
+    const {metadata, content} = await resolveKeywordPage(path);
+    const {container} = render(content);
+    const article = container.querySelector('article.prose-game');
+    const citations = Array.from(
+      article?.querySelectorAll<HTMLAnchorElement>('a[href^="https://"]') ?? []
+    );
+
+    expect(metadata.title).toBe(
+      'Rocket Launcher vs Minigun: Best Tank Build in YAZS 1.0'
+    );
+    expect(
+      article?.querySelector('h1')?.textContent
+    ).toBe('Rocket Launcher vs Minigun: Best Tank Build in YAZS 1.0');
+    expect(article?.querySelector('table')).not.toBeNull();
+    expect(article?.textContent).toContain('Which Is Better?');
+    expect(
+      citations.every(({hostname}) =>
+        ['awesomegamesstudio.com', 'yazs.awesomegamesstudio.com'].includes(hostname)
+      )
+    ).toBe(true);
+    expect(article?.textContent).not.toMatch(/reddit|wiki\.gg|steamcommunity/iu);
+    expect(article?.textContent?.match(/unconfirmed/giu) ?? []).toHaveLength(1);
+  });
 });

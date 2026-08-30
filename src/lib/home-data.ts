@@ -262,7 +262,7 @@ const englishData: HomeData = {
     {category: 'Rankings', title: 'Survivor Tier List', href: '/guides/tier-list/', action: 'Read'},
     {category: 'Survivor', title: 'Ghost Skills & Builds', href: '/characters/ghost/', action: 'Read'},
     {category: 'Survivor', title: 'Huntress Skills & Upgrades', href: '/characters/huntress/', action: 'Read'},
-    {category: 'Weapons', title: 'Rocket Launcher and Minigun', href: '/weapons/rocket-launcher-and-minigun/', action: 'Read'},
+    {category: 'Weapons', title: 'Rocket Launcher vs Minigun', href: '/weapons/rocket-launcher-and-minigun/', action: 'Read'},
     {category: 'Secrets', title: 'Sanji the Rabbit', href: '/guides/sanji-the-rabbit/', action: 'Read'}
   ],
   news: [

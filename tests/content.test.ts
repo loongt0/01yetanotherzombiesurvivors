@@ -12,6 +12,7 @@ import {
 import {frontmatterSchema, parseContentFrontmatter} from '@/content/schema';
 
 const researchedGuideSlugs = [
+  'rocket-launcher-and-minigun',
   'tier-list',
   'best-team',
   'synergies',
@@ -27,7 +28,6 @@ const researchedGuideSlugs = [
   'weapon-upgrades',
   'huntress-upgrades',
   'attack-speed-vs-cooldown',
-  'rocket-launcher-and-minigun',
   'trainer',
   'cheat-engine',
   'mods'
