@@ -21,7 +21,7 @@ npm run test:e2e
 
 The development server runs at `http://localhost:3000`. The production website,
 canonical URLs, localized alternates, and structured data use
-`https://yetanotherzombiesurvivors.world` by default. Override
+`https://www.yetanotherzombiesurvivors.world` by default. Override
 `NEXT_PUBLIC_SITE_URL` only when deploying to another explicitly configured origin.
 
 ## Google Analytics

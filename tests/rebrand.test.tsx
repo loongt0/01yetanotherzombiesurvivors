@@ -110,13 +110,13 @@ describe('researched Yet Another Zombie Survivors website', () => {
       'items'
     ]);
     expect(metadata.metadataBase?.toString()).toBe(
-      'https://yetanotherzombiesurvivors.world/'
+      'https://www.yetanotherzombiesurvivors.world/'
     );
     expect(metadata.alternates?.canonical).toBe(
-      'https://yetanotherzombiesurvivors.world/'
+      'https://www.yetanotherzombiesurvivors.world/'
     );
     expect(metadata.openGraph?.url).toBe(
-      'https://yetanotherzombiesurvivors.world/'
+      'https://www.yetanotherzombiesurvivors.world/'
     );
   });
 

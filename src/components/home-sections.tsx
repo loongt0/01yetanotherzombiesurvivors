@@ -29,7 +29,7 @@ import {
 } from 'lucide-react';
 
 import {SectionTitle} from '@/components/section-title';
-import {localizeHref, type Locale} from '@/i18n/routing';
+import {localizeAvailableHref, type Locale} from '@/i18n/routing';
 import {
   getHomeCopy,
   getHomeData,
@@ -67,7 +67,7 @@ const iconByName: Record<FeatureIcon, LucideIcon> = {
 };
 
 function hrefFor(locale: Locale, href: string): string {
-  return href.startsWith('http') ? href : localizeHref(locale, href);
+  return href.startsWith('http') ? href : localizeAvailableHref(locale, href);
 }
 
 function ActionLink({
@@ -346,7 +346,7 @@ export function HomeSections({locale}: {locale: Locale}) {
             ))}
           </div>
           <div className="home-section__action">
-            <a className="btn-ghost" href={localizeHref(locale, '/guides/')}>
+            <a className="btn-ghost" href={localizeAvailableHref(locale, '/guides/')}>
               {copy.guides.all}
               <ArrowRight size={16} aria-hidden="true" />
             </a>
@@ -376,7 +376,7 @@ export function HomeSections({locale}: {locale: Locale}) {
             ))}
           </div>
           <div className="home-section__action">
-            <a className="btn-ghost" href={localizeHref(locale, '/guides/')}>
+            <a className="btn-ghost" href={localizeAvailableHref(locale, '/guides/')}>
               {copy.faq.all}
               <ArrowRight size={16} aria-hidden="true" />
             </a>

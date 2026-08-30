@@ -7,7 +7,7 @@ import type {Locale} from '@/i18n/routing';
 export const GAME_NAME = 'Yet Another Zombie Survivors';
 export const SITE_NAME = `${GAME_NAME} Wiki`;
 export const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://yetanotherzombiesurvivors.world'
+  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.yetanotherzombiesurvivors.world'
 ).replace(/\/$/, '');
 
 export const OFFICIAL_WEBSITE_URL = 'https://yazs.awesomegamesstudio.com/';

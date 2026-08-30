@@ -13,3 +13,19 @@ export function localizeHref(locale: Locale, href: string): string {
 
   return locale === routing.defaultLocale ? path : `/${locale}${path}`;
 }
+
+const localizedContentPaths = new Set([
+  '/',
+  '/characters/',
+  '/privacy/',
+  '/terms/'
+]);
+
+export function localizeAvailableHref(locale: Locale, href: string): string {
+  const path = href === '/' ? '/' : `/${href.replace(/^\/+|\/+$/g, '')}/`;
+  const targetLocale = localizedContentPaths.has(path)
+    ? locale
+    : routing.defaultLocale;
+
+  return localizeHref(targetLocale, path);
+}

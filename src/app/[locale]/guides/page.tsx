@@ -1,6 +1,6 @@
 import type {Metadata} from 'next';
 import {hasLocale} from 'next-intl';
-import {notFound} from 'next/navigation';
+import {notFound, permanentRedirect} from 'next/navigation';
 
 import {GuideCard} from '@/components/guide-card';
 import {PageHero} from '@/components/page-hero';
@@ -43,13 +43,6 @@ const copyByLocale: Record<Locale, DirectoryCopy> = {
   }
 };
 
-const alternateUrls = Object.fromEntries(
-  routing.locales.map((locale) => [
-    locale,
-    `${SITE_URL}${localizeHref(locale, '/guides/')}`
-  ])
-) as Record<Locale, string>;
-
 async function resolveLocale(params: GuidesPageProps['params']): Promise<Locale> {
   const {locale} = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
@@ -58,14 +51,23 @@ async function resolveLocale(params: GuidesPageProps['params']): Promise<Locale>
 
 export async function generateMetadata({params}: GuidesPageProps): Promise<Metadata> {
   const locale = await resolveLocale(params);
+  if (locale !== routing.defaultLocale) {
+    const canonical = `${SITE_URL}/guides/`;
+    return {
+      metadataBase: new URL(SITE_URL),
+      title: copyByLocale.en.metadataTitle,
+      description: copyByLocale.en.description,
+      alternates: {canonical, languages: {en: canonical}}
+    };
+  }
   const copy = copyByLocale[locale];
-  const canonical = alternateUrls[locale];
+  const canonical = `${SITE_URL}${localizeHref(locale, '/guides/')}`;
 
   return {
     metadataBase: new URL(SITE_URL),
     title: copy.metadataTitle,
     description: copy.description,
-    alternates: {canonical, languages: alternateUrls},
+    alternates: {canonical, languages: {en: canonical}},
     openGraph: {
       type: 'website',
       url: canonical,
@@ -85,6 +87,7 @@ export async function generateMetadata({params}: GuidesPageProps): Promise<Metad
 
 export default async function GuidesPage({params}: GuidesPageProps) {
   const locale = await resolveLocale(params);
+  if (locale !== routing.defaultLocale) permanentRedirect('/guides/');
   const copy = copyByLocale[locale];
   const {Content} = getBeginnerGuideArticle();
 

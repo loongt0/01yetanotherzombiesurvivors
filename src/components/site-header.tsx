@@ -1,5 +1,5 @@
 import {GameImage} from '@/components/game-image';
-import {localizeHref, type Locale} from '@/i18n/routing';
+import {localizeAvailableHref, localizeHref, type Locale} from '@/i18n/routing';
 import {
   getSiteMessages,
   GAME_NAME,
@@ -39,7 +39,7 @@ export function SiteHeader({locale}: {locale: Locale}) {
 
         <nav className="primary-navigation" aria-label={messages.primaryLabel}>
           {primaryNavigation.map((item) => (
-            <a key={item.key} href={localizeHref(locale, item.href)}>
+            <a key={item.key} href={localizeAvailableHref(locale, item.href)}>
               {messages.navigation[item.key]}
               <span aria-hidden="true" />
             </a>
@@ -59,7 +59,7 @@ export function SiteHeader({locale}: {locale: Locale}) {
       <nav className="utility-navigation" aria-label={messages.utilityLabel}>
         <div className="shell-container utility-navigation__inner">
           {utilityNavigation.map((item) => (
-            <a key={item.key} href={localizeHref(locale, item.href)}>
+            <a key={item.key} href={localizeAvailableHref(locale, item.href)}>
               {messages.navigation[item.key]}
               <span aria-hidden="true" />
             </a>
@@ -72,7 +72,7 @@ export function SiteHeader({locale}: {locale: Locale}) {
         aria-label={`${messages.primaryLabel} / ${messages.utilityLabel}`}
       >
         {compactNavigation.map((item) => (
-          <a key={item.key} href={localizeHref(locale, item.href)}>
+          <a key={item.key} href={localizeAvailableHref(locale, item.href)}>
             {messages.navigation[item.key]}
           </a>
         ))}

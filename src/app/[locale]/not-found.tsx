@@ -1,6 +1,6 @@
 import {getLocale} from 'next-intl/server';
 
-import {localizeHref, routing, type Locale} from '@/i18n/routing';
+import {localizeAvailableHref, localizeHref, routing, type Locale} from '@/i18n/routing';
 import {getSiteMessages} from '@/lib/site-data';
 
 export default async function NotFound() {
@@ -23,7 +23,7 @@ export default async function NotFound() {
           </a>
           <a
             className="btn-ghost"
-            href={localizeHref(locale, '/guides/')}
+            href={localizeAvailableHref(locale, '/guides/')}
           >
             {messages.beginnerGuide}
           </a>

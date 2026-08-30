@@ -2,7 +2,7 @@ import {PageHero} from '@/components/page-hero';
 import type {Locale} from '@/i18n/routing';
 import {SITE_NAME} from '@/lib/site-data';
 
-type LegalKind = 'privacy' | 'terms';
+export type LegalKind = 'privacy' | 'terms';
 
 const copy: Record<Locale, Record<LegalKind, {title: string; description: string; body: string[]}>> = {
   en: {
@@ -37,7 +37,7 @@ const copy: Record<Locale, Record<LegalKind, {title: string; description: string
 };
 
 export function LegalPage({kind, locale}: {kind: LegalKind; locale: Locale}) {
-  const page = copy[locale][kind];
+  const page = getLegalPageCopy(kind, locale);
 
   return (
     <main className="classes-page">
@@ -49,4 +49,8 @@ export function LegalPage({kind, locale}: {kind: LegalKind; locale: Locale}) {
       </article>
     </main>
   );
+}
+
+export function getLegalPageCopy(kind: LegalKind, locale: Locale) {
+  return copy[locale][kind];
 }

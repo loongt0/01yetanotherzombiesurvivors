@@ -6,7 +6,6 @@ import {localeOptions} from '@/lib/site-data';
 
 const PRESERVED_PATHS = new Set([
   '/',
-  '/guides/',
   '/characters/',
   '/privacy/',
   '/terms/'
@@ -14,11 +13,11 @@ const PRESERVED_PATHS = new Set([
 
 function getPreservedPath(
   pathname: string
-): '/' | '/guides/' | '/characters/' | '/privacy/' | '/terms/' {
+): '/' | '/characters/' | '/privacy/' | '/terms/' {
   const normalized = pathname === '/' ? '/' : `/${pathname.replace(/^\/+|\/+$/g, '')}/`;
 
   return PRESERVED_PATHS.has(normalized)
-    ? (normalized as '/' | '/guides/' | '/characters/' | '/privacy/' | '/terms/')
+    ? (normalized as '/' | '/characters/' | '/privacy/' | '/terms/')
     : '/';
 }
 

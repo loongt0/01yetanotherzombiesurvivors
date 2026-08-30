@@ -14,7 +14,7 @@ import HomePage, {generateMetadata as generateHomeMetadata} from '@/app/[locale]
 import PrivacyPage from '@/app/[locale]/privacy/page';
 import TermsPage from '@/app/[locale]/terms/page';
 
-const siteUrl = 'https://yetanotherzombiesurvivors.world';
+const siteUrl = 'https://www.yetanotherzombiesurvivors.world';
 const alternates = (path: string) => ({
   en: `${siteUrl}${path}`,
   ru: `${siteUrl}/ru${path}`,
@@ -54,9 +54,9 @@ describe('researched homepage', () => {
   });
 
   it.each([
-    ['ru', 'Что такое Yet Another Zombie Survivors?', 'Гайд для новичков', '/ru/guides/'],
-    ['es', '¿Qué es Yet Another Zombie Survivors?', 'Guía para principiantes', '/es/guides/'],
-    ['de', 'Was ist Yet Another Zombie Survivors?', 'Einsteiger-Guide starten', '/de/guides/']
+    ['ru', 'Что такое Yet Another Zombie Survivors?', 'Гайд для новичков', '/guides/'],
+    ['es', '¿Qué es Yet Another Zombie Survivors?', 'Guía para principiantes', '/guides/'],
+    ['de', 'Was ist Yet Another Zombie Survivors?', 'Einsteiger-Guide starten', '/guides/']
   ] as const)(
     'localizes the primary %s homepage content and guide links',
     async (locale, aboutHeading, beginnerLabel, beginnerHref) => {
@@ -128,26 +128,23 @@ describe('guide directory', () => {
     );
   });
 
-  it.each([
-    ['ru', 'Гайды Yet Another Zombie Survivors', '/ru/guides/best-team/'],
-    ['es', 'Guías de Yet Another Zombie Survivors', '/es/guides/best-team/'],
-    ['de', 'Yet Another Zombie Survivors Guides', '/de/guides/best-team/']
-  ] as const)('localizes the %s directory title and card links', async (locale, title, href) => {
-    const {container} = render(await GuidesPage({params: Promise.resolve({locale})}));
-    const page = within(container);
+  it.each(['ru', 'es', 'de'] as const)(
+    'redirects the untranslated %s guide directory to English',
+    async (locale) => {
+      await expect(
+        GuidesPage({params: Promise.resolve({locale})})
+      ).rejects.toThrow('NEXT_REDIRECT');
+    }
+  );
 
-    expect(page.getByRole('heading', {level: 1, name: title})).toBeInTheDocument();
-    expect(page.getByRole('link', {name: /Best Team/})).toHaveAttribute('href', href);
-  });
-
-  it('publishes four locale alternates for the guide directory', async () => {
+  it('publishes only the real English alternate for untranslated guide directories', async () => {
     const metadata = await generateGuidesMetadata({
       params: Promise.resolve({locale: 'de'})
     });
 
     expect(metadata.alternates).toEqual({
-      canonical: `${siteUrl}/de/guides/`,
-      languages: alternates('/guides/')
+      canonical: `${siteUrl}/guides/`,
+      languages: {en: `${siteUrl}/guides/`}
     });
   });
 });
@@ -225,14 +222,14 @@ describe('researched matrix article and category routes', () => {
     expect(container.querySelector('article.prose-game')).toBeInTheDocument();
   });
 
-  it('publishes four-language canonical metadata for researched MDX articles', async () => {
+  it('publishes only the real English alternate for untranslated MDX articles', async () => {
     const metadata = await generateMatrixMetadata({
       params: Promise.resolve({locale: 'ru', rest: ['guides', 'best-team']})
     });
 
     expect(metadata.alternates).toEqual({
-      canonical: `${siteUrl}/ru/guides/best-team/`,
-      languages: alternates('/guides/best-team/')
+      canonical: `${siteUrl}/guides/best-team/`,
+      languages: {en: `${siteUrl}/guides/best-team/`}
     });
     expect(metadata.title).toContain('Best Team');
   });

@@ -79,7 +79,7 @@ describe('source-verified public website', () => {
         <>
           <SiteHeader locale={locale} />
           {await HomePage({params})}
-          {await GuidesPage({params})}
+          {locale === routing.defaultLocale ? await GuidesPage({params}) : null}
           {await CharactersPage({params})}
           {await PrivacyPage({params})}
           {await TermsPage({params})}

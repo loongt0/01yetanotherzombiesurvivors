@@ -1,6 +1,6 @@
 import {GameImage} from '@/components/game-image';
 import {LanguageSwitcher} from '@/components/language-switcher';
-import {localizeHref, type Locale} from '@/i18n/routing';
+import {localizeAvailableHref, type Locale} from '@/i18n/routing';
 import {
   DISCORD_URL,
   footerGroups,
@@ -46,7 +46,7 @@ export function SiteFooter({locale}: {locale: Locale}) {
               <ul>
                 {group.links.map((item) => (
                   <li key={`${group.key}-${item.href}`}>
-                    <a href={localizeHref(locale, item.href)}>
+                    <a href={localizeAvailableHref(locale, item.href)}>
                       {messages.links[item.key]}
                     </a>
                   </li>

@@ -1,6 +1,6 @@
 import type {Metadata} from 'next';
 import {hasLocale} from 'next-intl';
-import {notFound} from 'next/navigation';
+import {notFound, permanentRedirect} from 'next/navigation';
 
 import {GuideCard} from '@/components/guide-card';
 import {PageHero} from '@/components/page-hero';
@@ -82,19 +82,22 @@ async function resolveMatrixRoute(
 
 export async function generateMetadata({params}: MatrixPageProps): Promise<Metadata> {
   const {locale, href, article, title, description} = await resolveMatrixRoute(params);
-  const languages = Object.fromEntries(
-    routing.locales.map((alternate) => [
-      alternate,
-      `${SITE_URL}${localizeHref(alternate, href)}`
-    ])
-  ) as Record<Locale, string>;
-  const canonical = languages[locale];
+  if (locale !== routing.defaultLocale) {
+    const canonical = `${SITE_URL}${href}`;
+    return {
+      metadataBase: new URL(SITE_URL),
+      title,
+      description,
+      alternates: {canonical, languages: {en: canonical}}
+    };
+  }
+  const canonical = `${SITE_URL}${localizeHref(locale, href)}`;
 
   return {
     metadataBase: new URL(SITE_URL),
     title,
     description,
-    alternates: {canonical, languages},
+    alternates: {canonical, languages: {en: canonical}},
     openGraph: {
       type: article ? 'article' : 'website',
       url: canonical,
@@ -204,6 +207,8 @@ function MatrixCategoryPage({
 export default async function LocaleCatchAllPage({params}: MatrixPageProps) {
   const {locale, href, article, category, title, description} =
     await resolveMatrixRoute(params);
+
+  if (locale !== routing.defaultLocale) permanentRedirect(href);
 
   if (article) {
     return <MatrixArticle article={article} locale={locale} href={href} />;
