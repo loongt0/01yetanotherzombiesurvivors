@@ -13,6 +13,12 @@ import {frontmatterSchema, parseContentFrontmatter} from '@/content/schema';
 
 const researchedGuideSlugs = [
   'rocket-launcher-and-minigun',
+  'builds',
+  'ghost-build',
+  'huntress-build',
+  'skill-tree',
+  'friendship-and-team-bond',
+  'max-level-and-rank-5',
   'tier-list',
   'best-team',
   'synergies',
@@ -68,6 +74,10 @@ describe('researched MDX content registry', () => {
       expect(cards.find((card) => card.slug === 'weapon-upgrades')?.href).toBe(
         '/weapons/upgrades/'
       );
+      expect(cards.find((card) => card.slug === 'builds')?.href).toBe('/builds/');
+      expect(cards.find((card) => card.slug === 'ghost-build')?.href).toBe(
+        '/characters/ghost/build/'
+      );
     }
   );
 
@@ -104,6 +114,10 @@ describe('researched MDX content registry', () => {
     expect(getGuideByHref('ru', '/characters/ghost/')?.slug).toBe('ghost');
     expect(getGuideByHref('de', '/weapons/upgrades/')?.slug).toBe('weapon-upgrades');
     expect(getGuideByHref('es', '/tools/mods/')?.slug).toBe('mods');
+    expect(getGuideByHref('en', '/guides/skill-tree/')?.slug).toBe('skill-tree');
+    expect(getGuideByHref('en', '/guides/friendship-and-team-bond/')?.slug).toBe(
+      'friendship-and-team-bond'
+    );
     expect(getGuideByHref('en', '/guides/not-a-real-article/')).toBeUndefined();
   });
 

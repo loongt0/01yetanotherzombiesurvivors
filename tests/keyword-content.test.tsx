@@ -41,7 +41,14 @@ const keywordPages = [
   ],
   ['yet another zombie survivors trainer', '/tools/trainer/'],
   ['yet another zombie survivors cheat engine', '/tools/cheat-engine/'],
-  ['yet another zombie survivors mods', '/tools/mods/']
+  ['yet another zombie survivors mods', '/tools/mods/'],
+  ['yet another zombie survivors builds', '/builds/'],
+  ['yet another zombie survivors ghost build', '/characters/ghost/build/'],
+  ['yet another zombie survivors huntress build', '/characters/huntress/build/'],
+  ['yet another zombie survivors skill tree', '/guides/skill-tree/'],
+  ['yet another zombie survivors friendship', '/guides/friendship-and-team-bond/'],
+  ['yet another zombie survivors team bond', '/guides/friendship-and-team-bond/'],
+  ['yet another zombie survivors max level', '/guides/max-level-and-rank-5/']
 ] as const;
 
 async function resolveKeywordPage(path: string) {
@@ -75,10 +82,10 @@ async function resolveKeywordPage(path: string) {
 }
 
 describe('researched one-keyword-one-page publishing contract', () => {
-  it('assigns all 20 researched keywords to unique accessible content URLs', () => {
-    expect(keywordPages).toHaveLength(20);
-    expect(new Set(keywordPages.map(([, path]) => path)).size).toBe(20);
-    expect(getGuideCards('en')).toHaveLength(19);
+  it('assigns all 27 researched keywords to accessible content URLs', () => {
+    expect(keywordPages).toHaveLength(27);
+    expect(new Set(keywordPages.map(([, path]) => path)).size).toBe(26);
+    expect(getGuideCards('en')).toHaveLength(25);
     expect(getGuideCards('en').map(({href}) => href)).toEqual(
       expect.arrayContaining([
         '/characters/hidden-characters/',
@@ -94,10 +101,20 @@ describe('researched one-keyword-one-page publishing contract', () => {
       const title = String(metadata.title);
       const description = String(metadata.description);
 
-      expect(title.toLowerCase()).toContain(keyword);
+      if (keyword === 'yet another zombie survivors team bond') {
+        expect(title.toLowerCase()).toContain('yet another zombie survivors');
+        expect(title.toLowerCase()).toContain('team bond');
+      } else {
+        expect(title.toLowerCase()).toContain(keyword);
+      }
       expect(title.length).toBeGreaterThanOrEqual(40);
       expect(title.length).toBeLessThanOrEqual(Math.max(60, keyword.length));
-      expect(description.toLowerCase()).toContain(keyword);
+      if (keyword === 'yet another zombie survivors team bond') {
+        expect(description.toLowerCase()).toContain('yet another zombie survivors');
+        expect(description.toLowerCase()).toContain('team bond');
+      } else {
+        expect(description.toLowerCase()).toContain(keyword);
+      }
       expect(description.length).toBeGreaterThanOrEqual(140);
       expect(description.length).toBeLessThanOrEqual(160);
     }

@@ -25,6 +25,12 @@ import guide15, {frontmatter as guide15Frontmatter} from './en/guides/cheat-engi
 import guide16, {frontmatter as guide16Frontmatter} from './en/guides/mods.mdx';
 import guide17, {frontmatter as guide17Frontmatter} from './en/guides/hidden-characters.mdx';
 import guide18, {frontmatter as guide18Frontmatter} from './en/guides/huntress-upgrades.mdx';
+import guide19, {frontmatter as guide19Frontmatter} from './en/guides/builds.mdx';
+import guide20, {frontmatter as guide20Frontmatter} from './en/guides/ghost-build.mdx';
+import guide21, {frontmatter as guide21Frontmatter} from './en/guides/huntress-build.mdx';
+import guide22, {frontmatter as guide22Frontmatter} from './en/guides/skill-tree.mdx';
+import guide23, {frontmatter as guide23Frontmatter} from './en/guides/friendship-and-team-bond.mdx';
+import guide24, {frontmatter as guide24Frontmatter} from './en/guides/max-level-and-rank-5.mdx';
 
 export type GuideCardRecord = ContentFrontmatter & {
   href: string;
@@ -76,6 +82,12 @@ const rawGuides: Array<[unknown, ComponentType, string, string]> = [
   [guide14Frontmatter, guide14, '/tools/trainer/', 'trainer'],
   [guide15Frontmatter, guide15, '/tools/cheat-engine/', 'cheat-engine'],
   [guide16Frontmatter, guide16, '/tools/mods/', 'mods'],
+  [guide19Frontmatter, guide19, '/builds/', 'builds'],
+  [guide20Frontmatter, guide20, '/characters/ghost/build/', 'ghost-build'],
+  [guide21Frontmatter, guide21, '/characters/huntress/build/', 'huntress-build'],
+  [guide22Frontmatter, guide22, '/guides/skill-tree/', 'skill-tree'],
+  [guide23Frontmatter, guide23, '/guides/friendship-and-team-bond/', 'friendship-and-team-bond'],
+  [guide24Frontmatter, guide24, '/guides/max-level-and-rank-5/', 'max-level-and-rank-5'],
 ];
 
 const englishGuides = Object.fromEntries(

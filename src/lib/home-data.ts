@@ -263,7 +263,13 @@ const englishData: HomeData = {
     {category: 'Survivor', title: 'Ghost Skills & Builds', href: '/characters/ghost/', action: 'Read'},
     {category: 'Survivor', title: 'Huntress Skills & Upgrades', href: '/characters/huntress/', action: 'Read'},
     {category: 'Weapons', title: 'Rocket Launcher vs Minigun', href: '/weapons/rocket-launcher-and-minigun/', action: 'Read'},
-    {category: 'Secrets', title: 'Sanji the Rabbit', href: '/guides/sanji-the-rabbit/', action: 'Read'}
+    {category: 'Secrets', title: 'Sanji the Rabbit', href: '/guides/sanji-the-rabbit/', action: 'Read'},
+    {category: 'Builds', title: 'Version 1.0 Build Hub', href: '/builds/', action: 'Read'},
+    {category: 'Builds', title: 'Ghost Build', href: '/characters/ghost/build/', action: 'Read'},
+    {category: 'Builds', title: 'Huntress Build', href: '/characters/huntress/build/', action: 'Read'},
+    {category: 'Progression', title: 'Skill Tree & Rank 5', href: '/guides/skill-tree/', action: 'Read'},
+    {category: 'Progression', title: 'Friendship & Team Bond', href: '/guides/friendship-and-team-bond/', action: 'Read'},
+    {category: 'Progression', title: 'Max Level & Rank 5', href: '/guides/max-level-and-rank-5/', action: 'Read'}
   ],
   news: [
     {

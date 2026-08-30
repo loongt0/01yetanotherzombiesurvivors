@@ -117,7 +117,7 @@ describe('guide directory', () => {
       level: 1,
       name: 'Yet Another Zombie Survivors Guides'
     })).toBeInTheDocument();
-    expect(container.querySelectorAll('.guide-directory-card')).toHaveLength(19);
+    expect(container.querySelectorAll('.guide-directory-card')).toHaveLength(25);
     expect(page.getByRole('link', {name: /Best Team/})).toHaveAttribute(
       'href',
       '/guides/best-team/'
@@ -212,7 +212,13 @@ describe('researched matrix article and category routes', () => {
     [['characters', 'ghost'], /Ghost Skills/],
     [['items'], /Items: Effects & Unlocks/],
     [['weapons', 'upgrades'], /Weapon Upgrades/],
-    [['tools', 'mods'], /Mods/]
+    [['tools', 'mods'], /Mods/],
+    [['builds'], /Build Hub/],
+    [['characters', 'ghost', 'build'], /Ghost Build/],
+    [['characters', 'huntress', 'build'], /Huntress Build/],
+    [['guides', 'skill-tree'], /Skill Tree/],
+    [['guides', 'friendship-and-team-bond'], /Friendship & Team Bond/],
+    [['guides', 'max-level-and-rank-5'], /Max Level & Rank 5/]
   ] as const)('renders the researched MDX article at /%s/', async (rest, title) => {
     const {container} = render(
       await MatrixPage({params: Promise.resolve({locale: 'en', rest: [...rest]})})
@@ -235,7 +241,6 @@ describe('researched matrix article and category routes', () => {
   });
 
   it.each([
-    [['builds'], /Builds/],
     [['weapons'], /Weapons/],
     [['tools'], /Tools/]
   ] as const)('lists real researched topics at /%s/', async (rest, title) => {
