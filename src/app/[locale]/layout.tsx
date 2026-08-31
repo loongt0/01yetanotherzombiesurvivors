@@ -55,19 +55,23 @@ export default async function LocaleLayout({
         <NextIntlClientProvider locale={locale} messages={messages}>
           <SiteHeader locale={locale} />
           {children}
+          {adEnabled && (
+            <section className="native-ad shell-container" aria-label="Advertisement">
+              <p className="native-ad__label">Advertisement</p>
+              <Script
+                async
+                data-cfasync="false"
+                src={`https://pl31112454.profitableratecpmnetwork.com/${adPlacementId}/invoke.js`}
+                strategy="lazyOnload"
+              />
+              <div
+                className="native-ad__container"
+                id={`container-${adPlacementId}`}
+              />
+            </section>
+          )}
           <SiteFooter locale={locale} />
         </NextIntlClientProvider>
-        {adEnabled && (
-          <>
-            <Script
-              async
-              data-cfasync="false"
-              src={`https://pl31112454.profitableratecpmnetwork.com/${adPlacementId}/invoke.js`}
-              strategy="lazyOnload"
-            />
-            <div id={`container-${adPlacementId}`} />
-          </>
-        )}
         {analyticsEnabled && (
           <Script
             src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}

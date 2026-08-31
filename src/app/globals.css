@@ -802,6 +802,37 @@ img {
   transform: rotate(45deg);
 }
 
+.native-ad {
+  overflow: hidden;
+}
+
+.native-ad__label {
+  display: none;
+  margin-bottom: 12px;
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  line-height: 1;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.native-ad__container {
+  width: 100%;
+}
+
+.native-ad:has(.native-ad__container:not(:empty)) {
+  margin-top: 102px;
+}
+
+.native-ad:has(.native-ad__container:not(:empty)) .native-ad__label {
+  display: block;
+}
+
+.native-ad:has(.native-ad__container:not(:empty)) + .site-footer {
+  margin-top: 42.5px;
+}
+
 .site-footer {
   position: relative;
   margin-top: 102px;
