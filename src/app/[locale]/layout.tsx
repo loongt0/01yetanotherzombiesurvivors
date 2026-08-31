@@ -45,6 +45,9 @@ export default async function LocaleLayout({
   const measurementId = process.env.NEXT_PUBLIC_GA_ID;
   const analyticsEnabled =
     measurementId !== undefined && /^G-[A-Z0-9]+$/.test(measurementId);
+  const adPlacementId = process.env.ADSTERRA_PLACEMENT_ID;
+  const adEnabled =
+    adPlacementId !== undefined && /^[a-f0-9]{32}$/.test(adPlacementId);
 
   return (
     <html lang={locale} data-scroll-behavior="smooth">
@@ -54,6 +57,17 @@ export default async function LocaleLayout({
           {children}
           <SiteFooter locale={locale} />
         </NextIntlClientProvider>
+        {adEnabled && (
+          <>
+            <Script
+              async
+              data-cfasync="false"
+              src={`https://pl31112454.profitableratecpmnetwork.com/${adPlacementId}/invoke.js`}
+              strategy="lazyOnload"
+            />
+            <div id={`container-${adPlacementId}`} />
+          </>
+        )}
         {analyticsEnabled && (
           <Script
             src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}
