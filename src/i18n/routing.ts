@@ -27,11 +27,17 @@ const localeSpecificContentPaths: Partial<Record<Locale, Set<string>>> = {
   ])
 };
 
+export function hasLocalizedContent(locale: Locale, href: string): boolean {
+  const path = href === '/' ? '/' : `/${href.replace(/^\/+|\/+$/g, '')}/`;
+
+  return locale === routing.defaultLocale
+    || sharedLocalizedContentPaths.has(path)
+    || Boolean(localeSpecificContentPaths[locale]?.has(path));
+}
+
 export function localizeAvailableHref(locale: Locale, href: string): string {
   const path = href === '/' ? '/' : `/${href.replace(/^\/+|\/+$/g, '')}/`;
-  const targetLocale = sharedLocalizedContentPaths.has(path) || localeSpecificContentPaths[locale]?.has(path)
-    ? locale
-    : routing.defaultLocale;
+  const targetLocale = hasLocalizedContent(locale, path) ? locale : routing.defaultLocale;
 
   return localizeHref(targetLocale, path);
 }

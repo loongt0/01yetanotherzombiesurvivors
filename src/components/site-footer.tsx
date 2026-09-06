@@ -1,6 +1,6 @@
 import {GameImage} from '@/components/game-image';
 import {LanguageSwitcher} from '@/components/language-switcher';
-import {localizeAvailableHref, type Locale} from '@/i18n/routing';
+import {hasLocalizedContent, localizeAvailableHref, type Locale} from '@/i18n/routing';
 import {
   DISCORD_URL,
   footerGroups,
@@ -13,6 +13,14 @@ import {
 
 export function SiteFooter({locale}: {locale: Locale}) {
   const messages = getSiteMessages(locale).Footer;
+  const visibleFooterGroups = footerGroups
+    .map((group) => ({
+      ...group,
+      links: locale === 'ru'
+        ? group.links.filter((item) => hasLocalizedContent(locale, item.href))
+        : group.links
+    }))
+    .filter((group) => group.links.length > 0);
 
   return (
     <footer className="site-footer">
@@ -40,7 +48,7 @@ export function SiteFooter({locale}: {locale: Locale}) {
             <p>{messages.about}</p>
           </div>
 
-          {footerGroups.map((group) => (
+          {visibleFooterGroups.map((group) => (
             <nav key={group.key} aria-label={messages.groups[group.key]}>
               <h2>{messages.groups[group.key]}</h2>
               <ul>

@@ -543,9 +543,167 @@ function buildLocalizedData(locale: Exclude<Locale, 'en'>): HomeData {
   };
 }
 
+const russianBaseData = buildLocalizedData('ru');
+
+const russianData: HomeData = {
+  ...russianBaseData,
+  hero: {
+    ...russianBaseData.hero,
+    primaryAction: {label: 'Открыть сборки', href: '/builds/'},
+    secondaryAction: {label: 'Сравнить выживших', href: '/characters/'},
+    tertiaryAction: {label: 'Изучить дерево навыков', href: '/guides/skill-tree/'}
+  },
+  classes: [
+    {
+      badge: 'Прочность · Тяжёлое оружие',
+      title: 'Танк',
+      description: 'Стойкий выживший с исследованными ветками Минигана и Ракетницы.',
+      href: '/characters/',
+      action: 'Подробнее',
+      icon: 'shield'
+    },
+    {
+      badge: 'Дальний бой · Критические удары',
+      title: 'Охотница',
+      description: 'Сравните роль Охотницы с другими выжившими и подберите состав отряда.',
+      href: '/characters/',
+      action: 'Подробнее',
+      icon: 'compass'
+    },
+    {
+      badge: 'Ближний бой · Сборка',
+      title: 'Призрак',
+      description: 'Готовая русская сборка с оружием, навыками и командными синергиями.',
+      href: '/characters/ghost/build/',
+      action: 'Открыть сборку',
+      icon: 'swords'
+    },
+    {
+      badge: 'Версия 1.0 · Девятый выживший',
+      title: 'Рейнджер',
+      description: 'Добавлен в версии 1.0 и открывается на 175-м уровне выживания.',
+      href: '/characters/',
+      action: 'Подробнее',
+      icon: 'users'
+    }
+  ],
+  regions: [
+    {
+      badge: 'Арена версии 1.0',
+      meta: 'Условие проверено',
+      title: 'Биолаборатория',
+      description: 'Открывается после прохождения Dead Terminal на стандартной сложности.',
+      href: '/guides/skill-tree/',
+      action: 'Изучить прогрессию',
+      icon: 'map'
+    },
+    {
+      badge: 'Режим версии 1.0',
+      meta: 'Условие проверено',
+      title: 'Натиск боссов',
+      description: 'Открывается после прохождения каждой карты в режиме Hardcore.',
+      href: '/builds/',
+      action: 'Подобрать сборку',
+      icon: 'trophy'
+    }
+  ],
+  journey: [
+    {
+      title: 'Персонажи и выжившие',
+      description: 'Сравните роли, оружие, бонусы лидера и условия открытия всех выживших.',
+      href: '/characters/',
+      action: 'Читать',
+      icon: 'compass'
+    },
+    {
+      title: 'Лучшие команды и синергии',
+      description: 'Выберите лидера и дополните его совместимыми выжившими, оружием и способностями.',
+      href: '/guides/best-team/',
+      action: 'Читать',
+      icon: 'users'
+    },
+    {
+      title: 'Сборки версии 1.0',
+      description: 'Используйте проверенные сборки и адаптируйте их под состав отряда и режим игры.',
+      href: '/builds/',
+      action: 'Читать',
+      icon: 'zap'
+    },
+    {
+      title: 'Дерево навыков и пятый ранг',
+      description: 'Разберитесь в постоянной прогрессии, узлах синергии и развитии до пятого ранга.',
+      href: '/guides/skill-tree/',
+      action: 'Читать',
+      icon: 'trophy'
+    }
+  ],
+  tools: [
+    {
+      badge: 'Команды',
+      title: 'Лучший состав',
+      description: 'Соберите отряд до трёх выживших вокруг совместимых способностей и синергий.',
+      href: '/guides/best-team/',
+      action: 'Открыть',
+      icon: 'users'
+    },
+    {
+      badge: 'Сборки',
+      title: 'Центр сборок 1.0',
+      description: 'Выберите проверенную основу сборки для актуальной версии игры.',
+      href: '/builds/',
+      action: 'Открыть',
+      icon: 'wrench'
+    },
+    {
+      badge: 'Персонаж',
+      title: 'Сборка Призрака',
+      description: 'Оружие, навыки и командные сочетания для сильной сборки ближнего боя.',
+      href: '/characters/ghost/build/',
+      action: 'Открыть',
+      icon: 'swords'
+    },
+    {
+      badge: 'Прогрессия',
+      title: 'Дерево навыков',
+      description: 'Развитие до пятого ранга и выбор узлов для постоянного усиления.',
+      href: '/guides/skill-tree/',
+      action: 'Открыть',
+      icon: 'network'
+    },
+    {
+      badge: 'Отряд',
+      title: 'Дружба и Team Bond',
+      description: 'Как дружба и командная связь влияют на совместную силу выживших.',
+      href: '/guides/friendship-and-team-bond/',
+      action: 'Открыть',
+      icon: 'heart'
+    },
+    {
+      badge: 'Оружие',
+      title: 'Ракетница или Миниган',
+      description: 'Сравните два тяжёлых оружия и выберите подходящую ветку улучшений.',
+      href: '/weapons/rocket-launcher-and-minigun/',
+      action: 'Открыть',
+      icon: 'swords'
+    }
+  ],
+  guides: [
+    {category: 'Команды', title: 'Лучший отряд и синергии', href: '/guides/best-team/', action: 'Читать'},
+    {category: 'Сборки', title: 'Сборки версии 1.0', href: '/builds/', action: 'Читать'},
+    {category: 'Персонаж', title: 'Сборка Призрака', href: '/characters/ghost/build/', action: 'Читать'},
+    {category: 'Прогрессия', title: 'Дерево навыков и пятый ранг', href: '/guides/skill-tree/', action: 'Читать'},
+    {category: 'Прогрессия', title: 'Дружба и Team Bond', href: '/guides/friendship-and-team-bond/', action: 'Читать'},
+    {category: 'Оружие', title: 'Ракетница или Миниган', href: '/weapons/rocket-launcher-and-minigun/', action: 'Читать'}
+  ],
+  finalCta: {
+    ...russianBaseData.finalCta,
+    primaryAction: {label: 'Открыть сборки', href: '/builds/'}
+  }
+};
+
 const dataByLocale: Record<Locale, HomeData> = {
   en: englishData,
-  ru: buildLocalizedData('ru'),
+  ru: russianData,
   es: buildLocalizedData('es'),
   de: buildLocalizedData('de')
 };

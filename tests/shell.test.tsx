@@ -59,6 +59,30 @@ describe('researched shared shell', () => {
     );
   });
 
+  it('only exposes available Russian content in Russian navigation', () => {
+    const header = render(<SiteHeader locale="ru" />);
+    const headerHrefs = Array.from(header.container.querySelectorAll('a[href^="/"]')).map(
+      (link) => link.getAttribute('href')
+    );
+
+    expect(headerHrefs.every((href) => href?.startsWith('/ru/'))).toBe(true);
+    expect(headerHrefs).toContain('/ru/characters/');
+    expect(headerHrefs).toContain('/ru/builds/');
+    expect(headerHrefs).toContain('/ru/guides/best-team/');
+    expect(headerHrefs).not.toContain('/items/');
+
+    header.unmount();
+
+    const footer = render(<SiteFooter locale="ru" />);
+    const contentHrefs = Array.from(
+      footer.container.querySelectorAll('.site-footer__grid a[href^="/"]')
+    ).map((link) => link.getAttribute('href'));
+
+    expect(contentHrefs.every((href) => href?.startsWith('/ru/'))).toBe(true);
+    expect(contentHrefs).toContain('/ru/weapons/rocket-launcher-and-minigun/');
+    expect(footer.container.querySelector('a[href^="/en/"]')).toBeNull();
+  });
+
   it('keeps image dimensions and alt context after a load failure', () => {
     render(<GameImage src="/missing-art.png" alt="Survivor Ranger" width={320} height={180} />);
     fireEvent.error(screen.getByRole('img', {name: 'Survivor Ranger'}));

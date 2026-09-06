@@ -1,7 +1,7 @@
 'use client';
 
-import {Link, usePathname} from '@/i18n/navigation';
-import type {Locale} from '@/i18n/routing';
+import {usePathname} from '@/i18n/navigation';
+import {localizeHref, type Locale} from '@/i18n/routing';
 import {localeOptions} from '@/lib/site-data';
 
 const PRESERVED_PATHS = new Set([
@@ -33,14 +33,13 @@ export function LanguageSwitcher({locale}: {locale: Locale}) {
       <ul>
         {localeOptions.map((option) => (
           <li key={option.locale}>
-            <Link
-              href={preservedPath}
-              locale={option.locale === locale ? undefined : option.locale}
+            <a
+              href={localizeHref(option.locale, preservedPath)}
               hrefLang={option.locale}
               aria-current={option.locale === locale ? 'page' : undefined}
             >
               <span aria-hidden="true">{option.flag}</span> {option.label}
-            </Link>
+            </a>
           </li>
         ))}
       </ul>

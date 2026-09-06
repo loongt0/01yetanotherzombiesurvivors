@@ -203,6 +203,7 @@ function GuideCard({card, locale}: {card: GuideCardData; locale: Locale}) {
 export function HomeSections({locale}: {locale: Locale}) {
   const data = getHomeData(locale);
   const copy = getHomeCopy(locale);
+  const guideHubHref = locale === 'ru' ? '/builds/' : '/guides/';
 
   return (
     <main className="home-page">
@@ -346,7 +347,7 @@ export function HomeSections({locale}: {locale: Locale}) {
             ))}
           </div>
           <div className="home-section__action">
-            <a className="btn-ghost" href={localizeAvailableHref(locale, '/guides/')}>
+            <a className="btn-ghost" href={localizeAvailableHref(locale, guideHubHref)}>
               {copy.guides.all}
               <ArrowRight size={16} aria-hidden="true" />
             </a>
@@ -376,7 +377,7 @@ export function HomeSections({locale}: {locale: Locale}) {
             ))}
           </div>
           <div className="home-section__action">
-            <a className="btn-ghost" href={localizeAvailableHref(locale, '/guides/')}>
+            <a className="btn-ghost" href={localizeAvailableHref(locale, guideHubHref)}>
               {copy.faq.all}
               <ArrowRight size={16} aria-hidden="true" />
             </a>

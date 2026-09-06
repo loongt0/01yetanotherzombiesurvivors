@@ -1,5 +1,10 @@
 import {GameImage} from '@/components/game-image';
-import {localizeAvailableHref, localizeHref, type Locale} from '@/i18n/routing';
+import {
+  hasLocalizedContent,
+  localizeAvailableHref,
+  localizeHref,
+  type Locale
+} from '@/i18n/routing';
 import {
   getSiteMessages,
   GAME_NAME,
@@ -10,7 +15,11 @@ import {
 
 export function SiteHeader({locale}: {locale: Locale}) {
   const messages = getSiteMessages(locale).Header;
-  const compactNavigation = [...primaryNavigation, ...utilityNavigation];
+  const filterForLocale = <T extends {href: string}>(items: readonly T[]) =>
+    locale === 'ru' ? items.filter((item) => hasLocalizedContent(locale, item.href)) : items;
+  const visiblePrimaryNavigation = filterForLocale(primaryNavigation);
+  const visibleUtilityNavigation = filterForLocale(utilityNavigation);
+  const compactNavigation = [...visiblePrimaryNavigation, ...visibleUtilityNavigation];
 
   return (
     <header className="site-header">
@@ -38,7 +47,7 @@ export function SiteHeader({locale}: {locale: Locale}) {
         </a>
 
         <nav className="primary-navigation" aria-label={messages.primaryLabel}>
-          {primaryNavigation.map((item) => (
+          {visiblePrimaryNavigation.map((item) => (
             <a key={item.key} href={localizeAvailableHref(locale, item.href)}>
               {messages.navigation[item.key]}
               <span aria-hidden="true" />
@@ -58,7 +67,7 @@ export function SiteHeader({locale}: {locale: Locale}) {
 
       <nav className="utility-navigation" aria-label={messages.utilityLabel}>
         <div className="shell-container utility-navigation__inner">
-          {utilityNavigation.map((item) => (
+          {visibleUtilityNavigation.map((item) => (
             <a key={item.key} href={localizeAvailableHref(locale, item.href)}>
               {messages.navigation[item.key]}
               <span aria-hidden="true" />

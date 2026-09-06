@@ -54,7 +54,7 @@ describe('researched homepage', () => {
   });
 
   it.each([
-    ['ru', 'Что такое Yet Another Zombie Survivors?', 'Гайд для новичков', '/guides/'],
+    ['ru', 'Что такое Yet Another Zombie Survivors?', 'Открыть сборки', '/ru/builds/'],
     ['es', '¿Qué es Yet Another Zombie Survivors?', 'Guía para principiantes', '/guides/'],
     ['de', 'Was ist Yet Another Zombie Survivors?', 'Einsteiger-Guide starten', '/guides/']
   ] as const)(
@@ -63,12 +63,25 @@ describe('researched homepage', () => {
       render(await HomePage({params: Promise.resolve({locale})}));
 
       expect(screen.getByRole('heading', {level: 2, name: aboutHeading})).toBeInTheDocument();
-      expect(screen.getByRole('link', {name: beginnerLabel})).toHaveAttribute(
-        'href',
-        beginnerHref
-      );
+      expect(
+        screen.getAllByRole('link', {name: beginnerLabel}).every(
+          (link) => link.getAttribute('href') === beginnerHref
+        )
+      ).toBe(true);
     }
   );
+
+  it('keeps every Russian homepage content link inside the Russian section', async () => {
+    const {container} = render(await HomePage({params: Promise.resolve({locale: 'ru'})}));
+    const internalHrefs = Array.from(container.querySelectorAll('a[href^="/"]')).map(
+      (link) => link.getAttribute('href')
+    );
+
+    expect(internalHrefs.length).toBeGreaterThan(0);
+    expect(internalHrefs.every((href) => href?.startsWith('/ru/'))).toBe(true);
+    expect(container).not.toHaveTextContent('Start Reading');
+    expect(container).not.toHaveTextContent('Explore');
+  });
 
   it('publishes canonical URLs, researched keywords, and the four selected alternates', async () => {
     const metadata = await generateHomeMetadata({params: Promise.resolve({locale: 'ru'})});
