@@ -140,9 +140,36 @@ describe('researched one-keyword-one-page publishing contract', () => {
       expect(article?.querySelectorAll('a[href^="https://"]').length).toBeGreaterThanOrEqual(2);
       expect(text).toContain('unconfirmed');
       expect(text).not.toMatch(/[\u3400-\u9fff]/u);
-      expect(text).not.toMatch(/229\s+achievements/i);
+      if (path === '/guides/achievements/') {
+        expect(text).toContain('229 total achievements');
+      } else {
+        expect(text).not.toMatch(/229\s+achievements/i);
+      }
     }
   );
+
+  it('covers the new Guide query cluster without creating competing thin pages', async () => {
+    const guide = await resolveKeywordPage('/guides/');
+    const achievement = await resolveKeywordPage('/guides/achievements/');
+    const sanji = await resolveKeywordPage('/guides/sanji-the-rabbit/');
+    const guideText = render(guide.content).container.textContent ?? '';
+    const achievementText = render(achievement.content).container.textContent ?? '';
+    const sanjiText = render(sanji.content).container.textContent ?? '';
+
+    for (const keyword of [
+      'beginner guide',
+      'build guide',
+      'upgrade guide',
+      'achievement guide',
+      'trophy guide'
+    ]) {
+      expect(guideText.toLowerCase()).toContain(keyword);
+    }
+
+    expect(achievementText).toContain("I'm The Boss");
+    expect(achievementText).toContain('final boss of the Isolated City');
+    expect(sanjiText).toContain('Quick Potato Guide: How to Find Sanji');
+  });
 
   it('publishes the Tank weapon comparison with official-only evidence and a scannable table', async () => {
     const path = '/weapons/rocket-launcher-and-minigun/';

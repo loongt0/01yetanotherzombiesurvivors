@@ -20,8 +20,8 @@ const copyByLocale: Record<Locale, DirectoryCopy> = {
   en: {
     eyebrow: 'Guides',
     title: 'Yet Another Zombie Survivors Guides',
-    description: 'Yet another zombie survivors guide covering version 1.0, Survivor teams, upgrades, items, new maps, achievements, safe progression, and verified unlocks.',
-    metadataTitle: 'Yet Another Zombie Survivors Guide: Builds, Teams & Tips'
+    description: 'Yet Another Zombie Survivors guide for beginners, with version 1.0 builds, upgrades, achievements, trophies, Sanji, boss objectives, teams, and unlocks.',
+    metadataTitle: 'Yet Another Zombie Survivors Guide: Builds & Achievements'
   },
   ru: {
     eyebrow: 'Гайды',
