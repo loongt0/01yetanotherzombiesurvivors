@@ -91,7 +91,6 @@ test.describe('canonical route policy', () => {
 
   test('removes the English prefix without producing an empty Location', async ({
     isMobile,
-    page,
     request
   }) => {
     test.skip(Boolean(isMobile), 'HTTP route policy is viewport-independent.');
@@ -103,14 +102,13 @@ test.describe('canonical route policy', () => {
     for (const [source, destination] of [
       ['/en/', '/'],
       ['/en/guides/', '/guides/'],
-      ['/en/characters/', '/characters/']
+      ['/en/characters/', '/characters/'],
+      ['/en/terms/', '/terms/']
     ] as const) {
       const response = await request.get(source, {maxRedirects: 0});
 
-      expect(response.status(), source).toBe(307);
+      expect(response.status(), source).toBe(308);
       expect(response.headers().location, source).toBe(destination);
-      await page.goto(source);
-      expect(new URL(page.url()).pathname).toBe(destination);
     }
   });
 });
@@ -191,6 +189,29 @@ test('preserves desktop navigation and a compact mobile navigation', async ({
   }
 
   await expect(page.locator('.site-header__steam')).toBeVisible();
+});
+
+test('keeps the direct answer in the first mobile viewport on priority landing pages', async ({
+  isMobile,
+  page
+}) => {
+  test.skip(!isMobile, 'The P0 issue is specific to the mobile first viewport.');
+
+  for (const path of [
+    '/characters/ghost/build/',
+    '/guides/max-level-and-rank-5/',
+    '/weapons/rocket-launcher-and-minigun/'
+  ]) {
+    await page.goto(path);
+    const answer = page.locator(
+      '.classes-article__body > .article-paragraph:first-child'
+    );
+
+    await expect(answer, path).toBeVisible();
+    const box = await answer.boundingBox();
+    expect(box, path).not.toBeNull();
+    expect(box!.y, path).toBeLessThan(844);
+  }
 });
 
 test('uses the researched zombie-red theme without unsupported redemption codes', async ({

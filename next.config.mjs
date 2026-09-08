@@ -12,6 +12,15 @@ export default withNextIntl(
   withMDX({
     allowedDevOrigins: ['127.0.0.1'],
     pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
+    redirects() {
+      return [
+        {
+          source: '/en/:path*',
+          destination: '/:path*/',
+          permanent: true
+        }
+      ];
+    },
     skipProxyUrlNormalize: true,
     trailingSlash: true
   })

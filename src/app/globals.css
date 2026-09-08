@@ -1889,6 +1889,25 @@ img {
     display: none;
   }
 
+  .mobile-navigation {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: inline proximity;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .mobile-navigation::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mobile-navigation a {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  }
+
   .page-hero {
     padding-block: 68px;
   }
@@ -1896,6 +1915,34 @@ img {
   .page-hero h1 {
     font-size: 38.25px;
     line-height: 47.8125px;
+  }
+
+  .classes-page .page-hero {
+    margin-bottom: 12px;
+    padding-block: 36px 12px;
+  }
+
+  .classes-page .page-hero h1 {
+    margin-top: 16px;
+    font-size: 32px;
+    line-height: 1.16;
+  }
+
+  .classes-page .page-hero p {
+    margin-top: 14px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .classes-page .page-hero .ornament {
+    margin-block: 24px 8px;
+  }
+
+  .classes-page .classes-article__body > .article-paragraph:first-child {
+    margin-top: 0;
+    padding: 16px 17px;
+    border-left: 3px solid var(--gold);
+    background: linear-gradient(90deg, rgb(231 78 56 / 10%), transparent);
   }
 
   .guide-directory-card h3 {

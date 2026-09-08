@@ -30,7 +30,7 @@ test('does not let a spoofed rewrite marker bypass locale canonicalization', asy
     maxRedirects: 0
   });
 
-  expect(response.status()).toBe(307);
+  expect(response.status()).toBe(308);
   expect(response.headers().location).toBe('/missing-route/');
 });
 
