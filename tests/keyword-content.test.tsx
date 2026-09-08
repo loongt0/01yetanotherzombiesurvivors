@@ -14,20 +14,20 @@ import {getGuideCards} from '@/content/registry';
 
 const keywordPages = [
   ['yet another zombie survivors guide', '/guides/'],
-  ['yet another zombie survivors achievement guide', '/guides/achievement-guide/'],
+  ['yet another zombie survivors achievement guide', '/guides/achievements/'],
   [
     'yet another zombie survivors potato guide – find sanji',
-    '/guides/potato-guide-find-sanji/'
+    '/guides/sanji-the-rabbit/'
   ],
   [
     'yet another zombie survivors im boss here achievement guide',
-    '/guides/im-boss-here-achievement-guide/'
+    '/guides/achievements/'
   ],
-  ['yet another zombie survivors trophy guide', '/guides/trophy-guide/'],
+  ['yet another zombie survivors trophy guide', '/guides/achievements/'],
   ['yet another zombie survivors upgrade guide', '/guides/upgrade-guide/'],
-  ['yet another zombie survivors achievements guide', '/guides/achievements-guide/'],
-  ['yet another zombie survivors beginner guide', '/guides/beginner-guide/'],
-  ['yet another zombie survivors build guide', '/guides/build-guide/'],
+  ['yet another zombie survivors achievements guide', '/guides/achievements/'],
+  ['yet another zombie survivors beginner guide', '/guides/'],
+  ['yet another zombie survivors build guide', '/builds/'],
   ['yet another zombie survivors tier list', '/guides/tier-list/'],
   ['yet another zombie survivors best team', '/guides/best-team/'],
   ['yet another zombie survivors synergies', '/guides/synergies/'],
@@ -65,6 +65,25 @@ const keywordPages = [
   ['yet another zombie survivors max level', '/guides/max-level-and-rank-5/']
 ] as const;
 
+const mergedAliases = [
+  'yet another zombie survivors achievement guide',
+  'yet another zombie survivors potato guide – find sanji',
+  'yet another zombie survivors im boss here achievement guide',
+  'yet another zombie survivors trophy guide',
+  'yet another zombie survivors achievements guide',
+  'yet another zombie survivors beginner guide',
+  'yet another zombie survivors build guide'
+];
+
+function getAliasPhrase(keyword: string) {
+  if (keyword.includes('potato')) return 'potato guide';
+  if (keyword.includes('trophy')) return 'trophy guide';
+  if (keyword.includes('boss')) return "i'm the boss";
+  if (keyword.includes('beginner')) return 'beginner guide';
+  if (keyword.includes('build')) return 'build guide';
+  return 'achievement guide';
+}
+
 async function resolveKeywordPage(path: string) {
   if (path === '/guides/') {
     const props = {params: Promise.resolve({locale: 'en'})};
@@ -98,8 +117,8 @@ async function resolveKeywordPage(path: string) {
 describe('researched one-keyword-one-page publishing contract', () => {
   it('assigns all 35 researched keywords to accessible content URLs', () => {
     expect(keywordPages).toHaveLength(35);
-    expect(new Set(keywordPages.map(([, path]) => path)).size).toBe(34);
-    expect(getGuideCards('en')).toHaveLength(33);
+    expect(new Set(keywordPages.map(([, path]) => path)).size).toBe(27);
+    expect(getGuideCards('en')).toHaveLength(26);
     expect(getGuideCards('en').map(({href}) => href)).toEqual(
       expect.arrayContaining([
         '/characters/hidden-characters/',
@@ -114,8 +133,11 @@ describe('researched one-keyword-one-page publishing contract', () => {
       const {metadata} = await resolveKeywordPage(path);
       const title = String(metadata.title);
       const description = String(metadata.description);
+      const mergedAlias = mergedAliases.includes(keyword);
 
-      if (keyword === 'yet another zombie survivors team bond') {
+      if (mergedAlias) {
+        expect(title.toLowerCase()).toContain('yet another zombie survivors');
+      } else if (keyword === 'yet another zombie survivors team bond') {
         expect(title.toLowerCase()).toContain('yet another zombie survivors');
         expect(title.toLowerCase()).toContain('team bond');
       } else {
@@ -123,7 +145,11 @@ describe('researched one-keyword-one-page publishing contract', () => {
       }
       expect(title.length).toBeGreaterThanOrEqual(40);
       expect(title.length).toBeLessThanOrEqual(Math.max(60, keyword.length));
-      if (keyword === 'yet another zombie survivors team bond') {
+      if (mergedAlias) {
+        expect(description.toLowerCase().replace('’', "'")).toContain(
+          getAliasPhrase(keyword)
+        );
+      } else if (keyword === 'yet another zombie survivors team bond') {
         expect(description.toLowerCase()).toContain('yet another zombie survivors');
         expect(description.toLowerCase()).toContain('team bond');
       } else {
@@ -147,19 +173,21 @@ describe('researched one-keyword-one-page publishing contract', () => {
       const text = article?.textContent ?? '';
       const wordCount = text.match(/[\p{L}\p{N}]+(?:[.'’-][\p{L}\p{N}]+)*/gu)?.length ?? 0;
 
-      expect(firstParagraph.toLowerCase()).toContain(keyword);
+      if (mergedAliases.includes(keyword)) {
+        const expectedPhrase = keyword.includes('boss')
+          ? "i'm boss here"
+          : getAliasPhrase(keyword);
+        expect(text.toLowerCase()).toContain(expectedPhrase);
+      } else {
+        expect(firstParagraph.toLowerCase()).toContain(keyword);
+      }
       expect(wordCount, `${path}: ${wordCount} words`).toBeGreaterThanOrEqual(850);
       expect(wordCount, `${path}: ${wordCount} words`).toBeLessThanOrEqual(1500);
       expect(article?.querySelectorAll('h2').length).toBeGreaterThanOrEqual(7);
       expect(article?.querySelectorAll('a[href^="https://"]').length).toBeGreaterThanOrEqual(2);
       expect(text).toContain('unconfirmed');
       expect(text).not.toMatch(/[\u3400-\u9fff]/u);
-      if ([
-        '/guides/achievements/',
-        '/guides/achievement-guide/',
-        '/guides/achievements-guide/',
-        '/guides/trophy-guide/'
-      ].includes(path)) {
+      if (path === '/guides/achievements/') {
         expect(text).toMatch(/229(?: total)? achievements/i);
       } else {
         expect(text).not.toMatch(/229\s+achievements/i);
@@ -167,20 +195,19 @@ describe('researched one-keyword-one-page publishing contract', () => {
     }
   );
 
-  it('publishes each new long-tail Guide query on its own substantial page', async () => {
-    for (const path of [
-      '/guides/achievement-guide/',
-      '/guides/achievements-guide/',
-      '/guides/potato-guide-find-sanji/',
-      '/guides/im-boss-here-achievement-guide/',
-      '/guides/trophy-guide/',
+  it('merges synonymous long-tail queries into substantial canonical pages', async () => {
+    const canonicalPages = await Promise.all([
+      '/guides/achievements/',
+      '/guides/sanji-the-rabbit/',
       '/guides/upgrade-guide/',
-      '/guides/beginner-guide/',
-      '/guides/build-guide/'
-    ]) {
-      const page = await resolveKeywordPage(path);
-      expect(render(page.content).container.querySelector('article.prose-game')).not.toBeNull();
-    }
+      '/guides/',
+      '/builds/'
+    ].map(async (path) => render((await resolveKeywordPage(path)).content).container));
+
+    expect(canonicalPages).toHaveLength(5);
+    expect(canonicalPages.every((container) =>
+      container.querySelector('article.prose-game') !== null
+    )).toBe(true);
   });
 
   it('publishes the Tank weapon comparison with official-only evidence and a scannable table', async () => {

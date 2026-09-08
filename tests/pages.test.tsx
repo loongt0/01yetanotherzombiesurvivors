@@ -138,7 +138,7 @@ describe('guide directory', () => {
       level: 1,
       name: 'Yet Another Zombie Survivors Guides'
     })).toBeInTheDocument();
-    expect(container.querySelectorAll('.guide-directory-card')).toHaveLength(33);
+    expect(container.querySelectorAll('.guide-directory-card')).toHaveLength(26);
     expect(page.getByRole('link', {name: /Best Team/})).toHaveAttribute(
       'href',
       '/guides/best-team/'
@@ -234,7 +234,7 @@ describe('researched matrix article and category routes', () => {
     [['items'], /Items: Effects & Unlocks/],
     [['weapons', 'upgrades'], /Weapon Upgrades/],
     [['tools', 'mods'], /Mods/],
-    [['builds'], /Build Hub/],
+    [['builds'], /Builds Guide/],
     [['characters', 'ghost', 'build'], /Ghost Build/],
     [['characters', 'huntress', 'build'], /Huntress Build/],
     [['guides', 'skill-tree'], /Skill Tree/],

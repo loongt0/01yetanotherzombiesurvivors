@@ -18,6 +18,41 @@ export default withNextIntl(
           source: '/en/:path*',
           destination: '/:path*/',
           permanent: true
+        },
+        {
+          source: '/guides/achievement-guide/',
+          destination: '/guides/achievements/',
+          permanent: true
+        },
+        {
+          source: '/guides/achievements-guide/',
+          destination: '/guides/achievements/',
+          permanent: true
+        },
+        {
+          source: '/guides/im-boss-here-achievement-guide/',
+          destination: '/guides/achievements/',
+          permanent: true
+        },
+        {
+          source: '/guides/trophy-guide/',
+          destination: '/guides/achievements/',
+          permanent: true
+        },
+        {
+          source: '/guides/potato-guide-find-sanji/',
+          destination: '/guides/sanji-the-rabbit/',
+          permanent: true
+        },
+        {
+          source: '/guides/beginner-guide/',
+          destination: '/guides/',
+          permanent: true
+        },
+        {
+          source: '/guides/build-guide/',
+          destination: '/builds/',
+          permanent: true
         }
       ];
     },
