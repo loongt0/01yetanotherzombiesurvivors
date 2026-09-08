@@ -19,6 +19,14 @@ const researchedGuideSlugs = [
   'skill-tree',
   'friendship-and-team-bond',
   'max-level-and-rank-5',
+  'achievement-guide',
+  'achievements-guide',
+  'potato-guide-find-sanji',
+  'im-boss-here-achievement-guide',
+  'trophy-guide',
+  'upgrade-guide',
+  'beginner-guide',
+  'build-guide',
   'tier-list',
   'best-team',
   'synergies',
@@ -120,6 +128,12 @@ describe('researched MDX content registry', () => {
     expect(getGuideByHref('en', '/guides/skill-tree/')?.slug).toBe('skill-tree');
     expect(getGuideByHref('en', '/guides/friendship-and-team-bond/')?.slug).toBe(
       'friendship-and-team-bond'
+    );
+    expect(getGuideByHref('en', '/guides/achievement-guide/')?.slug).toBe(
+      'achievement-guide'
+    );
+    expect(getGuideByHref('en', '/guides/potato-guide-find-sanji/')?.slug).toBe(
+      'potato-guide-find-sanji'
     );
     expect(getGuideByHref('en', '/guides/not-a-real-article/')).toBeUndefined();
   });

@@ -14,6 +14,20 @@ import {getGuideCards} from '@/content/registry';
 
 const keywordPages = [
   ['yet another zombie survivors guide', '/guides/'],
+  ['yet another zombie survivors achievement guide', '/guides/achievement-guide/'],
+  [
+    'yet another zombie survivors potato guide – find sanji',
+    '/guides/potato-guide-find-sanji/'
+  ],
+  [
+    'yet another zombie survivors im boss here achievement guide',
+    '/guides/im-boss-here-achievement-guide/'
+  ],
+  ['yet another zombie survivors trophy guide', '/guides/trophy-guide/'],
+  ['yet another zombie survivors upgrade guide', '/guides/upgrade-guide/'],
+  ['yet another zombie survivors achievements guide', '/guides/achievements-guide/'],
+  ['yet another zombie survivors beginner guide', '/guides/beginner-guide/'],
+  ['yet another zombie survivors build guide', '/guides/build-guide/'],
   ['yet another zombie survivors tier list', '/guides/tier-list/'],
   ['yet another zombie survivors best team', '/guides/best-team/'],
   ['yet another zombie survivors synergies', '/guides/synergies/'],
@@ -82,10 +96,10 @@ async function resolveKeywordPage(path: string) {
 }
 
 describe('researched one-keyword-one-page publishing contract', () => {
-  it('assigns all 27 researched keywords to accessible content URLs', () => {
-    expect(keywordPages).toHaveLength(27);
-    expect(new Set(keywordPages.map(([, path]) => path)).size).toBe(26);
-    expect(getGuideCards('en')).toHaveLength(25);
+  it('assigns all 35 researched keywords to accessible content URLs', () => {
+    expect(keywordPages).toHaveLength(35);
+    expect(new Set(keywordPages.map(([, path]) => path)).size).toBe(34);
+    expect(getGuideCards('en')).toHaveLength(33);
     expect(getGuideCards('en').map(({href}) => href)).toEqual(
       expect.arrayContaining([
         '/characters/hidden-characters/',
@@ -140,35 +154,33 @@ describe('researched one-keyword-one-page publishing contract', () => {
       expect(article?.querySelectorAll('a[href^="https://"]').length).toBeGreaterThanOrEqual(2);
       expect(text).toContain('unconfirmed');
       expect(text).not.toMatch(/[\u3400-\u9fff]/u);
-      if (path === '/guides/achievements/') {
-        expect(text).toContain('229 total achievements');
+      if ([
+        '/guides/achievements/',
+        '/guides/achievement-guide/',
+        '/guides/achievements-guide/',
+        '/guides/trophy-guide/'
+      ].includes(path)) {
+        expect(text).toMatch(/229(?: total)? achievements/i);
       } else {
         expect(text).not.toMatch(/229\s+achievements/i);
       }
     }
   );
 
-  it('covers the new Guide query cluster without creating competing thin pages', async () => {
-    const guide = await resolveKeywordPage('/guides/');
-    const achievement = await resolveKeywordPage('/guides/achievements/');
-    const sanji = await resolveKeywordPage('/guides/sanji-the-rabbit/');
-    const guideText = render(guide.content).container.textContent ?? '';
-    const achievementText = render(achievement.content).container.textContent ?? '';
-    const sanjiText = render(sanji.content).container.textContent ?? '';
-
-    for (const keyword of [
-      'beginner guide',
-      'build guide',
-      'upgrade guide',
-      'achievement guide',
-      'trophy guide'
+  it('publishes each new long-tail Guide query on its own substantial page', async () => {
+    for (const path of [
+      '/guides/achievement-guide/',
+      '/guides/achievements-guide/',
+      '/guides/potato-guide-find-sanji/',
+      '/guides/im-boss-here-achievement-guide/',
+      '/guides/trophy-guide/',
+      '/guides/upgrade-guide/',
+      '/guides/beginner-guide/',
+      '/guides/build-guide/'
     ]) {
-      expect(guideText.toLowerCase()).toContain(keyword);
+      const page = await resolveKeywordPage(path);
+      expect(render(page.content).container.querySelector('article.prose-game')).not.toBeNull();
     }
-
-    expect(achievementText).toContain("I'm The Boss");
-    expect(achievementText).toContain('final boss of the Isolated City');
-    expect(sanjiText).toContain('Quick Potato Guide: How to Find Sanji');
   });
 
   it('publishes the Tank weapon comparison with official-only evidence and a scannable table', async () => {

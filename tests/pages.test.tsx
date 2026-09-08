@@ -138,7 +138,7 @@ describe('guide directory', () => {
       level: 1,
       name: 'Yet Another Zombie Survivors Guides'
     })).toBeInTheDocument();
-    expect(container.querySelectorAll('.guide-directory-card')).toHaveLength(25);
+    expect(container.querySelectorAll('.guide-directory-card')).toHaveLength(33);
     expect(page.getByRole('link', {name: /Best Team/})).toHaveAttribute(
       'href',
       '/guides/best-team/'

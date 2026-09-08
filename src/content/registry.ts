@@ -37,6 +37,14 @@ import guide21, {frontmatter as guide21Frontmatter} from './en/guides/huntress-b
 import guide22, {frontmatter as guide22Frontmatter} from './en/guides/skill-tree.mdx';
 import guide23, {frontmatter as guide23Frontmatter} from './en/guides/friendship-and-team-bond.mdx';
 import guide24, {frontmatter as guide24Frontmatter} from './en/guides/max-level-and-rank-5.mdx';
+import guide25, {frontmatter as guide25Frontmatter} from './en/guides/achievement-guide.mdx';
+import guide26, {frontmatter as guide26Frontmatter} from './en/guides/achievements-guide.mdx';
+import guide27, {frontmatter as guide27Frontmatter} from './en/guides/potato-guide-find-sanji.mdx';
+import guide28, {frontmatter as guide28Frontmatter} from './en/guides/im-boss-here-achievement-guide.mdx';
+import guide29, {frontmatter as guide29Frontmatter} from './en/guides/trophy-guide.mdx';
+import guide30, {frontmatter as guide30Frontmatter} from './en/guides/upgrade-guide.mdx';
+import guide31, {frontmatter as guide31Frontmatter} from './en/guides/beginner-guide.mdx';
+import guide32, {frontmatter as guide32Frontmatter} from './en/guides/build-guide.mdx';
 
 export type GuideCardRecord = ContentFrontmatter & {
   href: string;
@@ -94,6 +102,14 @@ const rawGuides: Array<[unknown, ComponentType, string, string]> = [
   [guide22Frontmatter, guide22, '/guides/skill-tree/', 'skill-tree'],
   [guide23Frontmatter, guide23, '/guides/friendship-and-team-bond/', 'friendship-and-team-bond'],
   [guide24Frontmatter, guide24, '/guides/max-level-and-rank-5/', 'max-level-and-rank-5'],
+  [guide25Frontmatter, guide25, '/guides/achievement-guide/', 'achievement-guide'],
+  [guide26Frontmatter, guide26, '/guides/achievements-guide/', 'achievements-guide'],
+  [guide27Frontmatter, guide27, '/guides/potato-guide-find-sanji/', 'potato-guide-find-sanji'],
+  [guide28Frontmatter, guide28, '/guides/im-boss-here-achievement-guide/', 'im-boss-here-achievement-guide'],
+  [guide29Frontmatter, guide29, '/guides/trophy-guide/', 'trophy-guide'],
+  [guide30Frontmatter, guide30, '/guides/upgrade-guide/', 'upgrade-guide'],
+  [guide31Frontmatter, guide31, '/guides/beginner-guide/', 'beginner-guide'],
+  [guide32Frontmatter, guide32, '/guides/build-guide/', 'build-guide'],
 ];
 
 const englishGuides = Object.fromEntries(
