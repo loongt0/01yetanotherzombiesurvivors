@@ -2,8 +2,8 @@ import createMiddleware from 'next-intl/middleware';
 
 import {routing} from './i18n/routing';
 
-// next-intl owns `/en/` canonicalization and cookie synchronization. Next's
-// trailing-slash policy runs first for bare `/en`, then middleware redirects it.
+// Resolve language from the URL so English fallbacks remain reachable, even
+// with a non-English browser preference or an old NEXT_LOCALE cookie.
 export default createMiddleware(routing);
 
 export const config = {

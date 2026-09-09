@@ -34,7 +34,7 @@ test('does not let a spoofed rewrite marker bypass locale canonicalization', asy
   expect(response.headers().location).toBe('/missing-route/');
 });
 
-test('negotiates Russian for an unprefixed route from Accept-Language', async ({
+test('keeps an unprefixed missing route English despite Accept-Language', async ({
   request
 }) => {
   const response = await request.get('/missing-route/', {
@@ -42,8 +42,9 @@ test('negotiates Russian for an unprefixed route from Accept-Language', async ({
     maxRedirects: 0
   });
 
-  expect(response.status()).toBe(307);
-  expect(response.headers().location).toBe('/ru/missing-route/');
+  expect(response.status()).toBe(404);
+  expect(response.headers().location).toBeUndefined();
+  expect(await response.text()).toContain('Lost Among the Horde');
 });
 
 test('does not route special or dotted paths through the localized catch-all', async ({

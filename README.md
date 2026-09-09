@@ -6,10 +6,10 @@ audit.
 
 ## Requirements and commands
 
-Use Node.js 20.9 or newer.
+Use Node.js 24 LTS (also used by CI).
 
 ```bash
-npm install
+npm ci
 npx playwright install chromium
 npm run dev
 npm test
@@ -50,7 +50,9 @@ The primary English URLs are:
 - `https://yetanotherzombiesurvivors.world/terms/`
 
 English is the canonical unprefixed locale. Russian, Spanish, and German use the
-`/ru`, `/es`, and `/de` prefixes. The legacy `/classes/` path permanently redirects
+`/ru`, `/es`, and `/de` prefixes. URL paths determine the language; browser preferences and saved locale
+cookies do not redirect English URLs. Untranslated localized articles redirect to
+their English URL without negotiating back to the missing translation. The legacy `/classes/` path permanently redirects
 to `/characters/`.
 
 ## Content and fact checking
@@ -99,3 +101,14 @@ Login providers are managed on the Remark42 server (currently Discord and
 anonymous). OAuth secrets stay on that server and must never be added to the
 Next.js environment or repository. Browser integration testing requires HTTPS,
 since Remark42 rejects a parent page whose protocol differs from its host.
+
+## Security and automated checks
+
+GitHub Actions runs dependency audit, lint, type checking, unit tests, a production
+build, and HTTP routing regressions on pushes and pull requests. CodeQL scans
+JavaScript/TypeScript on pushes, pull requests, and weekly. Dependabot checks npm
+and GitHub Actions dependencies weekly.
+
+The scoped `toml` override keeps `remark-mdx-frontmatter` on patched versions (4.2 or later)
+until its upstream dependency range is updated. MDX compilation is covered by the
+content tests and production build; review this override when upgrading the plugin.
