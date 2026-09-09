@@ -43,7 +43,7 @@ describe('researched shared shell', () => {
     expect(screen.getByRole('navigation', {name: /English · Русский/i})).toBeInTheDocument();
     expect(screen.getByRole('link', {name: /English/i})).toHaveAttribute(
       'href',
-      '/characters/'
+      '/en/characters/'
     );
     expect(screen.getByRole('link', {name: /Русский/i})).toHaveAttribute(
       'href',
@@ -80,7 +80,7 @@ describe('researched shared shell', () => {
 
     expect(contentHrefs.every((href) => href?.startsWith('/ru/'))).toBe(true);
     expect(contentHrefs).toContain('/ru/weapons/rocket-launcher-and-minigun/');
-    expect(footer.container.querySelector('a[href^="/en/"]')).toBeNull();
+    expect(footer.container.querySelector('a[href="/en/characters/"]')).not.toBeNull();
   });
 
   it('keeps image dimensions and alt context after a load failure', () => {
