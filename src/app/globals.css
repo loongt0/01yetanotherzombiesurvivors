@@ -348,11 +348,14 @@ img {
 }
 
 .site-brand {
+  min-width: 0;
+  flex: 0 1 240px;
   align-items: center;
   gap: 0.75rem;
 }
 
 .site-brand__image {
+  flex-shrink: 0;
   position: relative;
 }
 
@@ -418,9 +421,9 @@ img {
 }
 
 .primary-navigation a {
-  padding: 0.5rem 1rem;
-  font-size: 15px;
-  letter-spacing: 0.18em;
+  padding: 0.5rem 0.6rem;
+  font-size: 12px;
+  letter-spacing: 0.12em;
 }
 
 .primary-navigation a > span,
@@ -909,31 +912,30 @@ img {
   color: var(--gold-2);
 }
 
-.site-footer__languages {
-  margin-top: 42.5px;
-  padding-top: 25.5px;
-  border-top: 1px solid var(--line);
-}
-
-.language-switcher ul {
+.site-header__actions {
   display: flex;
-  flex-wrap: wrap;
-  gap: 17px;
-  height: 59.5px;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
 }
 
-.language-switcher li,
-.language-switcher a {
-  height: 21.25px;
-  line-height: 21.25px;
-}
-
-.language-switcher li + li {
-  margin-top: 0;
-}
-
-.language-switcher [aria-current='page'] {
+.language-switcher select {
+  min-height: 36px;
+  max-width: 124px;
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: #171a20;
   color: var(--gold-2);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  color-scheme: dark;
+}
+
+.language-switcher select:focus-visible {
+  outline: 2px solid var(--gold-2);
+  outline-offset: 3px;
 }
 
 .site-footer__legal {
@@ -1762,10 +1764,6 @@ img {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .language-switcher ul {
-    height: 21.25px;
-  }
-
   .about-grid {
     grid-template-columns: repeat(5, minmax(0, 1fr));
   }
@@ -1862,7 +1860,7 @@ img {
   }
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 1279px) {
   .site-header__primary {
     flex-wrap: nowrap;
   }
@@ -1889,6 +1887,27 @@ img {
 }
 
 @media (max-width: 767px) {
+  .site-header__primary {
+    height: auto;
+    min-height: 100px;
+    padding-block: 10px;
+    gap: 10px;
+  }
+
+  .site-header__actions {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+  }
+
+  .language-switcher {
+    order: -1;
+  }
+
+  .site-header__steam {
+    padding: 6px 10px;
+  }
+
   .site-brand__subtitle {
     display: none;
   }

@@ -36,27 +36,13 @@ describe('researched shared shell', () => {
     expect(container.querySelectorAll('.mobile-navigation a')).toHaveLength(14);
   });
 
-  it('labels the footer and all four researched locales', () => {
-    render(<SiteFooter locale="en" />);
-
-    expect(screen.getByText(/independent fan-made guide hub/i)).toBeInTheDocument();
-    expect(screen.getByRole('navigation', {name: /English · Русский/i})).toBeInTheDocument();
-    expect(screen.getByRole('link', {name: /English/i})).toHaveAttribute(
-      'href',
-      '/en/characters/'
-    );
-    expect(screen.getByRole('link', {name: /Русский/i})).toHaveAttribute(
-      'href',
-      '/ru/characters/'
-    );
-    expect(screen.getByRole('link', {name: /Español/i})).toHaveAttribute(
-      'href',
-      '/es/characters/'
-    );
-    expect(screen.getByRole('link', {name: /Deutsch/i})).toHaveAttribute(
-      'href',
-      '/de/characters/'
-    );
+  it('offers exactly one language dropdown in the header and none in the footer', () => {
+    const {container} = render(<><SiteHeader locale="ru" /><SiteFooter locale="ru" /></>);
+    expect(screen.getAllByRole('combobox')).toHaveLength(1);
+    expect(screen.getByRole('combobox', {name: 'Язык'})).toHaveValue('ru');
+    expect(screen.getAllByRole('option')).toHaveLength(4);
+    expect(container.querySelector('header .language-switcher')).not.toBeNull();
+    expect(container.querySelector('footer .language-switcher')).toBeNull();
   });
 
   it('keeps the complete navigation visible in Russian with English fallbacks', () => {
@@ -82,7 +68,7 @@ describe('researched shared shell', () => {
 
     expect(contentHrefs.every((href) => href?.startsWith('/ru/'))).toBe(true);
     expect(contentHrefs).toContain('/ru/weapons/rocket-launcher-and-minigun/');
-    expect(footer.container.querySelector('a[href="/en/characters/"]')).not.toBeNull();
+    expect(footer.container.querySelector('.language-switcher')).toBeNull();
   });
 
   it('keeps image dimensions and alt context after a load failure', () => {

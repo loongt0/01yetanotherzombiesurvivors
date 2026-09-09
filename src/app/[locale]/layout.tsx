@@ -1,6 +1,7 @@
 import type {Metadata} from 'next';
 import {hasLocale, NextIntlClientProvider} from 'next-intl';
 import {notFound} from 'next/navigation';
+import {cookies} from 'next/headers';
 import Script from 'next/script';
 import type {ReactNode} from 'react';
 
@@ -8,6 +9,7 @@ import '@/app/globals.css';
 import {SiteFooter} from '@/components/site-footer';
 import {SiteHeader} from '@/components/site-header';
 import {routing} from '@/i18n/routing';
+import {LANGUAGE_PREFERENCE_COOKIE, resolveLanguagePreference} from '@/i18n/preference';
 
 type LocaleLayoutProps = Readonly<{
   children: ReactNode;
@@ -41,6 +43,7 @@ export default async function LocaleLayout({
     notFound();
   }
 
+  const interfaceLocale = resolveLanguagePreference((await cookies()).get(LANGUAGE_PREFERENCE_COOKIE)?.value);
   const messages = (await import(`../../messages/${locale}.json`)).default;
   const measurementId = process.env.NEXT_PUBLIC_GA_ID;
   const analyticsEnabled =
@@ -53,7 +56,7 @@ export default async function LocaleLayout({
     <html lang={locale} data-scroll-behavior="smooth">
       <body>
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <SiteHeader locale={locale} />
+          <SiteHeader locale={interfaceLocale} />
           {children}
           {adEnabled && (
             <section className="native-ad shell-container" aria-label="Advertisement">
@@ -70,7 +73,7 @@ export default async function LocaleLayout({
               />
             </section>
           )}
-          <SiteFooter locale={locale} />
+          <SiteFooter locale={interfaceLocale} />
         </NextIntlClientProvider>
         {analyticsEnabled && (
           <Script

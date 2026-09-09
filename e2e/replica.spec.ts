@@ -113,25 +113,6 @@ test.describe('canonical route policy', () => {
   });
 });
 
-test('language links preserve the character page and synchronize NEXT_LOCALE', async ({
-  page
-}) => {
-  await page.goto('/ru/characters/');
-
-  await expect.poll(async () =>
-    (await page.context().cookies()).find((cookie) => cookie.name === 'NEXT_LOCALE')?.value
-  ).toBe('ru');
-
-  await page.locator('.language-switcher').getByRole('link', {name: /English/}).click();
-  await expect.poll(() => new URL(page.url()).pathname).toBe('/characters/');
-  await expect.poll(async () =>
-    (await page.context().cookies()).find((cookie) => cookie.name === 'NEXT_LOCALE')?.value
-  ).toBe('en');
-
-  await page.locator('.language-switcher').getByRole('link', {name: /Deutsch/}).click();
-  await expect.poll(() => new URL(page.url()).pathname).toBe('/de/characters/');
-});
-
 test.describe('researched metadata', () => {
   for (const {locale, prefix} of localeRoutes) {
     for (const path of paths) {

@@ -1,3 +1,4 @@
+import {LanguageSwitcher} from '@/components/language-switcher';
 import {GameImage} from '@/components/game-image';
 import {
   localizeAvailableHref,
@@ -50,14 +51,17 @@ export function SiteHeader({locale}: {locale: Locale}) {
           ))}
         </nav>
 
-        <a
-          className="btn-primary site-header__steam"
-          href={STEAM_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {messages.steam}
-        </a>
+        <div className="site-header__actions">
+          <a
+            className="btn-primary site-header__steam"
+            href={STEAM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {messages.steam}
+          </a>
+          <LanguageSwitcher locale={locale} />
+        </div>
       </div>
 
       <nav className="utility-navigation" aria-label={messages.utilityLabel}>

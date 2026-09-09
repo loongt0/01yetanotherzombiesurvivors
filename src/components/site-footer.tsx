@@ -1,5 +1,4 @@
 import {GameImage} from '@/components/game-image';
-import {LanguageSwitcher} from '@/components/language-switcher';
 import {hasLocalizedContent, localizeAvailableHref, type Locale} from '@/i18n/routing';
 import {
   DISCORD_URL,
@@ -62,11 +61,6 @@ export function SiteFooter({locale}: {locale: Locale}) {
               </ul>
             </nav>
           ))}
-        </div>
-
-        <div className="site-footer__languages">
-          <h2>{messages.languagesLabel}</h2>
-          <LanguageSwitcher locale={locale} />
         </div>
 
         <div className="ornament" aria-hidden="true">

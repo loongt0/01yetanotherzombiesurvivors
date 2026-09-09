@@ -5,7 +5,9 @@ export const routing = defineRouting({
   defaultLocale: 'en',
   localePrefix: 'as-needed',
   // Canonical English fallbacks must not negotiate back to a missing translation.
-  localeDetection: false
+  localeDetection: false,
+  // Visiting an article must never overwrite an explicit language selection.
+  localeCookie: false
 });
 
 export type Locale = (typeof routing.locales)[number];

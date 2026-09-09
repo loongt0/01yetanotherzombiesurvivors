@@ -1,49 +1,39 @@
 'use client';
 
-import {Link, usePathname} from '@/i18n/navigation';
-import {type Locale} from '@/i18n/routing';
+import {hasLocalizedContent, localizeHref, routing, type Locale} from '@/i18n/routing';
+import {LANGUAGE_PREFERENCE_COOKIE} from '@/i18n/preference';
 import {localeOptions} from '@/lib/site-data';
 
-const PRESERVED_PATHS = new Set([
-  '/',
-  '/characters/',
-  '/privacy/',
-  '/terms/'
-]);
-
-function getPreservedPath(
-  pathname: string
-): '/' | '/characters/' | '/privacy/' | '/terms/' {
-  const normalized = pathname === '/' ? '/' : `/${pathname.replace(/^\/+|\/+$/g, '')}/`;
-
-  return PRESERVED_PATHS.has(normalized)
-    ? (normalized as '/' | '/characters/' | '/privacy/' | '/terms/')
-    : '/';
-}
+const labels: Record<Locale, string> = {
+  en: 'Language', ru: 'Язык', es: 'Idioma', de: 'Sprache'
+};
 
 export function LanguageSwitcher({locale}: {locale: Locale}) {
-  const pathname = usePathname();
-  const preservedPath = getPreservedPath(pathname);
+  function changeLanguage(nextLocale: Locale) {
+    if (!routing.locales.includes(nextLocale) || nextLocale === locale) return;
+
+    // Only this explicit user action writes the interface language preference.
+    document.cookie = `${LANGUAGE_PREFERENCE_COOKIE}=${nextLocale}; Path=/; Max-Age=31536000; SameSite=Lax${location.protocol === 'https:' ? '; Secure' : ''}`;
+    const current = new URL(window.location.href);
+    const path = current.pathname.replace(/^\/(en|ru|es|de)(?=\/|$)/, '') || '/';
+    // Keep the same article when it has no translation instead of sending the
+    // reader home or treating an English article as a new language preference.
+    if (hasLocalizedContent(nextLocale, path)) {
+      current.pathname = localizeHref(nextLocale, path);
+    }
+    window.location.assign(current.href);
+  }
 
   return (
-    <nav
-      className="language-switcher"
-      aria-label={localeOptions.map((option) => option.label).join(' · ')}
-    >
-      <ul>
+    <label className="language-switcher">
+      <select aria-label={labels[locale]} value={locale}
+        onChange={(event) => changeLanguage(event.target.value as Locale)}>
         {localeOptions.map((option) => (
-          <li key={option.locale}>
-            <Link
-              href={preservedPath}
-              locale={option.locale}
-              hrefLang={option.locale}
-              aria-current={option.locale === locale ? 'page' : undefined}
-            >
-              <span aria-hidden="true">{option.flag}</span> {option.label}
-            </Link>
-          </li>
+          <option key={option.locale} value={option.locale}>
+            {option.label}
+          </option>
         ))}
-      </ul>
-    </nav>
+      </select>
+    </label>
   );
 }

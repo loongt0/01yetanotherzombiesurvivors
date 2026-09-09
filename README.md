@@ -112,3 +112,12 @@ and GitHub Actions dependencies weekly.
 The scoped `toml` override keeps `remark-mdx-frontmatter` on patched versions (4.2 or later)
 until its upstream dependency range is updated. MDX compilation is covered by the
 content tests and production build; review this override when upgrading the plugin.
+
+## Interface language preference
+
+The top-right dropdown is the only language switcher. It saves `YAZS_LANGUAGE`
+for one year; only a user selection updates this preference. Header and footer
+use that preference (English by default), while article URLs continue to identify
+their published language for SEO. Reading an English-only article does not change
+the selected interface language. Selecting a language opens the same article's
+translation when available and otherwise keeps the current article.

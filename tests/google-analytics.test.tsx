@@ -8,6 +8,8 @@ vi.mock('@/i18n/navigation', () => ({
   usePathname: () => '/'
 }));
 
+vi.mock('next/headers', () => ({cookies: async () => ({get: () => undefined})}));
+
 type ScriptProps = {
   children?: ReactNode;
   id?: string;
