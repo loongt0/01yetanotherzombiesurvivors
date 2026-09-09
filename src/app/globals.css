@@ -928,6 +928,10 @@ img {
   line-height: 21.25px;
 }
 
+.language-switcher li + li {
+  margin-top: 0;
+}
+
 .language-switcher [aria-current='page'] {
   color: var(--gold-2);
 }
