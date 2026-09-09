@@ -59,17 +59,19 @@ describe('researched shared shell', () => {
     );
   });
 
-  it('only exposes available Russian content in Russian navigation', () => {
+  it('keeps the complete navigation visible in Russian with English fallbacks', () => {
     const header = render(<SiteHeader locale="ru" />);
     const headerHrefs = Array.from(header.container.querySelectorAll('a[href^="/"]')).map(
       (link) => link.getAttribute('href')
     );
 
-    expect(headerHrefs.every((href) => href?.startsWith('/ru/'))).toBe(true);
     expect(headerHrefs).toContain('/ru/characters/');
     expect(headerHrefs).toContain('/ru/builds/');
     expect(headerHrefs).toContain('/ru/guides/best-team/');
-    expect(headerHrefs).not.toContain('/items/');
+    expect(headerHrefs).toContain('/items/');
+    expect(headerHrefs).toContain('/weapons/');
+    expect(headerHrefs).toContain('/tools/');
+    expect(headerHrefs).toContain('/guides/');
 
     header.unmount();
 
