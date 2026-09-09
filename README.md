@@ -38,6 +38,28 @@ GA4 measurement ID. Leave the variable unset to disable analytics. Configure it
 before running `npm run build`, because Next.js embeds public environment
 variables at build time; redeploy or rebuild after changing the value.
 
+### Language-aware content tracking
+
+Every GA4 page view includes `interface_locale` (the language selected in the
+`YAZS_LANGUAGE` cookie) and `content_locale` (the language of the current URL).
+Internal link selections send the recommended `select_content` event with these
+additional parameters:
+
+- `source_content_locale`
+- `destination_content_locale`
+- `source_path`
+- `destination_path`
+- `navigation_area`
+- `link_text`
+
+Register the locale and path parameters as event-scoped custom dimensions in
+GA4, and register the `interface_language` user property as a user-scoped custom
+dimension. To build the Russian translation queue, filter `select_content` to
+`interface_locale = ru` and `destination_content_locale = en`, then rank rows by
+`destination_path` and event count. This captures Russian-interface readers who
+choose an English fallback page instead of treating every visit to an English URL
+as Russian demand.
+
 ## Routes and locales
 
 The primary English URLs are:

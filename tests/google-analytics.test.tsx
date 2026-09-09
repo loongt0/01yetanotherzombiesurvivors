@@ -53,7 +53,10 @@ describe('optional Google Analytics 4 tracking', () => {
     expect(loader?.props.strategy).toBe('afterInteractive');
     expect(initializer?.props.strategy).toBe('afterInteractive');
     expect(initializer?.props.children).toContain(
-      "gtag('config', 'G-TEST12345')"
+      "gtag('set', 'user_properties', {interface_language: 'en'})"
+    );
+    expect(initializer?.props.children).toContain(
+      "gtag('config', 'G-TEST12345', {interface_locale: 'en', content_locale: 'en'})"
     );
   });
 

@@ -6,6 +6,7 @@ import Script from 'next/script';
 import type {ReactNode} from 'react';
 
 import '@/app/globals.css';
+import {AnalyticsNavigationTracker} from '@/components/analytics-navigation-tracker';
 import {SiteFooter} from '@/components/site-footer';
 import {SiteHeader} from '@/components/site-header';
 import {routing} from '@/i18n/routing';
@@ -56,6 +57,12 @@ export default async function LocaleLayout({
     <html lang={locale} data-scroll-behavior="smooth">
       <body>
         <NextIntlClientProvider locale={locale} messages={messages}>
+          {analyticsEnabled && (
+            <AnalyticsNavigationTracker
+              interfaceLocale={interfaceLocale}
+              contentLocale={locale}
+            />
+          )}
           <SiteHeader locale={interfaceLocale} />
           {children}
           {adEnabled && (
@@ -86,7 +93,8 @@ export default async function LocaleLayout({
             {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', '${measurementId}');`}
+gtag('set', 'user_properties', {interface_language: '${interfaceLocale}'});
+gtag('config', '${measurementId}', {interface_locale: '${interfaceLocale}', content_locale: '${locale}'});`}
           </Script>
         )}
       </body>
