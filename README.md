@@ -86,3 +86,16 @@ npm run audit:visual -- --write-baseline
 
 The audit checklist is `e2e/reference-checklist.md`, and its portable measurement
 baseline is `e2e/reference-baseline/measurements.json`.
+
+## Comments
+
+Remark42 is embedded below guide articles, the beginner guide, and survivor pages.
+The service is `https://comments.yetanotherzombiesurvivors.world`, site ID `remark`.
+Each localized canonical page URL identifies its discussion; query strings and
+preview origins do not create separate threads. The widget follows the site's
+dark theme and is destroyed/recreated during client-side navigation.
+
+Login providers are managed on the Remark42 server (currently Discord and
+anonymous). OAuth secrets stay on that server and must never be added to the
+Next.js environment or repository. Browser integration testing requires HTTPS,
+since Remark42 rejects a parent page whose protocol differs from its host.

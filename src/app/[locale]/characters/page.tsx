@@ -1,3 +1,4 @@
+import {Comments} from '@/components/comments';
 import type {Metadata} from 'next';
 import {hasLocale} from 'next-intl';
 import {notFound} from 'next/navigation';
@@ -92,6 +93,7 @@ export default async function CharactersPage({params}: CharactersPageProps) {
             <Content />
           </div>
         </article>
+        <Comments key={canonical} url={canonical} title={frontmatter.title} locale={locale} />
       </main>
     </>
   );

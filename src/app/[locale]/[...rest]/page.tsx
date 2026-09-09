@@ -1,3 +1,4 @@
+import {Comments} from '@/components/comments';
 import type {Metadata} from 'next';
 import {hasLocale} from 'next-intl';
 import {notFound, permanentRedirect} from 'next/navigation';
@@ -177,6 +178,7 @@ function MatrixArticle({
             <Content />
           </div>
         </article>
+        <Comments key={canonical} url={canonical} title={article.title} locale={locale} />
       </main>
     </>
   );

@@ -1,3 +1,4 @@
+import {Comments} from '@/components/comments';
 import type {Metadata} from 'next';
 import {hasLocale} from 'next-intl';
 import {notFound, permanentRedirect} from 'next/navigation';
@@ -108,6 +109,7 @@ export default async function GuidesPage({params}: GuidesPageProps) {
           <Content />
         </article>
       </section>
+      <Comments url={`${SITE_URL}/guides/`} title={copy.title} locale={locale} />
     </main>
   );
 }

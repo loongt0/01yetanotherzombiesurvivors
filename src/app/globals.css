@@ -2002,3 +2002,13 @@ img {
     transition-duration: 0.01ms !important;
   }
 }
+
+.comments-section {
+  width: min(var(--prose-width), calc(100% - 2rem));
+  margin: 3rem auto;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line);
+}
+.comments-section > h2 {font-family: var(--display-font); color: var(--ink); font-size: 1.4rem;}
+.comments-section > p {color: var(--muted); line-height: 1.6;}
+.comments-section #remark42 {min-height: 280px; margin-top: 1.5rem;}
