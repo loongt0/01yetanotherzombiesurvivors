@@ -264,6 +264,19 @@ describe('researched matrix article and category routes', () => {
     expect(metadata.title).toContain('лучшая команда');
   });
 
+  it('publishes the same language group on both sides of a translated article', async () => {
+    for (const rest of [
+      ['guides', 'best-team'], ['builds'], ['characters', 'ghost', 'build'],
+      ['guides', 'skill-tree'], ['guides', 'friendship-and-team-bond'],
+      ['weapons', 'rocket-launcher-and-minigun']
+    ]) {
+      const en = await generateMatrixMetadata({params: Promise.resolve({locale: 'en', rest})});
+      const ru = await generateMatrixMetadata({params: Promise.resolve({locale: 'ru', rest})});
+      expect(en.alternates?.languages).toEqual(ru.alternates?.languages);
+      expect(Object.keys(en.alternates?.languages ?? {})).toEqual(['en', 'ru']);
+    }
+  });
+
   it('keeps English canonical for an untranslated Russian article request', async () => {
     const metadata = await generateMatrixMetadata({
       params: Promise.resolve({locale: 'ru', rest: ['guides', 'tier-list']})

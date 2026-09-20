@@ -12,6 +12,7 @@ import {
   type GuideCardRecord
 } from '@/content/registry';
 import {localizeHref, routing, type Locale} from '@/i18n/routing';
+import {getLanguageAlternates} from '@/lib/seo';
 import {GAME_NAME, SITE_NAME, SITE_URL} from '@/lib/site-data';
 
 type MatrixPageProps = {
@@ -97,13 +98,11 @@ export async function generateMetadata({params}: MatrixPageProps): Promise<Metad
       metadataBase: new URL(SITE_URL),
       title,
       description,
-      alternates: {canonical, languages: {en: canonical}}
+      alternates: {canonical, languages: getLanguageAlternates(href)}
     };
   }
   const canonical = `${SITE_URL}${localizeHref(locale, href)}`;
-  const languages = locale === routing.defaultLocale
-    ? {en: canonical}
-    : {en: `${SITE_URL}${href}`, [locale]: canonical};
+  const languages = getLanguageAlternates(href);
 
   return {
     metadataBase: new URL(SITE_URL),

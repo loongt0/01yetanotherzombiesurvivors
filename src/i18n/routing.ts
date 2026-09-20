@@ -4,6 +4,8 @@ export const routing = defineRouting({
   locales: ['en', 'ru', 'es', 'de'],
   defaultLocale: 'en',
   localePrefix: 'as-needed',
+  // Page metadata and the sitemap advertise only translations that exist.
+  alternateLinks: false,
   // Canonical English fallbacks must not negotiate back to a missing translation.
   localeDetection: false,
   // Visiting an article must never overwrite an explicit language selection.

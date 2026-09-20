@@ -30,3 +30,23 @@ test('explicit translated routes win over a conflicting locale cookie', async ({
   expect(response.status()).toBe(200);
   expect(await response.text()).toContain('<html lang="ru"');
 });
+
+// Regression for the two URLs reported by Search Console as redirect errors.
+for (const [locale, path] of [
+  ['es', '/builds/general-points-build-1-0/'],
+  ['de', '/guides/friendship-and-team-bond/']
+]) {
+  test(`Search Console fallback ${locale}${path} has no phantom language headers`, async ({request}) => {
+    const headers = {'accept-language': locale, cookie: `NEXT_LOCALE=${locale}`};
+    const redirect = await request.get(`/${locale}${path}`, {headers, maxRedirects: 0});
+    expect(redirect.status()).toBe(308);
+    expect(redirect.headers().location).toBe(path);
+    expect(redirect.headers().link ?? '').not.toContain('hreflang');
+    const destination = await request.get(`/${locale}${path}`, {headers, maxRedirects: 1});
+    expect(destination.status()).toBe(200);
+    expect(destination.headers().link ?? '').not.toContain('hreflang');
+    const html = await destination.text();
+    expect(html).toContain('<html lang="en"');
+    expect(html).not.toMatch(/hrefLang="(?:es|de)"/i);
+  });
+}

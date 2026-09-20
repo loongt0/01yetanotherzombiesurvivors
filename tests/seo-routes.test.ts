@@ -22,6 +22,25 @@ describe('technical SEO routes', () => {
     expect(urls.every((url) => url.startsWith(`${siteUrl}/`))).toBe(true);
   });
 
+  it('links only sitemap destinations and publishes reciprocal language groups', () => {
+    const entries = sitemap();
+    const byUrl = new Map(entries.map((entry) => [entry.url, entry]));
+    for (const entry of entries) {
+      const languages = entry.alternates?.languages;
+      expect(languages).toBeDefined();
+      for (const target of Object.values(languages ?? {})) {
+        expect(byUrl.has(target as string)).toBe(true);
+        expect(byUrl.get(target as string)?.alternates?.languages).toEqual(languages);
+      }
+    }
+    expect(byUrl.get(`${siteUrl}/guides/best-team/`)?.alternates?.languages).toEqual({
+      en: `${siteUrl}/guides/best-team/`, ru: `${siteUrl}/ru/guides/best-team/`
+    });
+    expect(byUrl.get(`${siteUrl}/builds/general-points-build-1-0/`)?.alternates?.languages).toEqual({
+      en: `${siteUrl}/builds/general-points-build-1-0/`
+    });
+  });
+
   it('advertises the canonical sitemap to search crawlers', () => {
     expect(robots()).toEqual({
       rules: {userAgent: '*', allow: '/'},
